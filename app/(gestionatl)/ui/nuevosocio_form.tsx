@@ -1,4 +1,4 @@
-'use client'
+/*'use client'
 import React, { useState } from 'react';
 import { useForm, FormProvider, Form } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -99,3 +99,4 @@ const NewSocioForm = () => {
 
 export default NewSocioForm;
 
+*/

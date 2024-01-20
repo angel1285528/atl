@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(gestionatl)/ui/forms-fields/address-form.tsx", "app/lib/prisma.js", "app/(gestionatl)/ui/menusmodulos/socios.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "app/(gestionatl)/ui/forms-fields/address-form.tsx", "app/lib/prisma.js", "app/(gestionatl)/ui/menusmodulos/socios.js", "app/(gestionatl)/ui/modulos.js"],
   "exclude": ["node_modules"]
 }
