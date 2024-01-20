@@ -4,10 +4,10 @@ import { TiSocialFacebookCircular, TiSocialInstagramCircular  } from "react-icon
 import { BsWhatsapp } from "react-icons/bs";
 import { MdOutlineEmail } from "react-icons/md";
 import { SiTiktok } from "react-icons/si";
-import Link from 'next/link';
 
 
-export default function Home() {
+
+export default function Home(): React.JSX.Element {
   return (
     <>
      <main>

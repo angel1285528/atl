@@ -1,0 +1,66 @@
+//schema.prisma
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
+}
+
+model socio {
+    id Int @id @default(autoincrement())
+    firstName String
+    lastName String
+    secondLastName String?
+    
+    rol Role @default(socio)
+    family family[]
+    jugador jugador[]
+
+}
+
+model jugador {
+    jugador_id Int @id @default(autoincrement())
+    name String
+    curp String
+    fecha_nacimiento DateTime @db.Date
+    municipio_nacimiento String @default("Linares")
+    estado_nacimiento String @default("Nuevo León")
+    pais_nacimienot String @default("Mexico")
+    cuota Cuota @default(Estandar)
+    status Status_Jugador
+    fingerprint Bytes
+    socio socio @relation(fields: [socio_id],references: [id])
+    socio_id Int @unique
+
+}
+
+model family {
+    family_id Int
+    socio socio @relation(fields: [family_id], references: [id])
+    socio_id Int @unique
+    
+}
+enum Role {
+    socio
+    jugador
+    entrenador
+    admin
+}
+
+enum Cuota {
+    Estandar
+    Hermano_Menor
+    Preferencial
+    Cortesia
+}
+
+enum Status_Jugador {
+    activo
+    baja
+    lesionado
+    baja_temporal
+    }
