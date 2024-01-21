@@ -7,6 +7,8 @@ import { zSchema } from '@/app/lib/zSchema';
 import { createSocio } from '@/app/lib/action';
 import { interfaceSocio } from '@/app/lib/interface';
 import NameFields from './forms-fields/name-fields';
+import ContactFields from './forms-fields/contact-fields';
+import ContextFields from './forms-fields/context-fields';
 
 
 
@@ -32,8 +34,19 @@ const FormularioSocio: React.FC = () => {
   return (
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
+            <fieldset className='"bg-sky-400 border  border-solid border-gray-300 p-3"'>
+              <legend>Nombre y Apellido:</legend>
             <NameFields />
+            </fieldset> 
+            <fieldset>
+              <legend>Datos de Contacto:</legend>
+              <ContactFields />
+            </fieldset>
             {/* Otros componentes del formulario */}
+            <fieldset>
+            <legend>Datos de contexto:</legend>
+            <ContextFields />
+            </fieldset>
             <button type="submit" className='btn'>Enviar</button>
           </form>
         </FormProvider>

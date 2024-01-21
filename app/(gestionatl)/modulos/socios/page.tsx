@@ -1,6 +1,7 @@
+import ListaSocios from "../../ui/lists/socioslist";
 
-export default function Page() {
-return (
-    <h1>otropedo</h1>
-)
+export default function Page () {
+    return (
+        <ListaSocios />
+    )
 }

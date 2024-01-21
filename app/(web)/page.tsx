@@ -21,6 +21,7 @@ export default function Home(): React.JSX.Element {
         width={300}
         height={300}
         className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.9)]'
+        priority = { true }
         alt='Logotipo Academia Tigres Linares'
         />
             </div>

@@ -11,14 +11,18 @@ datasource db {
 }
 
 model socio {
-    id Int @id @default(autoincrement())
+    id String @default(cuid()) @id 
     firstName String
     lastName String
     secondLastName String?
+    email String
+    phoneNumber String
+    work String?
+    scholarity String?
     
     rol Role @default(socio)
-    family family[]
-    jugador jugador[]
+//    family family[]
+  //  jugador jugador[]
 
 }
 
@@ -33,17 +37,18 @@ model jugador {
     cuota Cuota @default(Estandar)
     status Status_Jugador
     fingerprint Bytes
-    socio socio @relation(fields: [socio_id],references: [id])
-    socio_id Int @unique
+   
+    //socio socio @relation(fields: [socio_id],references: [id])
+    //socio_id Int @unique
 
 }
 
-model family {
-    family_id Int
-    socio socio @relation(fields: [family_id], references: [id])
-    socio_id Int @unique
+//model family {
+  //  family_id Int
+    //socio socio @relation(fields: [family_id], references: [id])
+    //socio_id Int @unique
     
-}
+//}
 enum Role {
     socio
     jugador

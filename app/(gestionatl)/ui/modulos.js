@@ -3,6 +3,7 @@ import {
     FiUserPlus,
     FiEdit,
     FiChevronDown,
+    FiLayers,
     FiTrash,
     FiShare,
     FiPlusSquare,
@@ -18,6 +19,11 @@ const menuItems = [
   {imageUrl: '/iconos-modulos/socios.svg',
    title: "Socios",
         items: [
+          {
+            icon: FiLayers,
+            text: "Gestión Socios",
+            href: "/modulos/socios/"
+                },
           {
             icon: FiUserPlus,
             text: "Registrar Socio",

@@ -27,17 +27,19 @@ export const zSchema = z.object ({
     .optional()
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
     .transform(value => value ? mayuscula(value) : value)
-    .nullable()
-/* street: z.string(),
+    .nullable(),
+  phoneNumber: z.string ()
+  .length(10, 'El número de teléfono debe contener exactamente 10 dígitos')
+  .refine(value => /^\d+$/.test(value), { message: 'El número de teléfono solo debe contener dígitos numéricos' }),
+  email: z.string().email('Debe de ser un correo valido'),
+  work: z.string(),
+  scholarity: z.string(),
+  /* street: z.string(),
   street_number: z.string (),   
   city: z.string (),
   administrativeArea: z.string (),
   postalCode: z.string (),
   country: z.string (),
-  phone_number: z.string ()
-  .length(10, 'El número de teléfono debe contener exactamente 10 dígitos')
-  .refine(value => /^\d+$/.test(value), { message: 'El número de teléfono solo debe contener dígitos numéricos' }),
-  email: z.string().email('Debe de ser un correo valido'),
   work: z.string(),
   scholarity: z.string(),
   status: z.boolean(),
