@@ -18,13 +18,27 @@ model socio {
     email String
     phoneNumber String
     work String?
-    scholarity String?
-    
+    scholarity scholarity?
+    urlSocioPhoto String?
+    urlSocioIne String?
     rol Role @default(socio)
-//    family family[]
+    status StatusSocios @default(Activo)
+     familiares familiares[]
   //  jugador jugador[]
-
 }
+
+enum scholarity {
+    Primaria
+    Secundaria
+    Bachillerato
+    Licenciatura
+    Posgrado
+}
+enum StatusSocios {
+    Activo
+    Ausente
+    Inactivo
+    }
 
 model jugador {
     jugador_id Int @id @default(autoincrement())
@@ -43,12 +57,28 @@ model jugador {
 
 }
 
-//model family {
-  //  family_id Int
+model familiares {
+   familyId String @id @default(cuid())
+   familyFirstName String
+   familyLastName String
+   familySecondLastName String?
+   familyPhoneNumber String
+   familyEmail String?
+   familyRelationship  Relationship
+    socioId        String   // Clave externa para referenciar socio
+    socio          socio    @relation(fields: [socioId], references: [id])
     //socio socio @relation(fields: [family_id], references: [id])
     //socio_id Int @unique
-    
-//}
+}   
+
+enum Relationship {
+    Padre
+    Madre
+    Hermano
+    Tio
+    Abuelo
+    Otro
+    }
 enum Role {
     socio
     jugador

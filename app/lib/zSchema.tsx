@@ -34,6 +34,8 @@ export const zSchema = z.object ({
   email: z.string().email('Debe de ser un correo valido'),
   work: z.string(),
   scholarity: z.string(),
+  urlSocioPhoto: z.string(),
+  urlSocioIne: z.string(),
   /* street: z.string(),
   street_number: z.string (),   
   city: z.string (),

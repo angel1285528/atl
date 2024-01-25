@@ -1,28 +1,29 @@
 import { CldUploadWidget } from 'next-cloudinary';
+
 import { useFormContext } from 'react-hook-form';
 
-const SocioPhoto: React.FC = () => {
+const InePhoto: React.FC = () => {
   const { register, setValue } = useFormContext();
   
   function onImageUploadSuccess(result: any) {
     const url = result.info.secure_url;
-    setValue('urlSocioPhoto', url);
+    setValue('urlSocioIne', url);
   }
 
   return (
     <div>
-      <CldUploadWidget uploadPreset="socios" onSuccess={onImageUploadSuccess}>
+      <CldUploadWidget uploadPreset="socioine" onSuccess={onImageUploadSuccess}>
         {({ open }) => {
           return (
             <button className="btn bg-amber-500" onClick={() => open()}>
-              Tomar o subir fotografía
+              Fotografía Identificación Socio
             </button>
           );
         }}
       </CldUploadWidget>
-      <input {...register('urlSocioPhoto')} id="urlSocioPhoto" type="text" readOnly hidden/>
+      <input {...register('urlSocioIne')}type="text" id="urlSocioIne" hidden readOnly />
     </div>
   );
 }
 
-  export default SocioPhoto;
+  export default InePhoto;

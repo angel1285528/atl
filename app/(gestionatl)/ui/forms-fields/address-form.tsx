@@ -104,8 +104,8 @@ const Address: React.FC<AddressProps> = ({ register, errors, setValue }) => {
   return (
  <div className="card-container">
       <div className="panel">
-      <label htmlFor="street">Dirección</label> <br />
-        <input {...register("street")} type="text" name="street" placeholder="Calle" id="street" className="input input-bordered input-info w-full max-w-xs" />
+      <label htmlFor="location-input">Dirección</label> <br />
+        <input {...register("location-input")} type="text" placeholder="Direccion" className="input input-bordered input-info w-full max-w-xs" />
 
         <label htmlFor="street_number">Número</label> <br />
         <input {...register("street_number")} type="text" name="street_number" placeholder="Número" id="street_number" className="input input-bordered input-info w-full max-w-xs" />
