@@ -1,3 +1,5 @@
+import  { Role as PrismaRole } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
+import { StatusSocios as PrismaStatusSocios } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
 
 export interface SociosPageProps {
   socio: interfaceSocio[];
@@ -13,8 +15,8 @@ export interface interfaceSocio {
   scholarity?: string | null;
   urlSocioPhoto?: string | null;
   urlSocioIne?: string | null;
-  rol: Role;
-  status: StatusSocios;
+  rol: PrismaRole;
+  status: PrismaStatusSocios;
   fechaRegistro: Date;
 
 }
