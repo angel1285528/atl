@@ -1,10 +1,9 @@
 "use client"
-
-import { ColumnDef } from "@tanstack/react-table"
-
-import { MoreHorizontal } from "lucide-react"
-
+import Link from "next/link"
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown, MoreHorizontal, FolderInput, Link as link } from "lucide-react";
 import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -14,62 +13,123 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type columnasSocios = {
     id: string
     firstName: String
-    lastname: String
-    cellphone: String
+    lastName: String
+    secondLastName: String
+    cellPhone: String
+    urlSocioPhoto: String
+    status: String
 
 }
 
 export const columns: ColumnDef<columnasSocios>[] = [
+    // Columna Foto
     {
-        id: "actions",
+        accessorKey: "urlSocioPhoto",
+        header: () => <div className="text-left">Foto</div>,
         cell: ({ row }) => {
-            const payment = row.original
+            const urlSocioPhoto = row.getValue('urlSocioPhoto')
+            const id = row.original.id
 
             return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        }
-    },
-    {
-        accessorKey: "id",
-        header: () => <div className="text-right">ID Socio</div>,
-        cell: ({ row }) => {
-            const id = row.getValue('id')
-
-            return <div className="text-right font-medium">{id}</div>
+                <Link href={`/modulos/socios/${id}`}>
+                    <Avatar className=" size-14 w-16">
+                        <AvatarImage className=" border-4 hover:border-sky-900  rounded-full " src={urlSocioPhoto} />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    </Link>)
         },
     },
+    //Columna Id
+   /* {
+                        accessorKey: "id",
+        header: () => <div className="text-right">ID Socio</div>,
+                    cell: ({row}) => {
+            const id = row.getValue('id')
 
+                    return <div className="text-right font-medium">{id}</div>
+        },
+    }, */
+                    //Columna Nombre
+                    {
 
-    {
-        accessorKey: "firstName",
-        header: "First Name",
+                        accessorKey: "firstName", //Modificar para que aparezc el nombre del socio con el apellido
+                    header: "Socio",
+                    cell: ({row}) => {
+            const firstName: string = row.getValue('firstName')
+                    const lastName = row.original.lastName
+                    const secondLastName = row.original.secondLastName
+                    const id = row.original.id
+
+                    return (
+                    <Link href={`/modulos/socios/${id}`}>
+                        <div className="flex flex-col text-black text-2xl">
+                            <div className="font-medium hover:text-blue-900 hover:underline">{firstName} {lastName} {secondLastName}</div>
+                            <div className="text-m text-gray-500">ID: {row.original.id}</div>
+                        </div>
+                    </Link>
+                    )
+        },
     },
-    {
-        accessorKey: "lastName",
-        header: "Last Name",
+                    //Columna Status
+                    {
+                        accessorKey: "status",
+                    header: "Status",
+                    cell: ({row}) => {
+            const status = row.original.status
+
+                    return (
+                    (status === 'Activo') ?
+                    <div className="text-green-500 font-bold text-xl">{status}</div>
+                    : <div className="text-red-500 font-bold text-xl">{status}</div>
+
+                    )
+        },
     },
-]
+                    //Columna Expediente
+                    {
+                        id: "expediente",
+        header: () => <div className="text-right">Expediente</div>,
+                    cell: ({row}) => {
+            const id = row.original.id
+
+                    return (
+                    <Button className=" bg-blue-900 text-white text-xl hover:bg-yellow-400 mx-auto">
+                        <FolderInput color="#ffffff" /><Link href={`/modulos/socios/${id}`} className="ml-2 "> Expediente</Link>
+                    </Button>
+                    )
+        }
+    },
+                    //Columna Acciones
+                    {
+                        id: "actions",
+        header: () => <div className="text-right">Opciones</div>,
+                    cell: ({row}) => {
+            const payment = row.original
+
+                    return (
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="ghost" className="h-8 w-8 p-0">
+                                <span className="sr-only">Open menu</span>
+                                <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuItem
+                                onClick={() => navigator.clipboard.writeText(payment.id)}
+                            >
+                                Copy payment ID
+                            </DropdownMenuItem>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>View customer</DropdownMenuItem>
+                            <DropdownMenuItem>View payment details</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                    )
+        }
+    },
+                    ]

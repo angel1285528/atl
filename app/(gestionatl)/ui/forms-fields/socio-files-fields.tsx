@@ -13,7 +13,7 @@ const FilesFields: React.FC = () => {
                 <SocioPhoto />
         </div>
             <div>
-            <label htmlFor="urlInePhoto" className='ml-6'>Identificación del Socio </label> <br />
+            <label htmlFor="urlSocioIne" className='ml-6'>Identificación del Socio </label> <br />
                 <InePhoto />
             </div>
 

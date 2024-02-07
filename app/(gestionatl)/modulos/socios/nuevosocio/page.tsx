@@ -1,5 +1,6 @@
 import FormularioSocio from "@/app/(gestionatl)/ui/formulario-socio"
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function Page() {
     return (
         <>
@@ -10,6 +11,7 @@ export default function Page() {
             </div>
             <div className="flex flex-col w-2/3 mx-auto">
                 <FormularioSocio />
+                < ToastContainer />
             </div>
         </>
     )

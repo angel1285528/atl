@@ -18,22 +18,17 @@ model socio {
     email String
     phoneNumber String
     work String?
-    scholarity scholarity?
+    scholarity String?
     urlSocioPhoto String?
     urlSocioIne String?
     rol Role @default(socio)
     status StatusSocios @default(Activo)
+    fechaRegistro DateTime @default(now()) 
      familiares familiares[]
   //  jugador jugador[]
 }
 
-enum scholarity {
-    Primaria
-    Secundaria
-    Bachillerato
-    Licenciatura
-    Posgrado
-}
+
 enum StatusSocios {
     Activo
     Ausente
