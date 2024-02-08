@@ -1,26 +1,28 @@
 'use server'
-import { PrismaClient, Prisma, Relationship as PrismaRelationship } from '@prisma/client';
-import { interfaceFamiliares } from '@/app/lib/interface'; // Adjust the import path accordingly
+import { PrismaClient } from '@prisma/client';
+import { interfaceFamiliares } from '@/app/lib/interface';
+
 
 const prisma = new PrismaClient();
 
-export async function createFamiliar(familiarData: interfaceFamiliares) {
+export const createFamiliar = async (familiarData: interfaceFamiliares) => {
   try {
-    const newFamiliar = await prisma.familiares.create({
+    const familiar = await prisma.familiares.create({
       data: {
-        familyFirstName: data.familyFirstName,
-        familyLastName: data.familyLastName,
-        familySecondLastName: data.familySecondLastName,
-        familyPhoneNumber: data.familyPhoneNumber,
-        familyEmail: data.familyEmail,
-        familyRelationship: data.familyRelationship,
-        socioId: data.socioId,
-      },
+        familyFirstName: familiarData.familyFirstName,
+        familyLastName: familiarData.familyLastName,
+        familySecondLastName: familiarData.familySecondLastName,
+        familyEmail: familiarData.familyEmail,
+        familyPhoneNumber: familiarData.familyPhoneNumber,
+        familyRelationship: familiarData.familyRelationship,
+        socioId: familiarData.socioId
+        
+      }
     });
 
-    return newFamiliar;
+    return familiar;
   } catch (error) {
-    console.error("Error al crear un nuevo familiar: ", error);
+    console.error("Error al crear un nuevo familiar:", error);
     throw error;
   }
 }

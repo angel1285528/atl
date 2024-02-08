@@ -59,20 +59,14 @@ model familiares {
    familySecondLastName String?
    familyPhoneNumber String
    familyEmail String?
-   familyRelationship  Relationship
+   familyRelationship  String
     socioId        String   // Clave externa para referenciar socio
     socio          socio    @relation(fields: [socioId], references: [id])
 
 }   
 
-enum Relationship {
-    Padre
-    Madre
-    Hermano
-    Tio
-    Abuelo
-    Otro
-    }
+
+    
 enum Role {
     socio
     jugador

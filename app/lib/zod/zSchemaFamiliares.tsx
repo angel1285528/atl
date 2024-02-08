@@ -31,11 +31,11 @@ export const zSchemaFamiliares = z.object ({
     .refine(value => validateWordCount(value, 2), { message: "El nombre no debe contener más de tres palabras" })
     .refine(validateNoNumbers, { message: "El nombre no debe contener números" })
     .transform(mayusculaNombres),
-  familyLastName: z.string()
+    familyLastName: z.string()
     .min(1, 'El apellido paterno es requerido')
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
     .transform(mayuscula),
-  familySecondLastName: z.string()
+    familySecondLastName: z.string()
     .optional()
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
     .transform(value => value ? mayuscula(value) : value)
@@ -49,7 +49,7 @@ export const zSchemaFamiliares = z.object ({
     .refine(validateNoNumbers, { message: "La relación no debe contener números" })
     .transform(mayusculaNombres),
 
-  });
+});
 
 
   export type FormData = TypeOf<typeof zSchemaFamiliares>;

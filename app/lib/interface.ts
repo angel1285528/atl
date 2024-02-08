@@ -1,6 +1,7 @@
 import  { Role as PrismaRole } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
 import { StatusSocios as PrismaStatusSocios } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
-
+import { PrismaClient, familiares, } from "@prisma/client";
+import { Relationship as RelationshipPrisma } from "@prisma/client";
 export interface SociosPageProps {
   socio: interfaceSocio[];
 }
@@ -39,19 +40,10 @@ export interface interfaceFamiliares {
   familyId: string;
   familyFirstName: string;
   familyLastName: string;
-  familySecondLastName?: string | null | undefined;
+  familySecondLastName?: string | null;
   familyPhoneNumber: string;
-  familyEmail?: string | null | undefined;
-  familyRelationship: Relationship;
+  familyEmail?: string | null;
+  familyRelationship: string;
   socioId: string;
-
 }
 
-enum Relationship {
-  Padre,
-  Madre,
-  Hermano,
-  Tio,
-  Abuelo,
-  Otro,
-}

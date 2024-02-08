@@ -9,8 +9,9 @@ import { createFamiliar } from '@/app/lib/crud/crearFamiliar';
 import FamilyNameFields from './forms-fields/familiares/family-name-fields';
 import FamilyContactFields from './forms-fields/familiares/family-contact-fields';
 import { toast } from 'react-toastify';
+import RelationshipsFields from './forms-fields/familiares/relationship-field';
 
-const FormularioFamiliar: React.FC = () => {
+const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfaceFamiliares>({
     resolver: zodResolver(zSchemaFamiliares)
@@ -19,13 +20,14 @@ const FormularioFamiliar: React.FC = () => {
 
   const onSubmit = async (data: interfaceFamiliares) => {
     try {
-      const nuevoSocio = await createFamiliar(data);
+      const dataWithSocioId = { ...data, socioId: socioId };
+      const nuevoFamiliar = await createFamiliar(dataWithSocioId);
       toast.success('Usuario registrado exitosamente',
         {
           position: 'top-center',
           autoClose: 10000, // Duración de la notificación en milisegundos
         });
-      //window.location.href = `/modulos/socios/`; // Asumiendo que tienes un campo 'id' en tu modelo de socio
+      window.location.href = `/modulos/socios/`; // Asumiendo que tienes un campo 'id' en tu modelo de socio
         setSubmitError(null);
       
     } catch (error) {
@@ -43,6 +45,7 @@ const FormularioFamiliar: React.FC = () => {
         <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6">
           <legend className='text-center'>Nombre y Apellidos</legend>
           <FamilyNameFields />
+          <RelationshipsFields />
         </fieldset>
         <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6 mx-auto">
           <legend className='text-center'>Contacto</legend>
