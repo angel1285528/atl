@@ -36,12 +36,12 @@ enum StatusSocios {
 }
 
 export interface interfaceFamiliares {
-  familyId: String;
-  familyFirstName: String;
-  familyLastName: String;
-  familySecondLastName?: String | null;
-  familyPhoneNumber: String;
-  familyEmail?: String | null;
+  familyId: string;
+  familyFirstName: string;
+  familyLastName: string;
+  familySecondLastName?: string | null | undefined;
+  familyPhoneNumber: string;
+  familyEmail?: string | null | undefined;
   familyRelationship: Relationship;
   socioId: string;
 

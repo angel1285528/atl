@@ -4,9 +4,7 @@ import {
     FiEdit,
     FiChevronDown,
     FiLayers,
-    FiTrash,
-    FiShare,
-    FiPlusSquare,
+  
 } from "react-icons/fi";
 import { motion } from "framer-motion";
 import Link from "next/link";

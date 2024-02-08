@@ -8,15 +8,18 @@ interface SocioData {
   id: string;
   firstName: string;
   lastName: string;
-  secondLastName: string | null;
+  secondLastName?: string | null | undefined;
   email: string;
   phoneNumber: string;
-  work: string | null;
-  scholarity: string | null;
-  urlSocioPhoto: string | null;
-  urlSocioIne: string | null;
-  rol: Role; // Asegúrate de importar o definir correctamente el tipo Role
+  work?: string | null | undefined;
+  scholarity?: string | null | undefined;
+  urlSocioPhoto?: string | null | undefined;
+  urlSocioIne?: string | null | undefined;
+  rol: string;
+  status: string; // Asegúrate de importar o definir correctamente el tipo Role
 }
+
+
 
 interface ExpedienteSocioProps {
   id: string;
@@ -54,8 +57,8 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
       <div>
         {/* Aquí iría la renderización de los datos del socio */}
         <h1>Datos del Socio</h1>
-        <h3>ID: {socio.id}</h3>
         <p>Nombre: {socio.firstName} {socio.lastName}</p>
+        <h2>Status: {socio.status}</h2><h3>ID: {socio.id}</h3>
         {/* Continúa con el resto de los datos del socio */}
       </div>
     );

@@ -62,8 +62,7 @@ model familiares {
    familyRelationship  Relationship
     socioId        String   // Clave externa para referenciar socio
     socio          socio    @relation(fields: [socioId], references: [id])
-    //socio socio @relation(fields: [family_id], references: [id])
-    //socio_id Int @unique
+
 }   
 
 enum Relationship {
