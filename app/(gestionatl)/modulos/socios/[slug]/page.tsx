@@ -19,7 +19,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <hr className="border-4 border-blue-800 mt-4"/>
       <ExpedienteSocios id={idDelSocio} />
       <hr className="border-4 border-blue-800 mt-4"/>
-      <DataTableFamiliares columns={ columnsFamiliares } data={data ? [data] : []}/>
+      <DataTableFamiliares columns={ columnsFamiliares } data={data || []}/>
       <FormularioFamiliar socioId={idDelSocio} />
       <FormularioJugador socioId={idDelSocio} />
     </div>
