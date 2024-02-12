@@ -17,12 +17,11 @@ export type columnasSocios = {
     id: string
     firstName: String
     lastName: String
-    secondLastName: String | null
-    phoneNumber: String
+    secondLastName?: String | null
     urlSocioPhoto: String | null
     status: String
-
-}
+    fechaRegistro: Date
+    }
 
 export const columns: ColumnDef<columnasSocios>[] = [
     // Columna Foto
@@ -45,17 +44,6 @@ export const columns: ColumnDef<columnasSocios>[] = [
                 </Link>)
         }
     },
-
-    //Columna Id
-    /* {
-                         accessorKey: "id",
-         header: () => <div className="text-right">ID Socio</div>,
-                     cell: ({row}) => {
-             const id = row.getValue('id')
- 
-                     return <div className="text-right font-medium">{id}</div>
-         },
-     }, */
     //Columna Nombre
     {
 
@@ -92,7 +80,7 @@ export const columns: ColumnDef<columnasSocios>[] = [
             )
         },
     },
-    //Columna Expediente
+    //Columna Boton Expediente
     {
         id: "expediente",
         header: () => <div className="text-right">Expediente</div>,

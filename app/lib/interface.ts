@@ -1,7 +1,6 @@
 import  { Role as PrismaRole } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
 import { StatusSocios as PrismaStatusSocios } from "c:/Users/ANGEL/Dropbox/Soy programador/atl/node_modules/.prisma/client/index";
-import { PrismaClient, familiares, } from "@prisma/client";
-import { Relationship as RelationshipPrisma } from "@prisma/client";
+
 export interface SociosPageProps {
   socio: interfaceSocio[];
 }

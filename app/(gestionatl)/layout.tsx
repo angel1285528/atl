@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning={true}>
       <body className="bg-blue-900">
-        <main className={`${oswald.className}  antialiased pt-8 bg-stone-200 rounded-lg size-11/12 mx-auto my-4 h-screen`}>
+        <main className={`${oswald.className}  antialiased pt-8 bg-stone-200 rounded-lg size-11/12 mx-auto my-4 min-h-screen`}>
           <div id="container" className="flex flew-row">
             <div id="sideBar" className="basis-1/5">
 

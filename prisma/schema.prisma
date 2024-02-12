@@ -5,68 +5,66 @@ generator client {
 }
 
 datasource db {
-    provider = "postgresql"
-    url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
     directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
 }
 
 model socio {
-    id String @default(cuid()) @id 
-    firstName String
-    lastName String
+    id             String       @id @default(cuid())
+    firstName      String
+    lastName       String
     secondLastName String?
-    email String
-    phoneNumber String
-    work String?
-    scholarity String?
-    urlSocioPhoto String?
-    urlSocioIne String?
-    rol Role @default(socio)
-    status StatusSocios @default(Activo)
-    fechaRegistro DateTime @default(now()) 
-     familiares familiares[]
-  //  jugador jugador[]
+    email          String
+    phoneNumber    String
+    work           String?
+    scholarity     String?
+    urlSocioPhoto  String?
+    urlSocioIne    String?
+    rol            Role         @default(socio)
+    status         StatusSocios @default(Activo)
+    fechaRegistro  DateTime     @default(now())
+    familiares     familiares[]
+    jugador        jugador[]
 }
-
 
 enum StatusSocios {
     Activo
     Ausente
     Inactivo
-    }
+}
 
 model jugador {
-    jugador_id Int @id @default(autoincrement())
-    name String
-    curp String
-    fecha_nacimiento DateTime @db.Date
-    municipio_nacimiento String @default("Linares")
-    estado_nacimiento String @default("Nuevo León")
-    pais_nacimienot String @default("Mexico")
-    cuota Cuota @default(Estandar)
-    status Status_Jugador
-    fingerprint Bytes
-   
-    //socio socio @relation(fields: [socio_id],references: [id])
-    //socio_id Int @unique
-
+    playerId String @id @default(cuid())
+    playerPhoto          String
+    playerFechaRegistro  String
+    playerFirstName      String
+    playerLastName       String
+    playerSecondLastName String?
+    categoria            Int
+    playerCurp           String         @unique
+    fechaNacimiento      DateTime       @db.Date
+    cuota                Cuota          @default(Estandar)
+    status               Status_Jugador
+    fingerprint          String?
+    //    playerMedicalHistory MedicalHistory[]
+    //    playerExpediente Expediente[]
+    socioid              String
+    socio                socio          @relation(fields: [socioid], references: [id])
 }
 
 model familiares {
-   familyId String @id @default(cuid())
-   familyFirstName String
-   familyLastName String
-   familySecondLastName String?
-   familyPhoneNumber String
-   familyEmail String?
-   familyRelationship  String
-    socioId        String   // Clave externa para referenciar socio
-    socio          socio    @relation(fields: [socioId], references: [id])
+    familyId             String  @id @default(cuid())
+    familyFirstName      String
+    familyLastName       String
+    familySecondLastName String?
+    familyPhoneNumber    String
+    familyEmail          String?
+    familyRelationship   String
+    socioId              String // Clave externa para referenciar socio
+    socio                socio   @relation(fields: [socioId], references: [id])
+}
 
-}   
-
-
-    
 enum Role {
     socio
     jugador
@@ -86,4 +84,4 @@ enum Status_Jugador {
     baja
     lesionado
     baja_temporal
-    }
+}

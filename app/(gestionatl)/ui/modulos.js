@@ -30,7 +30,7 @@ const menuItems = [
             {
             icon: FiEdit,
             text: "Editar Socios",
-            href: "#"
+            href: "/modulos/socios/"
               }
             ]
     },
@@ -38,6 +38,11 @@ const menuItems = [
     {imageUrl: '/iconos-modulos/player.svg',
       title: "Jugadores",
       items:[
+        {
+            icon: FiLayers,
+            text: "Gestión Jugadores",
+            href: "/modulos/jugadores/"
+        },
         {
         icon: FiUserPlus,
         text: "Registrar Jugador",
