@@ -6,7 +6,7 @@ import { interfaceFamiliares } from '../interface';
 const prisma = new PrismaClient();
 
 
-export async function cargarFamiliares(socioId: string): Promise<interfaceFamiliares | null> {
+export async function cargarFamiliares(socioId: string): Promise<interfaceFamiliares[]> {
   try {
     console.log("Cargando familiares con ID:", socioId);
     const familiares = await prisma.familiares.findMany({
