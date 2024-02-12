@@ -4,7 +4,7 @@ export default function Page() {
     return (
     <div>
         <h1>jugadores</h1>
-        <FormularioJugador />
+        {/* <FormularioJugador socioId={idDelSocio} /> */}
     </div>
     )
 }
