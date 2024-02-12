@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Status_Jugador } from "@prisma/client";
 import { interfacePlayer } from "../interfacePlayer";
 
 const prisma = new PrismaClient();
@@ -18,7 +18,7 @@ export const createPlayer = async (playerData: interfacePlayer) => {
         cuota: playerData.cuota,
         status: playerData.status,
         fingerprint: playerData.fingerprint,
-        socioId: playerData.socioId,
+        socioid: playerData.socioId,
       },
     });
 

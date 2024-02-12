@@ -50,7 +50,7 @@ const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
           <AccordionTrigger className='font-bold text-2xl text-blue-900 '>Familiares</AccordionTrigger>
           <AccordionContent>
           <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black hover:'>
+        <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
 
           <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6">
             <legend className='text-center'>Nombre y Apellidos</legend>

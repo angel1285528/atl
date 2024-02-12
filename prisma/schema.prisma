@@ -44,8 +44,8 @@ model jugador {
     categoria            Int
     playerCurp           String         @unique
     fechaNacimiento      DateTime       @db.Date
-    cuota                Cuota          @default(Estandar)
-    status               Status_Jugador
+    cuota                Cuota          
+    status               Status_Jugador @default(activo)
     fingerprint          String?
     //    playerMedicalHistory MedicalHistory[]
     //    playerExpediente Expediente[]
