@@ -50,18 +50,18 @@ const menuItems = [
         }
       ]
     },
-    {imageUrl: '/iconos-modulos/entrenador.svg',
+   {imageUrl: '/iconos-modulos/entrenador.svg',
       title: "Entrenadores",
   items:[]},
-  {imageUrl: '/iconos-modulos/grupos.svg',
-  title: "Grupos Entrenamiento",
+  /*{imageUrl: '/iconos-modulos/grupos.svg',
+  title: "Entrenamiento",
 items:[
   {
     icon: FiUserPlus,
     text: "Grupos",
     href: "#"
-    }
-]}
+    
+]}*/
 ];
   
 
@@ -71,7 +71,7 @@ const Menu = ({ imageUrl, icon, title , items}) => {
 
 return (
     <main>
-    <div className="flex flex-row mt-7 justify-center ">
+    <div className="flex flex-row md:mt-7 justify-center scale-90 md:scale-100 ">
       <div className="mx-auto bg-slate-400 border-inherit border-4 rounded-lg border-double outline-offset-4">
       {imageUrl && (
         <div className="w-32 h-32 relative">
@@ -87,9 +87,9 @@ return (
       </div>
       </div>
       <div>
-<motion.div animate={open ? "open" : "closed"} className="relative w-34 mx-auto"> {/* Ajusta el ancho aquí */}
-    <button onClick={() => setOpen((pv) => !pv)} className="flex items-center justify-center gap-2 px-6 py-2 rounded-md text-indigo-50 bg-sky-500 hover:bg-sky-600 transition-colors text-2xl w-full">
-        <span className="font-medium text-xl uppercase tracking-wider">{title}</span>
+<motion.div animate={open ? "open" : "closed"} className="relative w-34 mx-auto z-10"> {/* Ajusta el ancho aquí */}
+    <button onClick={() => setOpen((pv) => !pv)} className="flex items-center justify-center gap-2 px-6 py-2 rounded-md text-white bg-sky-500 hover:bg-sky-600 transition-color text-lg md:text-2xl w-full">
+        <span className="font-medium text-xl tracking-wider">{title}</span>
         <motion.span variants={iconVariants}>
             <FiChevronDown />
         </motion.span>
@@ -99,7 +99,7 @@ return (
         initial={wrapperVariants.closed}
         variants={wrapperVariants}
         style={{ originY: "top", translateX: "-50%" }}
-         className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-[100%] overflow-hidden">
+         className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-[100%] overflow-hidden z-20">
         {items.map((item) => (
             <MenuItem key={item.text} setOpen={setOpen} {...item} />
         ))}
@@ -126,7 +126,7 @@ const MenuItem = ({ icon: Icon, text, href, setOpen }) => {
 
 const Socios = () => {
   return (
-      <div className="flex flex-row gap-x-4">
+    <div className="grid grid-cols-2 md:grid-cols-2 lg:flex lg:justify-center gap-4 p-4">
           {menuItems.map((menu) => (
               <Menu 
                   key={menu.title} 
