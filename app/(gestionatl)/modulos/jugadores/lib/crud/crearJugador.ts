@@ -1,7 +1,7 @@
-import { PrismaClient, Status_Jugador } from "@prisma/client";
+import prisma from "@/app/lib/prisma";
 import { interfacePlayer } from "../interfacePlayer";
 
-const prisma = new PrismaClient();
+
 
 export const createPlayer = async (playerData: interfacePlayer) => {
   try {

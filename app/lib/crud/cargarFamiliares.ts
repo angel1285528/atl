@@ -1,9 +1,9 @@
 'use server'
 
-import { PrismaClient } from '@prisma/client';
+import prisma from '../prisma';
 import { interfaceFamiliares } from '../interface';
 
-const prisma = new PrismaClient();
+
 
 
 export async function cargarFamiliares(socioId: string): Promise<interfaceFamiliares[]> {

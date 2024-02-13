@@ -1,9 +1,7 @@
 'use server'
-import { PrismaClient } from '@prisma/client';
+import prisma from './prisma';
 import { interfaceSocio } from './interface';
 
-
-const prisma = new PrismaClient();
 
 export const createSocio = async (socioData: interfaceSocio) => {
   try {
