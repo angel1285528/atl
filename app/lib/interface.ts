@@ -21,10 +21,6 @@ export interface interfaceSocio {
 
 }
 
-
-
-
-
 export interface interfaceFamiliares {
   familyId: string;
   familyFirstName: string;
