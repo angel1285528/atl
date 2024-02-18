@@ -68,8 +68,8 @@ export function DataTableFamiliares<TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={columns.length} className="h-24 text-center">
-                No results.
+              <TableCell colSpan={columns.length} className="h-24 text-xl font-extrabold text-center text-red-500">
+                Sin familiares registrados
               </TableCell>
             </TableRow>
           )}

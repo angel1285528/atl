@@ -1,4 +1,4 @@
-import { columnasSocios, columns } from "@/app/(gestionatl)/ui/lists/tablasocios/columns-socios"
+import {  columns } from "@/app/(gestionatl)/ui/lists/tablasocios/columns-socios"
 import { DataTable } from "@/app/(gestionatl)/ui/lists/tablasocios/data-table"
 import { fetchSocios } from "@/app/lib/crud/sociolist"
 

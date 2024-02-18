@@ -28,12 +28,13 @@ const mayusculaNombres = (value: string) => {
 export const zSchema = z.object ({
     firstName: z.string()
     .min(1, 'El nombre es requerido')
-    .refine(value => validateWordCount(value, 2), { message: "El nombre no debe contener más de tres palabras" })
+    .refine(value => validateWordCount(value, 2), { message: "El nombre no debe contener más de dos palabras" })
     .refine(validateNoNumbers, { message: "El nombre no debe contener números" })
     .transform(mayusculaNombres),
   lastName: z.string()
     .min(1, 'El apellido paterno es requerido')
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
+    .refine(value => validateWordCount(value, 1), { message: "El apellido no debe contener más de una palabras" })
     .transform(mayuscula),
   secondLastName: z.string()
     .optional()

@@ -1,8 +1,7 @@
 import Header from "@/app/(gestionatl)/ui/header";
 import '@/app/globals.css'
-import { oswald } from "../ui/fonts"
+import { roboto } from "../ui/fonts"
 import React from 'react'
-import Image from "next/image";
 import Sidebar from "./ui/sidebar";
 
 export const metadata = {
@@ -20,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning={true}>
       <body className="bg-blue-900">
-        <main className={`${oswald.className}  antialiased md:pt-8 pt-2 bg-stone-200 rounded-lg size-11/12 mx-auto my-5 lg:my-4  min-h-screen`}>
+        <main className={`${roboto.className}  antialiased md:pt-8 pt-2 bg-stone-200 rounded-lg size-11/12 mx-auto my-5 lg:my-4  min-h-screen`}>
           <div id="container" className="flex flex-col md:flex-row">
             < Sidebar />
             <div id="mainFrame" className="flex-1">

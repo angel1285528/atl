@@ -1,7 +1,6 @@
-
-
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
+import ErrorMessage from '@/app/(gestionatl)/ui/forms-fields/errorComponent';
 
 const PlayerBirthFields: React.FC = () => {
   const {
@@ -20,12 +19,12 @@ const PlayerBirthFields: React.FC = () => {
         <div id='fechaNacimiento'>
           <label htmlFor="fechaNacimiento" className='ml-6'>Fecha de Nacimiento</label> <br />
           <input {...register("fechaNacimiento")} type="date" id="fechaNacimiento" className='input input-bordered input-info w-full max-w-xl ' placeholder="Apellido" />
-       
+          <ErrorMessage error={errors.fechaNacimiento} />
         </div>
         <div id='Categoria'>
           <label htmlFor="categoria" className='ml-6'>Categoria</label> <br />
-          <input {...register("categoria")} id="categoria" className='input input-bordered input-info w-full max-w-xl' placeholder="Segundo Apellido" />
-       
+          <input {...register("categoria")} id="categoria" type='number' className='input input-bordered input-info w-full max-w-xl' placeholder="Categoria" />
+          <ErrorMessage error={errors.categoria} />       
         </div>
       </div>
     </div>

@@ -2,11 +2,12 @@
 
 import prisma from '../prisma';
 import { interfaceFamiliares } from '../interface';
-
+import { unstable_noStore as noStore } from 'next/cache';
 
 
 
 export async function cargarFamiliares(socioId: string): Promise<interfaceFamiliares[]> {
+  noStore();
   try {
     console.log("Cargando familiares con ID:", socioId);
     const familiares = await prisma.familiares.findMany({

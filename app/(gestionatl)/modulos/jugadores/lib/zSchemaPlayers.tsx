@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { TypeOf } from 'zod';
+
 
 const mayuscula = (value: string) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
@@ -43,9 +43,16 @@ export const zSchemaPlayers = z.object({
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
     .transform(value => value ? mayuscula(value) : value)
     .nullable(),
-    categoria: z.number(),
+    categoria: z.string()
+    .transform(value => parseInt(value, 10)) // Convierte la cadena a número
+    .refine(value => !isNaN(value), { message: "La categoría debe ser un número" }),
     playerCurp: z.string(),
-    fechaNacimiento: z.date(),
+    fechaNacimiento: z.string()
+    .refine(
+      value => !isNaN(Date.parse(value)),
+      { message: "Fecha de nacimiento inválida" }
+    )
+    .transform(value => new Date(value)),
     cuota: z.enum(["A", "B", "C", "D"]),
     status: z.enum(["ACTIVO", "INACTIVO"]),
     fingerprint: z.string().nullable(),

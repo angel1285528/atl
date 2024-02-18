@@ -5,19 +5,16 @@ import SocioPhoto from './photo';
 import InePhoto from './Ine';
 
 const FilesFields: React.FC = () => {
-    const { register } = useFormContext();
     return (
-        <div className='grid grid-cols-2 w-3/4 gap-5 mx-auto'>
-            <div className='photo'>
-                <label htmlFor="urlSocioPhoto" className='ml-6'>Fotografía </label> <br />
+        <div className='grid grid-cols-1 md:grid-cols-2 w-3/4 gap-5 mx-auto'>
+            <div className='flex flex-col'>
+                <label htmlFor="urlSocioPhoto" className='mb-2 font-extrabold'>Fotografía:</label>
                 <SocioPhoto />
-        </div>
-            <div>
-            <label htmlFor="urlSocioIne" className='ml-6'>Identificación del Socio </label> <br />
+            </div>
+            <div className='flex flex-col'>
+                <label htmlFor="urlSocioIne" className='mb-2 font-extrabold'>Identificación del Socio:</label>
                 <InePhoto />
             </div>
-
-
         </div>
     );
 }

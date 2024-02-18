@@ -1,9 +1,9 @@
+import React from 'react';
 import { CldUploadWidget } from 'next-cloudinary';
-
 import { useFormContext } from 'react-hook-form';
 
 const InePhoto: React.FC = () => {
-  const { register, setValue } = useFormContext();
+  const { setValue, register } = useFormContext();
   
   function onImageUploadSuccess(result: any) {
     const url = result.info.secure_url;
@@ -13,17 +13,15 @@ const InePhoto: React.FC = () => {
   return (
     <div>
       <CldUploadWidget uploadPreset="socioine" onSuccess={onImageUploadSuccess}>
-        {({ open }) => {
-          return (
-            <button className="btn bg-amber-500" onClick={() => open()}>
-              Fotografía Identificación Socio
-            </button>
-          );
-        }}
+        {({ open }) => (
+          <button className="btn bg-amber-500" onClick={() => open()}>
+            Fotografía Identificación Socio
+          </button>
+        )}
       </CldUploadWidget>
-      <input {...register('urlSocioIne')}type="text" id="urlSocioIne" hidden readOnly />
+      <input {...register('urlSocioIne')} id="urlSocioIne" type="text" hidden readOnly />
     </div>
   );
 }
 
-  export default InePhoto;
+export default InePhoto;

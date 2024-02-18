@@ -37,8 +37,8 @@ export const columns: ColumnDef<columnasSocios>[] = [
 
             return (
                 <Link href={`/modulos/socios/${id}`}>
-                    <Avatar className=" size-14 w-16">
-                        <AvatarImage className=" border-4 hover:border-sky-900  rounded-full " src={urlSocioPhoto} />
+                    <Avatar className=" size-10 md:size-14 ">
+                        <AvatarImage className=" border-2 md:border-4 hover:border-sky-900  rounded-full " src={urlSocioPhoto} />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                 </Link>)
@@ -57,8 +57,8 @@ export const columns: ColumnDef<columnasSocios>[] = [
 
             return (
                 <Link href={`/modulos/socios/${id}`}>
-                    <div className="flex flex-col text-black text-2xl">
-                        <div className="font-medium hover:text-blue-900 hover:underline">{firstName} {lastName} {secondLastName}</div>
+                    <div className="flex flex-col text-black text-sm md:text-2xl">
+                        <div className="md:font-medium hover:text-blue-900 hover:underline">{firstName} {lastName} {secondLastName}</div>
                         <div className="text-m text-gray-500">ID: {row.original.id}</div>
                     </div>
                 </Link>

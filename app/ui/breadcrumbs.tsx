@@ -12,7 +12,7 @@ const Breadcrumbs = () => {
   const pathSegments = pathname.split('/').filter(segment => segment)
 
   return (
-    <nav aria-label="breadcrumb" className=':ml-8 md:font-bold text-xl pt-2 text-white'>
+    <nav aria-label="breadcrumb" className='md:ml-8 md:font-bold text-xl pt-2 text-white'>
       <ol style={{ display: 'flex', alignItems: 'center', listStyle: 'none', margin: 0, padding: 0 }}>
         {/* Ícono de inicio */}
         <li style={{ marginRight: '0.5rem', color: '#ccc' }}>

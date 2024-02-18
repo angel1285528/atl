@@ -16,6 +16,9 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { BsPersonFillAdd } from "react-icons/bs";
+
+
 const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfaceFamiliares>({
@@ -27,12 +30,12 @@ const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
     try {
       const dataWithSocioId = { ...data, socioId: socioId };
       const nuevoFamiliar = await createFamiliar(dataWithSocioId);
-      toast.success('Usuario registrado exitosamente',
+      toast.success('Familiar registrado exitosamente',
         {
           position: 'top-center',
           autoClose: 10000, // Duración de la notificación en milisegundos
         });
-      window.location.href = `/modulos/socios/`; // Asumiendo que tienes un campo 'id' en tu modelo de socio
+      
       setSubmitError(null);
 
     } catch (error) {
@@ -45,24 +48,25 @@ const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
 
   return (
     <>
-      <Accordion className='w-5/6 mx-auto' type="single" collapsible>
+       <Accordion className='w-full md:w-5/6 lg:w-4/6 mx-auto' type="single" collapsible>
         <AccordionItem value="item-1">
-          <AccordionTrigger className='font-bold text-2xl text-blue-900 '>Familiares</AccordionTrigger>
-          <AccordionContent>
+        <AccordionTrigger className='flex items-center font-bold text-xl md:text-2xl text-blue-900'>
+      <span><BsPersonFillAdd className=' text-2xl md:text-3xl text-right mr-auto'/></span><span> Registrar Familiar</span>
+    </AccordionTrigger>   <AccordionContent>
           <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
 
-          <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6">
-            <legend className='text-center'>Nombre y Apellidos</legend>
+        <fieldset className="rounded border-t-4 border-solid border-amber-500 my-4">
+        <legend className='text-center font-bold text-lg md:text-xl'>Nombre y Apellidos</legend>
             <FamilyNameFields />
             <RelationshipsFields />
           </fieldset>
-          <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6 mx-auto">
-            <legend className='text-center'>Contacto</legend>
+          <fieldset className="rounded border-t-4 border-solid border-amber-500 my-4">
+                  <legend className='text-center font-bold text-lg md:text-xl'>Contacto</legend>
             <FamilyContactFields />
           </fieldset>
-          <div className='flex justify-center'>
-            <button type="submit" className='btn btn-primary bg-amber-400 text-white w-1/2 my-6'>Registrar Socio</button>
+          <div className='flex justify-center mt-4'>
+          <button type="submit" className='btn btn-primary bg-amber-400 text-white px-4 py-2 md:w-1/2 lg:w-1/3'>Registrar Familiar</button>
           </div>
         </form>
       </FormProvider>

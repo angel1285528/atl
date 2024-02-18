@@ -12,17 +12,15 @@ const SocioPhoto: React.FC = () => {
   return (
     <div>
       <CldUploadWidget uploadPreset="socios" onSuccess={onImageUploadSuccess}>
-        {({ open }) => {
-          return (
-            <button className="btn bg-amber-500" onClick={() => open()}>
-              Tomar o subir fotografía
-            </button>
-          );
-        }}
+        {({ open }) => (
+          <button className="btn bg-amber-500" onClick={() => open()}>
+            Tomar o subir fotografía
+          </button>
+        )}
       </CldUploadWidget>
       <input {...register('urlSocioPhoto')} id="urlSocioPhoto" type="text" readOnly hidden/>
     </div>
   );
 }
 
-  export default SocioPhoto;
+export default SocioPhoto;

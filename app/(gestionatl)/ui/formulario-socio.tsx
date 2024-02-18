@@ -8,32 +8,39 @@ import { createSocio } from '@/app/lib/action';
 import { interfaceSocio } from '@/app/lib/interface';
 import NameFields from './forms-fields/name-fields';
 import ContactFields from './forms-fields/contact-fields';
-import ContextFields from './forms-fields/context-fields';
 import FilesFields from './forms-fields/socio-files-fields';
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 const FormularioSocio: React.FC = () => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
+  const router = useRouter();
   const methods = useForm<interfaceSocio>({
     resolver: zodResolver(zSchema)
   });
-
-  const onSubmit = async (data: interfaceSocio) => {
+  
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  
+  const onSubmit: SubmitHandler<interfaceSocio> = async (data) => {
+    setIsSubmitting(true);
     try {
       const nuevoSocio = await createSocio(data);
       toast.success('Usuario registrado exitosamente',
         {
-          position: 'top-center',
-          autoClose: 10000, // Duración de la notificación en milisegundos
+          position: 'bottom-center',
+          autoClose: 4000, // Duración de la notificación en milisegundos
         });
-      window.location.href = `/modulos/socios/`; // Asumiendo que tienes un campo 'id' en tu modelo de socio
-        setSubmitError(null);
+       
+        router.push(`/modulos/socios/${nuevoSocio.id}`);
       
+      setSubmitError(null);
+
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       setSubmitError("Error al enviar el formulario."); // Establecer mensaje de error
-
     }
+    setIsSubmitting(false);
+
   };
 
 
@@ -41,21 +48,16 @@ const FormularioSocio: React.FC = () => {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
 
-        <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6">
-          <legend className='text-center'>Nombre y Apellidos</legend>
+        <fieldset className="rounded border-t-4 border-solid border-amber-500 mt-6 mx-4 md:mx-auto max-w-4xl">
+          <legend className='text-center font-extrabold text-xl'>Nombre y Apellidos</legend>
           <NameFields />
         </fieldset>
-        <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6 mx-auto">
-          <legend className='text-center'>Contacto</legend>
+        <fieldset className="rounded border-t-4 border-solid border-amber-500 mt-6 mx-4 md:mx-auto max-w-4xl">
+          <legend className='text-center font-extrabold text-xl'>Contacto</legend>
           <ContactFields />
         </fieldset>
-        
-        <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6 mx-auto">
-          <legend className='text-center'>Datos de contexto</legend>
-          <ContextFields />
-        </fieldset>
-        <fieldset className="rounded border-t-4  border-solid border-amber-500 mt-6 mx-auto">
-          <legend className='text-center'>Archivos para expediente</legend>
+        <fieldset className="rounded border-t-4 border-solid border-amber-500 mt-6 mx-4 md:mx-auto max-w-4xl">
+          <legend className='text-center font-extrabold text-xl'>Archivos para expediente</legend>
           <div className='flex flex-col mx-auto'>
             <FilesFields />
           </div>
@@ -64,7 +66,9 @@ const FormularioSocio: React.FC = () => {
 
 
         <div className='flex justify-center'>
-          <button type="submit" className='btn btn-primary bg-amber-400 text-white w-1/2 my-6'>Registrar Socio</button>
+          <button type="submit" disabled={isSubmitting} className='btn btn-primary bg-amber-400 text-white w-1/2 my-6'>
+            {isSubmitting ? 'Registrando...' : 'Registrar Socio'}
+          </button>
         </div>
       </form>
     </FormProvider>

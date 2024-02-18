@@ -1,15 +1,7 @@
-import { Oswald } from "next/font/google";
-import { Inter } from "next/font/google";
-import { Archivo_Black } from "next/font/google";   
-import { Vollkorn } from "next/font/google";
+import {  Roboto } from "next/font/google";
+// This is the font that is used in the app, it is imported here to be used in the app
 
-export const inter = Inter({ subsets: ['latin'] });
-export const oswald = Oswald({ subsets: ['latin'] });
-export const archivo_black = Archivo_Black({
-    subsets: ['latin'],
-    weight: "400"
-});
-export const vollkorn = Vollkorn({
+export const roboto = Roboto({
     subsets: ['latin'],
     weight: "400"
 });
