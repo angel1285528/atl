@@ -3,6 +3,7 @@ import '@/app/globals.css'
 import { roboto } from "../ui/fonts"
 import React from 'react'
 import Sidebar from "./ui/sidebar";
+import Script from 'next/script';
 
 export const metadata = {
   title: 'Modulo de Gestion - ATL',
@@ -31,6 +32,7 @@ export default function RootLayout({
           </div>
 
         </main>
+      <Script src="modules/WebSdk/index.js" />
       </body>
     </html>
   )
