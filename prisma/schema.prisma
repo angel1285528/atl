@@ -43,24 +43,32 @@ enum StatusSocios {
 }
 
 model jugador {
-    playerId             String @id @unique
+    playerId             String @id @unique 
     playerPhoto          String
-    playerFechaRegistro  String
+    playerFechaRegistro  DateTime     @default(now())
     playerFirstName      String
     playerLastName       String
     playerSecondLastName String?
     categoria            String
     fechaNacimiento      DateTime       @db.Date
-    playerCellphon       String
+    lugarNacimiento      String   
+    school               String
+    schoolarGrade        String      
+    playerCellPhone       String
     playerEmail          String
-    tipoCuota            Cuota          
+    tipoCuota            String          
     importeMensualidad   Int   
     status               Status_Jugador @default(activo)
-    fingerprint          String?
+    actaDeNacimientoURL String?
+    actaDeNacimiento    Boolean
+    curpUrl             String?
+    curp                Boolean
+    identificacionUrl   String?
+    identificacion      Boolean  
     //    playerMedicalHistory MedicalHistory[]
     //    playerExpediente Expediente[]
-    socioid              String
-    socio                socio          @relation(fields: [socioid], references: [id])
+    socioId              String
+    socio                socio          @relation(fields: [socioId], references: [id])
 }
 
 model familiares {

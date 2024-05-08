@@ -13,11 +13,7 @@ const FamilyContactFields: React.FC = () => {
         <input {...register('familyPhoneNumber')} id='familyPhoneNumber' placeholder="Celular" className="input input-bordered input-info w-full" />
         <ErrorMessage error={errors.familyPhoneNumber} />
       </div>
-      <div className='flex flex-col md:w-1/2'>
-        <label htmlFor="familyEmail" className='font-bold mb-2'>Email:</label>
-        <input {...register('familyEmail')} id="familyEmail" placeholder="Email" autoComplete="email" className="input input-bordered input-info w-full" />
-        <ErrorMessage error={errors.familyEmail} />
-      </div> 
+     
     </div>
   );
 };  

@@ -5,7 +5,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { ReactNode } from "react";
 import { columnasSocios } from "./columns-socios";
 import { PlusCircle } from "lucide-react"
-import CardSocios from "./cardSocios";
+
 import {
   ColumnDef,
   ColumnFiltersState,

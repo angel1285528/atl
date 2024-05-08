@@ -5,7 +5,7 @@ import FormularioFamiliar from "@/app/(gestionatl)/ui/formulario-familiares";
 import { DataTableFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/data-table-familiares";
 import { columnsFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/columns-familiares";
 import { cargarFamiliares } from "@/app/lib/crud/cargarFamiliares";
-import FormularioJugador from "../../jugadores/ui/formularios/formularioNuevoJugador";
+import FormularioPlayer from "../../jugadores/componets/formularioJugador";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   
@@ -21,7 +21,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <hr className="border-4 border-blue-800 mt-4"/>
       <DataTableFamiliares columns={ columnsFamiliares } data={data || []}/>
       <FormularioFamiliar socioId={idDelSocio} />
-      {/* <FormularioJugador socioId={idDelSocio} /> */}
+      <FormularioPlayer socioId={idDelSocio} />
     </div>
   );
 }

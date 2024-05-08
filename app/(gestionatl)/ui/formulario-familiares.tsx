@@ -6,9 +6,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { zSchemaFamiliares } from '@/app/lib/zod/zSchemaFamiliares';
 import { interfaceFamiliares } from '@/app/lib/interfaces/interfaceSocio';
 import { createFamiliar } from '@/app/lib/crud/crearFamiliar';
-import FamilyNameFields from './forms-fields/familiares/family-name-fields';
-import FamilyContactFields from './forms-fields/familiares/family-contact-fields';
 import { toast } from 'react-toastify';
+import FamilyContactFields from './forms-fields/familiares/family-contact-fields';
+import FamilyNameFields from './forms-fields/familiares/family-name-fields';
 import RelationshipsFields from './forms-fields/familiares/relationship-field';
 import {
   Accordion,

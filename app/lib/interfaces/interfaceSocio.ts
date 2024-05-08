@@ -21,7 +21,7 @@ export interface interfaceSocio {
   rol: Role;
   status: StatusSocios;
   fechaRegistro: Date;
-  periodoDePago: String;
+  periodoDePago: string;
 
 }
 
@@ -31,7 +31,6 @@ export interface interfaceFamiliares {
   familyLastName: string;
   familySecondLastName?: string | null;
   familyPhoneNumber: string;
-  familyEmail?: string | null;
   familyRelationship: string;
   socioId: string;
 }

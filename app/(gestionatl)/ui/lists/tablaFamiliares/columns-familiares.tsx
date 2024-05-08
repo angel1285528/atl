@@ -37,13 +37,13 @@ export const columnsFamiliares: ColumnDef<interfaceFamiliares>[] = [
     header: "Datos de Contacto",
     cell: ({ row }) => {
         const familyPhoneNumber: string = row.getValue('familyPhoneNumber')
-        const familyEmail = row.original.familyEmail
+        
        
 
         return(
             <div className="flex flex-col text-black text-2xl">
             <div className="font-medium">Celular: {familyPhoneNumber}</div>
-            <div className="font-medium">Email: {familyEmail}</div>
+            
        
         </div>
         )
