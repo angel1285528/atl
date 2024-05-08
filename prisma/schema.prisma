@@ -11,16 +11,22 @@ datasource db {
 }
 
 model socio {
-    id             String       @id @default(cuid())
+    id             String       @id @unique
     firstName      String
     lastName       String
     secondLastName String?
-    email          String
+    street         String
+    streetNumber   String
+    colonia        String
+    postalCode     String
+    city           String
+    state          String
     phoneNumber    String
-    work           String?
-    scholarity     String?
+    email          String 
     urlSocioPhoto  String?
     urlSocioIne    String?
+    urlIdDomicilio String?
+    periodoDePago  String
     rol            Role         @default(socio)
     status         StatusSocios @default(Activo)
     fechaRegistro  DateTime     @default(now())
@@ -28,23 +34,27 @@ model socio {
     jugador        jugador[]
 }
 
+
+
 enum StatusSocios {
     Activo
     Ausente
-    Inactivo
+    Baja
 }
 
 model jugador {
-    playerId String @id @default(cuid())
+    playerId             String @id @unique
     playerPhoto          String
     playerFechaRegistro  String
     playerFirstName      String
     playerLastName       String
     playerSecondLastName String?
-    categoria            Int
-    playerCurp           String         @unique
+    categoria            String
     fechaNacimiento      DateTime       @db.Date
-    cuota                Cuota          
+    playerCellphon       String
+    playerEmail          String
+    tipoCuota            Cuota          
+    importeMensualidad   Int   
     status               Status_Jugador @default(activo)
     fingerprint          String?
     //    playerMedicalHistory MedicalHistory[]
@@ -59,7 +69,6 @@ model familiares {
     familyLastName       String
     familySecondLastName String?
     familyPhoneNumber    String
-    familyEmail          String?
     familyRelationship   String
     socioId              String // Clave externa para referenciar socio
     socio                socio   @relation(fields: [socioId], references: [id])

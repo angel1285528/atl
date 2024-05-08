@@ -1,7 +1,7 @@
 'use server'
 
 import prisma from '../prisma';
-import { interfaceFamiliares } from '../interface';
+import { interfaceFamiliares } from '../interfaces/interfaceSocio';
 import { unstable_noStore as noStore } from 'next/cache';
 
 

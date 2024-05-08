@@ -1,6 +1,6 @@
 'use server'
 import prisma from '../prisma';
-import { interfaceFamiliares } from '@/app/lib/interface';
+import { interfaceFamiliares } from '@/app/lib/interfaces/interfaceSocio';
 
 
 

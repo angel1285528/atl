@@ -1,7 +1,7 @@
 "use client"
 import { eliminarFamiliar } from "@/app/lib/crud/eliminarFamiliar" 
 import { ColumnDef } from "@tanstack/react-table"
-import { interfaceFamiliares } from "@/app/lib/interface" 
+import { interfaceFamiliares } from "@/app/lib/interfaces/interfaceSocio" 
 import { MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {

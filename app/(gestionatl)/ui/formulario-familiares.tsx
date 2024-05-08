@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zSchemaFamiliares } from '@/app/lib/zod/zSchemaFamiliares';
-import { interfaceFamiliares } from '@/app/lib/interface';
+import { interfaceFamiliares } from '@/app/lib/interfaces/interfaceSocio';
 import { createFamiliar } from '@/app/lib/crud/crearFamiliar';
 import FamilyNameFields from './forms-fields/familiares/family-name-fields';
 import FamilyContactFields from './forms-fields/familiares/family-contact-fields';

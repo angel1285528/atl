@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { columnasSocios } from "./columns-socios"; // Asumiendo que tienes esto definido en alguna parte
 import CardSocios from "./cardSocios"; // Tu componente de tarjeta
 import { DataTable } from "./data-table"; // Tu componente de tabla
-import { interfaceSocio } from "@/app/lib/interface";
+import { interfaceSocio } from "@/app/lib/interfaces/interfaceSocio";
 
 export const Socios = () => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);

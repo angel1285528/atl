@@ -1,23 +1,27 @@
-import { Role, StatusSocios } from "@prisma/client";
+import { Role, StatusSocios, } from "@prisma/client";
 
 
-export interface SociosPageProps {
-  socio: interfaceSocio[];
-}
+
 export interface interfaceSocio {
   id: string;
   firstName: string;
   lastName: string;
   secondLastName?: string | null;
-  email: string;
+  street: string;
+  streetNumber: string;
+  colonia: string;
+  postalCode: string;
+  city: string;
+  state: string;
   phoneNumber: string;
-  work?: string | null;
-  scholarity?: string | null;
+  email: string;
   urlSocioPhoto?: string | null;
   urlSocioIne?: string | null;
+  urlIdDomicilio?: string | null;
   rol: Role;
   status: StatusSocios;
   fechaRegistro: Date;
+  periodoDePago: String;
 
 }
 
