@@ -1,0 +1,22 @@
+name: Deploy en Vercel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout del repositorio
+      uses: actions/checkout@v2
+      
+    - name: Instalar dependencias y compilar (si es necesario)
+      run: |
+        # Ejecuta los comandos necesarios para instalar dependencias y compilar tu proyecto
+      
+    - name: Deploy en Vercel
+      run: |
+        # Agrega aquí el comando necesario para realizar el deploy en Vercel
