@@ -1,7 +1,8 @@
 'use server'
-import prisma from '../prisma';
 import { interfaceFamiliares } from '@/app/lib/interfaces/interfaceSocio';
+import { PrismaClient } from '@prisma/client';
 
+const prisma = new PrismaClient();
 
 export const createFamiliar = async (familiarData: interfaceFamiliares) => {
   try {

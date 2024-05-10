@@ -9,10 +9,6 @@ import { createPlayer } from '../lib/crud/crearJugador';
 import { toast } from 'react-toastify';
 import InputsFormularioJugador from './inputsJugador';
 
-
-
-
-
   const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfacePlayer>({
@@ -24,7 +20,7 @@ import InputsFormularioJugador from './inputsJugador';
         try {
       const dataWithSocioId = {...data, socioId: socioId};
       const nuevoJugador = await createPlayer(dataWithSocioId);
-      toast.success('Usuario registrado exitosamente',
+      toast.success('Jugador registrado exitosamente',
         {
           position: 'bottom-center',
           autoClose: 10000, // Duración de la notificación en milisegundos

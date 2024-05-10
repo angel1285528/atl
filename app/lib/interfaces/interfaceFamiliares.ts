@@ -1,6 +1,3 @@
-
-
-
 export interface interfaceFamiliares {
   familyId: string;
   familyFirstName: string;

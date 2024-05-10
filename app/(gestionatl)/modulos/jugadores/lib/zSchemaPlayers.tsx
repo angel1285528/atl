@@ -21,11 +21,14 @@ const validateWordCount = (value: string, maxWords: number) => {
   return words.length <= maxWords;
 };
 
+const validateCategoria = (value: string): boolean => {
+  const currentYear = new Date().getFullYear();
+  const numericValue = parseInt(value);
+  return !isNaN(numericValue) && numericValue >= 2008 && numericValue <= currentYear;
+};
 // Esquema de validación con Zod
 export const zSchemaPlayers = z.object({
   playerId: z.string(),
-  playerPhoto: z.string(),
-  playerFechaRegistro: z.date(),
   playerFirstName: z.string()
     .min(1, 'El nombre es requerido')
     .refine(value => validateWordCount(value, 2), { message: "El nombre no debe contener más de tres palabras" })
@@ -41,25 +44,7 @@ export const zSchemaPlayers = z.object({
     .transform(value => value ? mayuscula(value) : value)
     .nullable(),
   categoria: z.string()
-    .transform(value => parseInt(value, 10))
-    .refine(value => !isNaN(value), { message: "La categoría debe ser un número" }),
-  fechaNacimiento: z.string()
-    .refine(
-      value => !isNaN(Date.parse(value)),
-      { message: "Fecha de nacimiento inválida" }
-    )
-    .transform(value => new Date(value)),
-  lugarNacimiento: z.string(),
-  playerCellPhone: z.string(), // Agrega validaciones necesarias para el número de teléfono
-  playerEmail: z.string().email(), // Agrega validaciones necesarias para el correo electrónico
-  tipoCuota: z.string(), // Agrega validaciones necesarias para el tipo de cuota
-  importeMensualidad: z.number().int(), // Agrega validaciones necesarias para el importe de la mensualidad
-  status: z.string(), // Agrega validaciones necesarias para el estado del jugador
-  actaDeNacimientoURL: z.string().url().optional(), // Agrega validaciones necesarias para la URL del acta de nacimiento
-  actaDeNacimiento: z.boolean(), // Agrega validaciones necesarias para el acta de nacimiento
-  curpUrl: z.string().url().optional(), // Agrega validaciones necesarias para la URL del CURP
-  curp: z.boolean(), // Agrega validaciones necesarias para el CURP
-  identificacionUrl: z.string().url().optional(), // Agrega validaciones necesarias para la URL de la identificación
-  identificacion: z.boolean(), // Agrega validaciones necesarias para la identificación
-  socioId: z.string(),
+  .refine(value => validateCategoria(value)),
+  
 });
+

@@ -44,32 +44,52 @@ enum StatusSocios {
 
 model jugador {
     playerId             String @id @unique 
-    playerPhoto          String
     playerFechaRegistro  DateTime     @default(now())
     playerFirstName      String
     playerLastName       String
     playerSecondLastName String?
     categoria            String
-    fechaNacimiento      DateTime       @db.Date
-    lugarNacimiento      String   
-    school               String
-    schoolarGrade        String      
-    playerCellPhone       String
-    playerEmail          String
-    tipoCuota            String          
-    importeMensualidad   Int   
     status               Status_Jugador @default(activo)
-    actaDeNacimientoURL String?
-    actaDeNacimiento    Boolean
-    curpUrl             String?
-    curp                Boolean
-    identificacionUrl   String?
-    identificacion      Boolean  
-    //    playerMedicalHistory MedicalHistory[]
-    //    playerExpediente Expediente[]
     socioId              String
     socio                socio          @relation(fields: [socioId], references: [id])
+    //fechaNacimiento      DateTime
+    //lugarNacimiento      String   
+    //schoolarLevel        String
+    //school               String
+    //playerPhotoUrl       String?
+//    schoolarGrade        String      
+//     playerCellPhone       String?
+//     playerEmail          String?
+    // expedienteJugadores expedienteJugadores[]
+    // estadoCuentaJugador estadoCuentaJugador[]
+    // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
+    // grupoEntrenamientoId String
 }
+
+// model grupoEntrenamiento{
+//     idGrupoEntrenamiento   String @id @unique
+//     grupoEntrenamiento    String  
+//     jugador              jugador[]
+//     jugadorId            String   
+// }
+// model estadoCuentaJugador {
+//     idEstadoCuentaJugador String @id @unique
+//     importeMensualidad    Int
+//     tipoMensualidad       Int    
+//     idJugadorEstadoCuenta String
+//     jugador               jugador @relation(fields: [idJugadorEstadoCuenta], references: [playerId])  
+// }
+// model expedienteJugadores {
+//     idExpedienteJugador String @id @unique 
+//     actaDeNacimientoURL String?
+//     actaDeNacimiento    Boolean
+//     curpUrl             String?
+//     curp                Boolean
+//     identificacionUrl   String?
+//     identificacion      Boolean
+//     playerExpedienteId String
+//     jugador             jugador @relation(fields: [playerExpedienteId], references: [playerId])
+// }
 
 model familiares {
     familyId             String  @id @default(cuid())

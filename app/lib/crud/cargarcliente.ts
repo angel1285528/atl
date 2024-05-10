@@ -1,7 +1,9 @@
 'use server';
 // Importa PrismaClient y Socio desde '@prisma/client'
-import prisma from '../prisma';
 import { interfaceSocio } from '../interfaces/interfaceSocio';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 
 
