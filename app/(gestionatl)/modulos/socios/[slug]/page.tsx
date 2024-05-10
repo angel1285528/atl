@@ -1,4 +1,3 @@
-'use server'
 
 import ExpedienteSocios from "@/app/(gestionatl)/ui/expediente-socio"
 import FormularioFamiliar from "@/app/(gestionatl)/ui/formulario-familiares";
@@ -6,10 +5,13 @@ import { DataTableFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares
 import { columnsFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/columns-familiares";
 import { cargarFamiliares } from "@/app/lib/crud/cargarFamiliares";
 import FormularioPlayer from "../../jugadores/componets/formularioJugador";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default async function Page({ params }: { params: { slug: string } }) {
+
+   const idDelSocio = params.slug; // Obtén el id del cliente desde los parámetros de la página
   
-  const idDelSocio = params.slug; // Obtén el id del cliente desde los parámetros de la página
   const data = await cargarFamiliares(params.slug)
   
   return (
@@ -20,8 +22,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
       <ExpedienteSocios id={idDelSocio} />
       <hr className="border-4 border-blue-800 mt-4"/>
       <DataTableFamiliares columns={ columnsFamiliares } data={data || []}/>
-      <FormularioFamiliar socioId={idDelSocio} />
+      <FormularioFamiliar socioId={idDelSocio}  />
+      <ToastContainer />
       <FormularioPlayer socioId={idDelSocio} />
+      {/* <ToastContainer /> */}
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { interfacePlayer } from '../lib/interfacePlayer';
 import { createPlayer } from '../lib/crud/crearJugador';
 import { toast } from 'react-toastify';
 import InputsFormularioJugador from './inputsJugador';
-
+import Link from 'next/link';
   const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfacePlayer>({
@@ -23,13 +23,13 @@ import InputsFormularioJugador from './inputsJugador';
       toast.success('Jugador registrado exitosamente',
         {
           position: 'bottom-center',
-          autoClose: 10000, // Duración de la notificación en milisegundos
+          autoClose: 4000, // Duración de la notificación en milisegundos
         });
        
         //router.push(`/modulos/socios/${nuevoSocio.id}`);
       
       setSubmitError(null);
-
+      window.location.href = `/modulos/socios/${socioId}`;
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       setSubmitError("Error al enviar el formulario."); // Establecer mensaje de error

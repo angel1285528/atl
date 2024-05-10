@@ -19,30 +19,40 @@ import {
 import { BsPersonFillAdd } from "react-icons/bs";
 
 
-const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
+
+interface FormularioFamiliarProps {
+  socioId: string;
+}
+
+const FormularioFamiliar: React.FC<FormularioFamiliarProps> = ({ socioId }) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfaceFamiliares>({
     resolver: zodResolver(zSchemaFamiliares)
   });
 
-
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  
   const onSubmit = async (data: interfaceFamiliares) => {
+    setIsSubmitting(true);
     try {
       const dataWithSocioId = { ...data, socioId: socioId };
       const nuevoFamiliar = await createFamiliar(dataWithSocioId);
       toast.success('Familiar registrado exitosamente',
         {
-          position: 'top-center',
-          autoClose: 10000, // Duración de la notificación en milisegundos
+          position:'top-center',
+          autoClose: 5000, // Duración de la notificación en milisegundos
+     
         });
       
+        
       setSubmitError(null);
-
+      window.location.href = `/modulos/socios/${socioId}`;
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       setSubmitError("Error al enviar el formulario."); // Establecer mensaje de error
 
     }
+    setIsSubmitting(false);
   };
 
 
@@ -66,7 +76,12 @@ const FormularioFamiliar: React.FC<{ socioId: string }> = ({ socioId }) => {
             <FamilyContactFields />
           </fieldset>
           <div className='flex justify-center mt-4'>
-          <button type="submit" className='btn btn-primary bg-amber-400 text-white px-4 py-2 md:w-1/2 lg:w-1/3'>Registrar Familiar</button>
+          <button 
+          type="submit" 
+          disabled={isSubmitting || !!submitError} className='btn btn-primary bg-amber-400 text-white px-4 py-2 md:w-1/2 lg:w-1/3'>
+          {isSubmitting ? 'Registrando...' : 'Registrar Familiar'}
+            </button>
+          
           </div>
         </form>
       </FormProvider>
