@@ -1,12 +1,14 @@
 import { CldUploadWidget } from 'next-cloudinary';
 import { useFormContext } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
+
+
 const PlayerPhoto: React.FC = () => {
   const { register, setValue } = useFormContext();
   
   function onImageUploadSuccess(result: any) {
     const url = result.info.secure_url;
-    setValue('playerPhoto', url);
+    setValue('playerPhotoUrl', url);
   }
 
   return (
@@ -20,7 +22,7 @@ const PlayerPhoto: React.FC = () => {
           );
         }}
       </CldUploadWidget>
-      <input {...register('playerPhoto')} id="PlayerPhoto" type="text" readOnly hidden/>
+      <input {...register('playerPhotoUrl')} id="playerPhotoUrl" type="text" readOnly hidden/>
     </div>
   );
 }

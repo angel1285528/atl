@@ -45,6 +45,11 @@ export const zSchemaPlayers = z.object({
     .nullable(),
   categoria: z.string()
   .refine(value => validateCategoria(value)),
+  rama: z.string(),
+  fechaNacimiento: z.string().datetime(),
+  playerPhotoUrl: z.string(),
+  playerCellPhone: z.string(),
+    playerEmail: z.string(),
   
 });
 

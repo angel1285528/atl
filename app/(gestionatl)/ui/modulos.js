@@ -124,7 +124,7 @@ const MenuItem = ({ icon: Icon, text, href, setOpen }) => {
   );
 }
 
-const Socios = () => {
+const Modulos = () => {
   return (
     <div className="grid grid-cols-2 md:grid-cols-2 lg:flex lg:justify-center gap-4 p-4">
           {menuItems.map((menu) => (
@@ -139,7 +139,7 @@ const Socios = () => {
   );
 };
 
-export default Socios;
+export default Modulos;
 
 const wrapperVariants = {
     open: {

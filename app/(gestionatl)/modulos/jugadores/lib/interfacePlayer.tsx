@@ -7,6 +7,11 @@ export interface interfacePlayer {
     playerLastName: string;
     playerSecondLastName?: string | null; // Optional string with null allowed
     categoria: string;
+    rama: string;
+    fechaNacimiento: Date;
+    playerPhotoUrl: string;
+    playerCellPhone: string;
+    playerEmail: string;
     socioId: string;
     
   }

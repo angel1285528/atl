@@ -14,6 +14,11 @@ export const createPlayer = async (playerData: interfacePlayer) => {
         playerLastName: playerData.playerLastName,
         playerSecondLastName: playerData.playerSecondLastName,
         categoria: playerData.categoria,        
+        rama: playerData.rama,
+        fechaNacimiento:playerData.fechaNacimiento,
+        playerPhotoUrl: playerData.playerPhotoUrl,
+        playerCellPhone: playerData.playerCellPhone,
+        playerEmail: playerData.playerEmail,
         socioId: playerData.socioId,
         
       },

@@ -8,8 +8,9 @@ import { interfacePlayer } from '../lib/interfacePlayer';
 import { createPlayer } from '../lib/crud/crearJugador';
 import { toast } from 'react-toastify';
 import InputsFormularioJugador from './inputsJugador';
-import Link from 'next/link';
-  const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
+
+  
+const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const methods = useForm<interfacePlayer>({
     resolver: zodResolver(zSchemaPlayers)

@@ -1,14 +1,15 @@
 //schema.prisma
 
-generator client {
-    provider = "prisma-client-js"
-}
-
 datasource db {
     provider  = "postgresql"
     url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
     directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
 }
+
+generator client {
+    provider = "prisma-client-js"
+}
+
 
 model socio {
     id             String       @id @unique
@@ -50,30 +51,31 @@ model jugador {
     playerSecondLastName String?
     categoria            String
     status               Status_Jugador @default(activo)
+    rama                 String      
     socioId              String
     socio                socio          @relation(fields: [socioId], references: [id])
-    //fechaNacimiento      DateTime
+    fechaNacimiento      DateTime
+    playerPhotoUrl       String?
+    playerCellPhone       String?
+    playerEmail          String?
     //lugarNacimiento      String   
     //schoolarLevel        String
     //school               String
-    //playerPhotoUrl       String?
 //    schoolarGrade        String      
-//     playerCellPhone       String?
-//     playerEmail          String?
     // expedienteJugadores expedienteJugadores[]
     // estadoCuentaJugador estadoCuentaJugador[]
     // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
-    // grupoEntrenamientoId String
+    // grupoEntrenamientoId String?
 }
 
 // model grupoEntrenamiento{
-//     idGrupoEntrenamiento   String @id @unique
-//     grupoEntrenamiento    String  
-//     jugador              jugador[]
-//     jugadorId            String   
+//     idGrupoEntrenamiento     String @id @unique
+//     grupoEntrenamiento       String  
+//     jugador                  jugador[]
+//     jugadorId                String   
 // }
 // model estadoCuentaJugador {
-//     idEstadoCuentaJugador String @id @unique
+//     idEstadoCuentaJugador String @id @unique @default(cuid())
 //     importeMensualidad    Int
 //     tipoMensualidad       Int    
 //     idJugadorEstadoCuenta String
@@ -121,4 +123,67 @@ enum Status_Jugador {
     baja
     lesionado
     baja_temporal
+}
+ model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?       
+  image         String?
+  role          String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+ 
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
+ 
+model Entrenadores {
+    coachId                 String @id @unique
+    coachFirstName          String
+    coachLastName           String
+    coachSecondLastName     String
+    coachBirthDate          String
+    coachCellPhone          String
+    coachEmailPhone         String
+
+    
 }

@@ -65,15 +65,12 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
           <h3 className='text-xl font-bold text-blue-900'>Correo: <span className='font-normal'>{socio.email}</span></h3>
           <h3 className='text-2xl font-bold text-blue-900'>Celular: <span className='font-normal'>{socio.phoneNumber}</span></h3>
         </div>
-        <div className="flex flex-wrap justify-between">
-          <h3 className='text-xl font-bold text-blue-900'>Ocupación: <span className='font-normal'>{socio.work}</span></h3>
-          <h3 className='text-2xl font-bold text-blue-900'>Escolaridad: <span className='font-normal'>{socio.scholarity}</span></h3>
-        </div>
+
         <h3 className='text-xl font-bold text-blue-900'>Fecha de Registro: <span className='font-normal'>{socio.fechaRegistro.toLocaleDateString()}</span></h3>
       </div>
-      <div className='lg:basis-1/5'>
+      <div className='hidden md:block lg:basis-1/5'>
         <h1 className='text-xl font-bold text-blue-900'>Acciones</h1>
-        <CurrentPageQRCode />
+        <CurrentPageQRCode  />
       </div>
     </div>
   );
