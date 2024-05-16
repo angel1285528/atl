@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthConfig } from "next-auth"
 import Credentials from "next-auth/providers/credentials"
 import type { Provider } from "next-auth/providers"
 import { ZodError } from "zod"
@@ -7,6 +7,8 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
 import { getUserFromDb } from "./app/(auth)/lib/getUserFromDb"
 import GitHub from "next-auth/providers/github"
+
+
 const prisma = new PrismaClient();
 
 const providers: Provider[] = [GitHub,
@@ -50,7 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       credentials: {
         email: {},
         password: {},
-      },
+      } satisfies NextAuthConfig,
       authorize: async (credentials) => {
         try {
           const { email, password } = await signInSchema.parseAsync(credentials);
@@ -59,6 +61,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const user = await getUserFromDb(email, pwHash);
           if (!user) {
             throw new Error("User not found.");
+//Incluir mensaje para solicitar acceso a la aplicación
           }
           return user;
         } catch (error) {
@@ -75,5 +78,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: "/login",
     signOut: "auth/sign-out"
-  }
-});
+  },
+  
+}
+) 

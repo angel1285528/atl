@@ -8,10 +8,11 @@ export interface interfacePlayer {
     playerSecondLastName?: string | null; // Optional string with null allowed
     categoria: string;
     rama: string;
-    fechaNacimiento: Date;
-    playerPhotoUrl: string;
-    playerCellPhone: string;
-    playerEmail: string;
+    status: Status_Jugador;
+    fechaNacimiento: String;
+    playerPhotoUrl?: string | undefined | null;
+    playerCellPhone?: string | null | undefined;
+    playerEmail: string | null | undefined;
     socioId: string;
     
   }

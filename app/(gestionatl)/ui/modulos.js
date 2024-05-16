@@ -13,8 +13,21 @@ import Image from "next/image";
 
 
 const menuItems = [
+  //Modulo de Gestion de Usuarios
+  {
+      imageUrl: '/iconos-modulos/socios.svg',
+      title: "Gestión Usuarios",
+        items: [
+          { 
+            icon: FiUserPlus,
+            text: "Registrar Usuarios",
+            href: "/modulos/usuarios/nuevousuario"
+          }
+          ]
+  },
   //0 - Componentes del modulo Socios    
-  {imageUrl: '/iconos-modulos/socios.svg',
+  {
+    imageUrl: '/iconos-modulos/socios.svg',
    title: "Socios",
         items: [
           {

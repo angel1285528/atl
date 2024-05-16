@@ -54,7 +54,7 @@ model jugador {
     rama                 String      
     socioId              String
     socio                socio          @relation(fields: [socioId], references: [id])
-    fechaNacimiento      DateTime
+    fechaNacimiento      DateTime       
     playerPhotoUrl       String?
     playerCellPhone       String?
     playerEmail          String?
@@ -67,6 +67,7 @@ model jugador {
     // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
     // grupoEntrenamientoId String?
 }
+
 
 // model grupoEntrenamiento{
 //     idGrupoEntrenamiento     String @id @unique

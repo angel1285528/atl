@@ -18,9 +18,12 @@ const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   
   
   const onSubmit = async (data: interfacePlayer) => {
-        try {
+    console.log(data)
+    try {
       const dataWithSocioId = {...data, socioId: socioId};
+      console.log(dataWithSocioId)
       const nuevoJugador = await createPlayer(dataWithSocioId);
+      
       toast.success('Jugador registrado exitosamente',
         {
           position: 'bottom-center',

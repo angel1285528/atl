@@ -6,6 +6,7 @@ const prisma = new PrismaClient();
 
 
 export const createPlayer = async (playerData: interfacePlayer) => {
+  
   try {
     const player = await prisma.jugador.create({
       data: {

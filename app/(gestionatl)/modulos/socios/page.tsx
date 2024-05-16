@@ -1,5 +1,5 @@
-import {  columns } from "@/app/(gestionatl)/ui/lists/tablasocios/columns-socios"
-import { DataTable } from "@/app/(gestionatl)/ui/lists/tablasocios/data-table"
+import {  columns } from "@/app/(gestionatl)/modulos/socios/componentes/tablasocios/columns-socios"
+import { DataTable } from "@/app/(gestionatl)/modulos/socios/componentes/tablasocios/data-table"
 import { fetchSocios } from "@/app/lib/crud/sociolist"
 
 export default async function Page() {

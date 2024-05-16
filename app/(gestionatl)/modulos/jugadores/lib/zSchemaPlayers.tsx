@@ -44,12 +44,12 @@ export const zSchemaPlayers = z.object({
     .transform(value => value ? mayuscula(value) : value)
     .nullable(),
   categoria: z.string()
-  .refine(value => validateCategoria(value)),
+    .refine(value => validateCategoria(value)),
   rama: z.string(),
-  fechaNacimiento: z.string().datetime(),
+  fechaNacimiento: z.string(),
   playerPhotoUrl: z.string(),
   playerCellPhone: z.string(),
-    playerEmail: z.string(),
-  
+  playerEmail: z.string(),
+
 });
 
