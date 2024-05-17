@@ -1,5 +1,5 @@
-import { ReactDOM } from "react";
-import { EarthoOneProvider } from '@eartho/one-client-react';
+
+import { Auth0Provider } from '@auth0/auth0-react';
 import Header from "@/app/(gestionatl)/ui/header";
 import '@/app/globals.css'
 import { roboto } from "../ui/fonts"
