@@ -1,5 +1,5 @@
 'use client'
-
+import ProfileClient from '../profile-client/page';
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import { FaHome } from 'react-icons/fa';
@@ -41,6 +41,7 @@ const Breadcrumbs = () => {
                   <p className="text-white">{segment}</p>
                 </Link>
               </li>
+              <ProfileClient />
             </React.Fragment>
           )
         })}

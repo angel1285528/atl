@@ -1,5 +1,5 @@
 
-import ExpedienteSocios from "@/app/(gestionatl)/ui/expediente-socio"
+import ExpedienteSocios from "@/app/(gestionatl)/modulos/socios/componentes/expediente-socio"
 import FormularioFamiliar from "@/app/(gestionatl)/ui/formulario-familiares";
 import { DataTableFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/data-table-familiares";
 import { columnsFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/columns-familiares";
