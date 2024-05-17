@@ -11,7 +11,7 @@ export default function ProfileClient() {
   return (
       user && (
           <div>
-            <h2>{user.name}</h2>
+            <h3 className='text-yellow-500'>{user.name}</h3>
             
             
           </div>

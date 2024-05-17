@@ -9,7 +9,7 @@ export interface interfacePlayer {
     categoria: string;
     rama: string;
     status: Status_Jugador;
-    fechaNacimiento: string;
+    fechaNacimiento: Date;
     playerPhotoUrl?: string | undefined | null;
     playerCellPhone?: string | null | undefined;
     playerEmail: string | null | undefined;
