@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import ErrorMessage from '@/app/(gestionatl)/ui/forms-fields/errorComponent';
 import PlayerPhoto from '../ui/formularios/form-fields-player/playerPhoto';
-import Calendario from "./calendario"
+import Calendario from './calendario';
 
 
 const formFields = [

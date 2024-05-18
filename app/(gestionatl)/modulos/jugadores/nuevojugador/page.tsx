@@ -1,4 +1,4 @@
-import FormularioJugador from "../ui/formularios/formularioNuevoJugador"
+
 
 export default function Page() {
     return (

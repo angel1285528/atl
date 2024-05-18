@@ -46,7 +46,9 @@ export const zSchemaPlayers = z.object({
   categoria: z.string()
     .refine(value => validateCategoria(value)),
   rama: z.string(),
-  fechaNacimiento: z.string(),
+  fechaNacimiento: z.date({
+    required_error: "La fecha de Nacimiento es requerida",
+  }),
   playerPhotoUrl: z.string(),
   playerCellPhone: z.string(),
   playerEmail: z.string(),

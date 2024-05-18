@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { SignIn } from '../(auth)/(utils)/componets/singInButton'
 import '@/app/globals.css'
 
 const inter = Inter({ subsets: ['latin'] })

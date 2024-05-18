@@ -1,11 +1,16 @@
-"use client"
-import * as React from "react"
-import { Table as TableSuperResponsive, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
-import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import { ReactNode } from "react";
+"use client";
+import * as React from "react";
+import {
+  Table as TableSuperResponsive,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+} from "react-super-responsive-table";
+import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { columnasPlayer } from "./playerColums";
-import { PlusCircle } from "lucide-react"
-
+import { PlusCircle } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,7 +21,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -25,28 +30,24 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-
-
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
-
-export function playerDataTable<TData, TValue>({
+export function PlayerDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>): JSX.Element {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
 
   const table = useReactTable({
     data,
@@ -61,27 +62,30 @@ export function playerDataTable<TData, TValue>({
       sorting,
       columnFilters,
     },
-  })
+  });
 
   return (
-
-
     <div className="w-full">
-      <div id="buscarAgregarJugador" className="flex flex-col md:flex-row items-center py-2 md:py-4 md:ml-10">
-        <h3 className=" hidden md:block font-bold text-xl md:text-2xl flex-shrink-0">Buscar socio</h3>
+      <div
+        id="buscarAgregarJugador"
+        className="flex flex-col md:flex-row items-center py-2 md:py-4 md:ml-10"
+      >
+        <h3 className="hidden md:block font-bold text-xl md:text-2xl flex-shrink-0">
+          Buscar socio
+        </h3>
         <div className="flex-grow w-full mx-auto md:mr-5 mt-2 md:mt-0">
-
           <Input
             placeholder="Nombre del jugador a buscar"
-            value={(table.getColumn("firstName")?.getFilterValue() as string) ?? ""}
+            value={
+              (table.getColumn("firstName")?.getFilterValue() as string) ?? ""
+            }
             onChange={(event) =>
               table.getColumn("firstName")?.setFilterValue(event.target.value)
             }
             className="text-black text-xl ml-2 flex-1 w-full "
-
           />
         </div>
-        <Link href={'/modulos/socios/nuevojugador'}>
+        <Link href={"/modulos/socios/nuevojugador"}>
           <Button className="bg-green-600 hover:bg-blue-900 text-white text-lg md:text-xl font-semibold mt-2 md:mt-0 md:ml-auto">
             <PlusCircle className="mr-2 h-4 w-4" /> Agregar nuevo jugador
           </Button>
@@ -89,7 +93,7 @@ export function playerDataTable<TData, TValue>({
       </div>
       <hr className="border-2 mt-2 border-blue-800" />
       <div className="rounded-md border overflow-x-auto">
-        <Table className=" relative">
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -99,11 +103,11 @@ export function playerDataTable<TData, TValue>({
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -152,9 +156,7 @@ export function playerDataTable<TData, TValue>({
       </div>
       <div />
     </div>
-    )
+  );
 }
-  export default playerDataTable;
 
-
-
+export default PlayerDataTable;
