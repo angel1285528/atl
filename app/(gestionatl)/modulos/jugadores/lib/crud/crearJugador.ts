@@ -21,6 +21,12 @@ export const createPlayer = async (playerData: interfacePlayer) => {
         playerCellPhone: playerData.playerCellPhone,
         playerEmail: playerData.playerEmail,
         socioId: playerData.socioId,
+        paisNacimiento: playerData.paisNacimiento,
+        estadoNacimiento: playerData.estadoNacimiento,
+        ciudadNacimiento: playerData.ciudadNacimiento,
+        schoolarGrade: playerData.schoolarGrade,
+        schoolarLevel: playerData.schoolarLevel,
+        school: playerData.school
         
       },
     });

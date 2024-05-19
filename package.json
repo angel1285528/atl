@@ -31,7 +31,7 @@
     "@vercel/postgres": "^0.5.1",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.314.0",
@@ -54,7 +54,7 @@
     "react-whatsapp": "^0.3.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5",
-    "tailwind-merge": "^2.2.1",
+    "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
   },

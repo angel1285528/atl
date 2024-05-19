@@ -52,6 +52,12 @@ export const zSchemaPlayers = z.object({
   playerPhotoUrl: z.string(),
   playerCellPhone: z.string(),
   playerEmail: z.string(),
+  ciudadNacimiento: z.string(),
+  paisNacimiento: z.string(),
+  estadoNacimiento: z.string(),
+  schoolarGrade: z.string(),
+  schoolarLevel: z.string(),
+  school: z.string()
 
 });
 

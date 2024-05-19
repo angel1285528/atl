@@ -59,10 +59,12 @@ model jugador {
     playerPhotoUrl       String?
     playerCellPhone       String?
     playerEmail          String?
-    //lugarNacimiento      String   
-    //schoolarLevel        String
-    //school               String
-//    schoolarGrade        String      
+    paisNacimiento          String
+    estadoNacimiento    String
+    ciudadNacimiento    String
+    schoolarLevel        String
+  schoolarGrade        String      
+    school               String
     // expedienteJugadores expedienteJugadores[]
     // estadoCuentaJugador estadoCuentaJugador[]
     // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])

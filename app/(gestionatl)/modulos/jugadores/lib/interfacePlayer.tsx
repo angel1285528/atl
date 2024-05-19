@@ -13,6 +13,13 @@ export interface interfacePlayer {
     playerPhotoUrl?: string | undefined | null;
     playerCellPhone?: string | null | undefined;
     playerEmail: string | null | undefined;
+    paisNacimiento: string;
+    estadoNacimiento: string;
+    ciudadNacimiento: string;
+    schoolarGrade: string;
+    schoolarLevel: string;
+    school: string;
+    
     socioId: string;
     
   }

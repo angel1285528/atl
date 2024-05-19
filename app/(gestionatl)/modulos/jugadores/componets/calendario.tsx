@@ -29,7 +29,7 @@ const Calendario: React.FC = () => {
       name="fechaNacimiento"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Date of birth</FormLabel>
+          <FormLabel>Fecha de Nacimiento</FormLabel>
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
