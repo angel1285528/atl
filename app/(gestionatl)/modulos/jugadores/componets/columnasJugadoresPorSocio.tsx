@@ -22,7 +22,7 @@ export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
     // Columna Foto
     {
         accessorKey: "playerPhotoUrl",
-        header: () => <div className="text-left">Foto</div>,
+        header: () => <div className="text-left"></div>,
         cell: ({ row }) => {
             let playerPhotoUrl: string | undefined = row.getValue('playerPhotoUrl') as string; // Cambia const por let aquí
             const id = row.original.playerId
@@ -42,81 +42,30 @@ export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
     //Columna Nombre
     {
 
-        accessorKey: "firstName", //Modificar para que aparezc el nombre del socio con el apellido
-        header: "Socio",
+        accessorKey: "playerFirstName", //Modificar para que aparezc el nombre del socio con el apellido
+        header: "",
         cell: ({ row }) => {
-            const firstName: string = row.getValue('firstName')
+            const firstName: string = row.getValue('playerFirstName')
             const lastName = row.original.playerLastName
             const secondLastName = row.original.playerSecondLastName
             const id = row.original.playerId
-
+            const categoria = row.original.categoria
+            const status = row.original.status
             return (
-                <Link href={`/modulos/socios/${id}`}>
+                <Link href={`/modulos/jugadores/${id}`}>
                     <div className="flex flex-col text-black text-sm md:text-2xl">
                         <div className="md:font-medium hover:text-blue-900 hover:underline">{firstName} {lastName} {secondLastName}</div>
-                        <div className="text-m text-gray-500">ID: {row.original.playerId}</div>
+                        <div className="text-m text-gray-500"> {row.original.playerId}</div>
+                        <div className="text-m text-gray-500"><span>{row.original.categoria}</span></div>
+                        
                     </div>
                 </Link>
             )
         },
     },
-    //Columna Status
-    {
-        accessorKey: "status",
-        header: "Status",
-        cell: ({ row }) => {
-            const status = row.original.status
-
-            return (
-                // (status === 'Activo') ?
-                    <div className="text-green-500 font-bold text-xl">{status}</div>
-                    // : <div className="text-red-500 font-bold text-xl">{status}</div>
-
-            )
-        },
-    },
+    //Columna categoría
+    
     //Columna Boton Expediente
-    {
-        id: "expediente",
-        header: () => <div className="text-right">Expediente</div>,
-        cell: ({ row }) => {
-            const id = row.original.playerId
 
-            return (
-                <Button className=" bg-blue-900 text-white text-xl hover:bg-yellow-400 mx-auto">
-                    <FolderInput color="#ffffff" /><Link href={`/modulos/socios/${id}`} className="ml-2 "> Expediente</Link>
-                </Button>
-            )
-        }
-    },
-    //Columna Acciones
-    {
-        id: "actions",
-        header: () => <div className="text-right">Opciones</div>,
-        cell: ({ row }) => {
-            const payment = row.original
-
-            return (
-                <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
-                            <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.playerId)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            )
-        }
-    },
+   
 ]

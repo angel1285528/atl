@@ -22,6 +22,7 @@ const formFields = [
   {
     label: 'Datos de Nacimiento',
     fields: [
+      {label: "Fecha de nacimiento", name:"fechaNacimiento", type:"Date"},
       { label: 'Categoría', name: 'categoria', type: 'select', options: getCurrentYearRange() },
       { label: 'Rama', name: 'rama', type: 'select', options: ['Varonil', 'Femenil'] },
       { label: 'País de Nacimiento', name: 'paisNacimiento', type: 'select', options: ["México", "Nacido en el extranjero"] },

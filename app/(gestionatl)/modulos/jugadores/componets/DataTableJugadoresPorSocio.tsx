@@ -60,11 +60,10 @@ export function DataTableJugadoresPorSocio<TData, TValue>({
 
 
     <div className="w-full">
-     
-      <hr className="border-2 mt-2 border-blue-800" />
+         
       <div className="rounded-md border overflow-x-auto">
         <Table className=" relative">
-          <TableHeader>
+          <TableHeader hidden>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -105,24 +104,6 @@ export function DataTableJugadoresPorSocio<TData, TValue>({
             )}
           </TableBody>
         </Table>
-        <div className="flex items-center justify-end space-x-2 py-4">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Anterior
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Siguiente
-          </Button>
-        </div>
       </div>
       <div />
     </div>
