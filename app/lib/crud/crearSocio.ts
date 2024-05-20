@@ -1,23 +1,32 @@
-'use server'
-import prisma from './prisma';
-import { interfaceSocio } from './interface';
+//Función para crear socio en base de datos con prisma ORM
 
+'use server'
+import { PrismaClient } from '@prisma/client';
+import { interfaceSocio } from '../interfaces/interfaceSocio';
+
+const prisma = new PrismaClient()
 
 export const createSocio = async (socioData: interfaceSocio) => {
   try {
     
     const socio = await prisma.socio.create({
       data: {
+        id: socioData.id,
         firstName: socioData.firstName,
         lastName: socioData.lastName,
         secondLastName: socioData.secondLastName,
-        email: socioData.email,
+        street: socioData.street,
+        streetNumber: socioData.streetNumber,
+        colonia: socioData.colonia,
+        postalCode: socioData.postalCode,
+        city: socioData.city,
+        state: socioData.state,
         phoneNumber: socioData.phoneNumber,
-        work: socioData.work,
-        scholarity: socioData.scholarity,
+        email: socioData.email,
         urlSocioPhoto: socioData.urlSocioPhoto,
         urlSocioIne: socioData.urlSocioIne,
-        
+        urlIdDomicilio: socioData.urlIdDomicilio,
+        periodoDePago: socioData.periodoDePago
       },
     });
 

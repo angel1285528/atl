@@ -1,0 +1,197 @@
+[33mcommit aa40aee1e4d6ded5bbefbd5dfc5a8a05010452e7[m[33m ([m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Apr 27 16:51:23 2024 -0600
+
+    Se agrega enlaces funcionales a redes sociales y para descargas de fichas de inscripción
+
+[33mcommit be1120e6d9a73ae7305f031da7b1d0b000c4fc33[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Apr 26 14:09:03 2024 -0600
+
+    Se elimina la carpeta (gestionatl)
+
+[33mcommit 66185c1a0628235b8d9a7a91b1c6ef8f09a953f9[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Apr 26 13:37:45 2024 -0600
+
+    Se agrega la carpeta (gestionatl) al archivo .gitignore)
+
+[33mcommit 70c31b7cd7a8cdb2159c9b9f553a91ec0ae33d91[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Apr 26 12:49:59 2024 -0600
+
+    prueba
+
+[33mcommit b2340d10356d69b74de7ce53db3e485e046a2eaf[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sun Feb 18 13:40:02 2024 -0600
+
+    Se actualizo en formato responsivo
+
+[33mcommit 4b6b1202966a410deeeca0c89a44aa638bc28657[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Tue Feb 13 14:18:30 2024 -0600
+
+    Se comienza a dar diseño responsivo en las diferentes rutas, el layout y la pagina socios se tiene una version aceptable, se trabaja en la tabla de socios, se crea este punto antes de instalar la libreria react-super-responsive-table
+
+[33mcommit 8220d91919aa272f73ec7382f0ac3b78a328e700[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 23:22:12 2024 -0600
+
+    se agrega el script para actualizar el cliente prisma en cada deploy de vercell
+
+[33mcommit bbcf5c0548f94193448548692c57caaecbc7a139[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 23:12:24 2024 -0600
+
+    se corrigen las importaciones de los enum Role y Status Socios a la interfaceSocio
+
+[33mcommit 9379434b2b13989eb32a746a1eb87ee47b7f3181[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 23:06:33 2024 -0600
+
+    Se depura la impportacion de clientes prisma, primera version ggenerada en npm run build estable
+
+[33mcommit 9450af428b3b5255c195e01374560c96914040b7[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 15:13:40 2024 -0600
+
+    se corrige error en expdiente cliente
+
+[33mcommit c3d2210a24f1a69ffb27f7fc644ce7a434e6a750[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 15:05:31 2024 -0600
+
+    se corrige el error en cargarFamiliares.ts
+
+[33mcommit 4ff0427c6d0b5d688d94ead25bd79c4b09d7101e[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 14:55:56 2024 -0600
+
+    arreglado error en qrURL, se cambia la funcion router.asPath por usePathname
+
+[33mcommit 985988bc712f96d3f8d6ca2a1aa57b8dce9fa250[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 14:42:28 2024 -0600
+
+    punto de control 2
+
+[33mcommit 756ef43806905f3bd165b445832a727ce6538fd7[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 14:38:23 2024 -0600
+
+    punto de control
+
+[33mcommit 512ddc632cb4dc8e6714e0ddb4d43e1ee2d8d687[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 14:20:41 2024 -0600
+
+    punto de control
+
+[33mcommit 626765aa1c0588c360cc5bc923f3df5eb02cd345[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Mon Feb 12 14:18:22 2024 -0600
+
+    punto de control
+
+[33mcommit 73c1fc0c672425dcf8bad935d9fbac95a76461cb[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sun Feb 11 18:01:57 2024 -0600
+
+    Formulario familiares y funcion eliminarFamiliar() funcionando, se comieza a trabajar en el módulo jugadores
+
+[33mcommit bac72513badbb96161d54a0ddd520fcbf2752bad[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Thu Feb 8 12:35:48 2024 -0600
+
+    formulario de familiares listo, falta dar estilo
+
+[33mcommit c76f7a0064da94b0ca4d22103986b4278bc6366b[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Thu Feb 8 10:24:22 2024 -0600
+
+    sincronizacion
+
+[33mcommit fb638256247c0fc31c594b6764a6412c5a199834[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Wed Feb 7 17:01:10 2024 -0600
+
+    errores de interface corregidos
+
+[33mcommit d6782648d8cfd1c15c9546e37a6e554ce191b0ba[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Tue Feb 6 19:12:41 2024 -0600
+
+    Formulario y lista de Socios funcionando, se comienza a trabajar en la página de expediente de socio en la rama de Features
+
+[33mcommit 73e6a31eef7de4cba420cab110a05d2351232e72[m[33m ([m[1;31morigin/Release[m[33m, [m[1;31morigin/Hotfix[m[33m, [m[1;31morigin/Features[m[33m)[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Thu Jan 25 00:43:31 2024 -0600
+
+    formulario, lista de socios y pagina de expediente funcionando, falta terminar
+
+[33mcommit 9904afc7a8ffe2b718015a75c837ba08b3a84f1e[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 20 23:36:24 2024 -0600
+
+    se encuentran funcionando las funciones primsa.create y prisma.findmany con el modelo de socios falta darle estilo
+
+[33mcommit 76e6b7616589dfdd81d2200876053c3e170ad97e[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 20 13:54:48 2024 -0600
+
+    se elimina lib/prisma.ts
+
+[33mcommit 517aa92e708f6a992662d8c6b19b2d86ef9e0c46[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 20 13:51:49 2024 -0600
+
+    se elimna el error en los input de name-fields
+
+[33mcommit 4854b343d1a7bdb5ec1d3d61cfdf325ab441c849[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 20 13:48:02 2024 -0600
+
+    seagrega global.d.ts
+
+[33mcommit cfa7ae5d8cae6f0ea5e97e52b31d435000e3a336[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 20 13:38:20 2024 -0600
+
+    se elimna el error en los input de name-fields
+
+[33mcommit ca6f3f020a190625fd4317428c85a7108247c053[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Jan 19 22:53:34 2024 -0600
+
+    se comenta contact fields
+
+[33mcommit 3e0e85b7b4852de9ff354b855f7650abf0aa9c71[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Jan 19 22:50:26 2024 -0600
+
+    se comenta addresss-form
+
+[33mcommit c0e7303fed3c143dfd25ec30a943643264500a43[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Fri Jan 19 22:47:00 2024 -0600
+
+    trabajano en formulario de socios
+
+[33mcommit b7047136898cd02005b6f7e423e1d68dde081c4a[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 6 17:24:57 2024 -0600
+
+    pagina en construccion creada
+
+[33mcommit fc56eba12d944988ad7ce94aae7722fa87f496cf[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Sat Jan 6 17:20:46 2024 -0600
+
+    pagina en construccion creada
+
+[33mcommit f45f724f9f74534050218fa1ad6b7e90ae503e65[m
+Author: angel1285528 <lce.angelrdz@gmail.com>
+Date:   Thu Jan 4 22:10:11 2024 -0600
+
+    Initial commit from Create Next App

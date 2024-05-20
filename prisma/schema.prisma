@@ -1,26 +1,34 @@
 //schema.prisma
 
-generator client {
-    provider = "prisma-client-js"
-}
-
 datasource db {
     provider  = "postgresql"
     url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
     directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
 }
 
+generator client {
+    provider = "prisma-client-js"
+     
+}
+
+
 model socio {
-    id             String       @id @default(cuid())
+    id             String       @id @unique
     firstName      String
     lastName       String
     secondLastName String?
-    email          String
+    street         String
+    streetNumber   String
+    colonia        String
+    postalCode     String
+    city           String
+    state          String
     phoneNumber    String
-    work           String?
-    scholarity     String?
+    email          String 
     urlSocioPhoto  String?
     urlSocioIne    String?
+    urlIdDomicilio String?
+    periodoDePago  String
     rol            Role         @default(socio)
     status         StatusSocios @default(Activo)
     fechaRegistro  DateTime     @default(now())
@@ -28,30 +36,66 @@ model socio {
     jugador        jugador[]
 }
 
+
+
 enum StatusSocios {
     Activo
     Ausente
-    Inactivo
+    Baja
 }
 
 model jugador {
-    playerId String @id @default(cuid())
-    playerPhoto          String
-    playerFechaRegistro  String
+    playerId             String @id @unique 
+    playerFechaRegistro  DateTime     @default(now())
     playerFirstName      String
     playerLastName       String
     playerSecondLastName String?
-    categoria            Int
-    playerCurp           String         @unique
-    fechaNacimiento      DateTime       @db.Date
-    cuota                Cuota          
+    categoria            String
     status               Status_Jugador @default(activo)
-    fingerprint          String?
-    //    playerMedicalHistory MedicalHistory[]
-    //    playerExpediente Expediente[]
-    socioid              String
-    socio                socio          @relation(fields: [socioid], references: [id])
+    rama                 String      
+    socioId              String
+    socio                socio          @relation(fields: [socioId], references: [id])
+    fechaNacimiento      DateTime       
+    playerPhotoUrl       String?
+    playerCellPhone       String?
+    playerEmail          String?
+    paisNacimiento          String
+    estadoNacimiento    String
+    ciudadNacimiento    String
+    schoolarLevel        String
+  schoolarGrade        String      
+    school               String
+    // expedienteJugadores expedienteJugadores[]
+    // estadoCuentaJugador estadoCuentaJugador[]
+    // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
+    // grupoEntrenamientoId String?
 }
+
+
+// model grupoEntrenamiento{
+//     idGrupoEntrenamiento     String @id @unique
+//     grupoEntrenamiento       String  
+//     jugador                  jugador[]
+//     jugadorId                String   
+// }
+// model estadoCuentaJugador {
+//     idEstadoCuentaJugador String @id @unique @default(cuid())
+//     importeMensualidad    Int
+//     tipoMensualidad       Int    
+//     idJugadorEstadoCuenta String
+//     jugador               jugador @relation(fields: [idJugadorEstadoCuenta], references: [playerId])  
+// }
+// model expedienteJugadores {
+//     idExpedienteJugador String @id @unique 
+//     actaDeNacimientoURL String?
+//     actaDeNacimiento    Boolean
+//     curpUrl             String?
+//     curp                Boolean
+//     identificacionUrl   String?
+//     identificacion      Boolean
+//     playerExpedienteId String
+//     jugador             jugador @relation(fields: [playerExpedienteId], references: [playerId])
+// }
 
 model familiares {
     familyId             String  @id @default(cuid())
@@ -59,7 +103,6 @@ model familiares {
     familyLastName       String
     familySecondLastName String?
     familyPhoneNumber    String
-    familyEmail          String?
     familyRelationship   String
     socioId              String // Clave externa para referenciar socio
     socio                socio   @relation(fields: [socioId], references: [id])
@@ -84,4 +127,17 @@ enum Status_Jugador {
     baja
     lesionado
     baja_temporal
+}
+
+ 
+model Entrenadores {
+    coachId                 String @id @unique
+    coachFirstName          String
+    coachLastName           String
+    coachSecondLastName     String
+    coachBirthDate          String
+    coachCellPhone          String
+    coachEmailPhone         String
+
+    
 }

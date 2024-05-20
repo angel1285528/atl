@@ -24,9 +24,11 @@ const mayusculaNombres = (value: string) => {
     const words = value.trim().split(/\s+/); // Divide el valor por espacios, incluyendo múltiples espacios consecutivos
     return words.length <= maxWords;
   };
-
 export const zSchema = z.object ({
-    firstName: z.string()
+  id: z.string()
+    .length(18, "El curpo debe de tener 18 caracteres")
+    .toUpperCase(),
+  firstName: z.string()
     .min(1, 'El nombre es requerido')
     .refine(value => validateWordCount(value, 2), { message: "El nombre no debe contener más de dos palabras" })
     .refine(validateNoNumbers, { message: "El nombre no debe contener números" })
@@ -41,36 +43,34 @@ export const zSchema = z.object ({
     .refine(validateNoNumbers, { message: "El apellido no debe contener números" })
     .transform(value => value ? mayuscula(value) : value)
     .nullable(),
+  street: z.string()
+    .transform(mayuscula),
+  streetNumber: z.string()
+    .max(5, "El número de casa debe de ser máximo de 4 digitos")
+    .refine(value => /^\d+$/.test(value), { message: 'El número de teléfono solo debe contener dígitos numéricos' }),
+  colonia: z.string()
+  .refine(value => validateWordCount(value, 5), { message: "El nombre no debe contener más de 5 palabras" }),
+  postalCode: z.string()
+  .length(5, "El codigo postal debe de tener 5 caracteres")
+  .refine(value => /^\d+$/.test(value), { message: 'El código postal solo debe contener dígitos numéricos' }),
+  city: z.string()
+    .refine(value => validateWordCount(value, 2), { message: "La ciudad no dedbe de tener más de dos palabras" })
+    .transform(mayuscula),
+  state:z.string()
+    .refine(value => validateWordCount(value, 2), { message: "La ciudad no dedbe de tener más de dos palabras" })
+    .transform(mayuscula),
   phoneNumber: z.string ()
   .length(10, 'El número de teléfono debe contener exactamente 10 dígitos')
   .refine(value => /^\d+$/.test(value), { message: 'El número de teléfono solo debe contener dígitos numéricos' }),
-  email: z.string().email('Debe de ser un correo valido'),
-  work: z.string()
-  .optional(),
-  scholarity: z.string()
-  .optional(),
+  email: z.string()
+  .email('Debe de ser un correo valido'),
   urlSocioPhoto: z.string()
   .optional(),
   urlSocioIne: z.string()
   .optional(),
-  /*
-  status: z.boolean()
-  .transform(value => value ? true : false),
-  fechaIngreso: z.date()
-.refine(value => value <= new Date(), { message: "La fecha de ingreso no puede ser mayor a la fecha actual" }) */
-  
-
-  /* street: z.string(),
-  street_number: z.string (),   
-  city: z.string (),
-  administrativeArea: z.string (),
-  postalCode: z.string (),
-  country: z.string (),
-  work: z.string(),
-  scholarity: z.string(),
-  status: z.boolean(),
-  fechaIngreso: z.date(),
-photo: z.string(),*/
+  urlIdDomicilio: z.string()
+  .optional(),
+  periodoDePago: z.string(),
   });
 
 

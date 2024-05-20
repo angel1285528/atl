@@ -43,7 +43,6 @@ export const zSchemaFamiliares = z.object ({
   familyPhoneNumber: z.string ()
   .length(10, 'El número de teléfono debe contener exactamente 10 dígitos')
   .refine(value => /^\d+$/.test(value), { message: 'El número de teléfono solo debe contener dígitos numéricos' }),
-  familyEmail: z.string().email('Debe de ser un correo valido'),
   familyRelationship: z.string()
     .min(1, 'La relación es requerida')
     .refine(validateNoNumbers, { message: "La relación no debe contener números" })
