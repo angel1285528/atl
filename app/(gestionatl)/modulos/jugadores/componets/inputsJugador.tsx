@@ -119,6 +119,8 @@ const InputsFormularioJugador: React.FC = () => {
                     <option key={grado} value={grado}>{grado}</option>
                   ))}
                 </select>
+              ) : field.name === "fechaNacimiento" ? (
+                <Calendario />
               ) : (
                 <input
                   {...register(field.name, { required: true })}
@@ -133,7 +135,7 @@ const InputsFormularioJugador: React.FC = () => {
           ))}
         </fieldset>
       ))}
-      <Calendario />
+
     </div>
   );
 };

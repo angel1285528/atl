@@ -1,17 +1,16 @@
 import { useState } from "react";
-import { useFormContext, Controller } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { format } from "date-fns";
+import { es } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
+import ReactDatePicker from "react-datepicker";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {
@@ -19,9 +18,16 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import "react-datepicker/dist/react-datepicker.css";
 
 const Calendario: React.FC = () => {
   const { control, setValue } = useFormContext();
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
+
+  const handleSelect = (date: Date) => {
+    setValue("fechaNacimiento", date);
+    setIsPopoverOpen(false); // Cerrar el popover al seleccionar una fecha
+  };
 
   return (
     <FormField
@@ -29,44 +35,47 @@ const Calendario: React.FC = () => {
       name="fechaNacimiento"
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <FormLabel>Fecha de Nacimiento</FormLabel>
-          <Popover>
+          <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
             <PopoverTrigger asChild>
               <FormControl>
                 <Button
                   variant={"outline"}
                   className={cn(
-                    "w-[240px] pl-3 text-left font-normal",
+                    "mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500",
                     !field.value && "text-muted-foreground"
                   )}
+                  onClick={() => setIsPopoverOpen(!isPopoverOpen)}
                 >
                   {field.value ? (
-                    format(field.value, "PPP")
+                    format(field.value, "PPP", { locale: es })
                   ) : (
-                    <span>Pick a date</span>
+                    <span>Selecciona o escribe una fecha</span>
                   )}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>
               </FormControl>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
+            <PopoverContent
+              className="w-auto p-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              align="start"
+              style={{ backgroundColor: "white" }}
+            >
+              <ReactDatePicker
                 selected={field.value}
-                onSelect={(date) => {
-                  field.onChange(date);
-                  setValue("fechaNacimiento", date);
-                }}
-                disabled={(date) =>
-                  date > new Date() || date < new Date("1900-01-01")
-                }
-                initialFocus
+                onChange={handleSelect}
+                locale={es}
+                dateFormat="PPP"
+                showMonthDropdown
+                showYearDropdown
+                dropdownMode="select"
+                maxDate={new Date()}
+                minDate={new Date("1900-01-01")}
+                inline
+                className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />
             </PopoverContent>
           </Popover>
-          <FormDescription>
-            Your date of birth is used to calculate your age.
-          </FormDescription>
+
           <FormMessage />
         </FormItem>
       )}
