@@ -1,8 +1,8 @@
 "use server"
 import { interfacePlayer } from '../interfacePlayer';
-import { PrismaClient } from '@prisma/client';
+import prisma from '@/app/lib/prisma';
 
-const prisma = new PrismaClient();
+
 
 
 export const createPlayer = async (playerData: interfacePlayer) => {

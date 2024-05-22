@@ -1,5 +1,5 @@
 import React from "react"
-import UseProvider, { UserProvider } from "@auth0/nextjs-auth0/client"
+import { UserProvider } from "@auth0/nextjs-auth0/client"
 
 export const metadata = {
   title: 'Next.js',

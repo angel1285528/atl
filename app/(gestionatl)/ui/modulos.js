@@ -14,17 +14,17 @@ import Image from "next/image";
 
 const menuItems = [
   //Modulo de Gestion de Usuarios
-  {
-      imageUrl: '/iconos-modulos/socios.svg',
-      title: "Gestión Usuarios",
-        items: [
-          { 
-            icon: FiUserPlus,
-            text: "Registrar Usuarios",
-            href: "/modulos/usuarios/nuevousuario"
-          }
-          ]
-  },
+  // {
+  //     imageUrl: '/iconos-modulos/socios.svg',
+  //     title: "Gestión Usuarios",
+  //       items: [
+  //         { 
+  //           icon: FiUserPlus,
+  //           text: "Registrar Usuarios",
+  //           href: "/modulos/usuarios/nuevousuario"
+  //         }
+  //         ]
+  // },
   //0 - Componentes del modulo Socios    
   {
     imageUrl: '/iconos-modulos/socios.svg',
@@ -101,7 +101,7 @@ return (
       </div>
       <div>
 <motion.div animate={open ? "open" : "closed"} className="relative w-34 mx-auto z-10"> {/* Ajusta el ancho aquí */}
-    <button onClick={() => setOpen((pv) => !pv)} className="flex items-center justify-center gap-2 px-6 py-2 rounded-md text-white bg-sky-500 hover:bg-sky-600 transition-color text-lg md:text-2xl w-full">
+    <button onClick={() => setOpen((pv) => !pv)} className="flex items-center justify-center gap-2 px-6 py-2 rounded-md text-black bg-blue-500 hover:bg-sky-600 text-lg md:text-2xl w-full">
         <span className="font-medium text-xl tracking-wider">{title}</span>
         <motion.span variants={iconVariants}>
             <FiChevronDown />
@@ -111,8 +111,8 @@ return (
         <motion.ul
         initial={wrapperVariants.closed}
         variants={wrapperVariants}
-        style={{ originY: "top", translateX: "-50%" }}
-         className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] left-[50%] w-[100%] overflow-hidden z-20">
+        style={{ originY: "top", translateX: "100%" }}
+         className="flex flex-col gap-2 p-2 rounded-lg bg-white shadow-xl absolute top-[120%] w-[100%] overflow-hidden z-20">
         {items.map((item) => (
             <MenuItem key={item.text} setOpen={setOpen} {...item} />
         ))}
@@ -186,7 +186,7 @@ const wrapperVariants = {
     },
     closed: {
       opacity: 0,
-      y: -15,
+      y: 0,
       transition: {
         when: "afterChildren",
       },

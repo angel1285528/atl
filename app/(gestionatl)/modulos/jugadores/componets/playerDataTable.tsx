@@ -1,15 +1,6 @@
 "use client";
 import * as React from "react";
-import {
-  Table as TableSuperResponsive,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
-} from "react-super-responsive-table";
-import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import { columnasPlayer } from "./playerColums";
+
 import { PlusCircle } from "lucide-react";
 import {
   ColumnDef,
@@ -71,16 +62,16 @@ export function PlayerDataTable<TData, TValue>({
         className="flex flex-col md:flex-row items-center py-2 md:py-4 md:ml-10"
       >
         <h3 className="hidden md:block font-bold text-xl md:text-2xl flex-shrink-0">
-          Buscar socio
+          Buscar jugador
         </h3>
         <div className="flex-grow w-full mx-auto md:mr-5 mt-2 md:mt-0">
           <Input
             placeholder="Nombre del jugador a buscar"
             value={
-              (table.getColumn("firstName")?.getFilterValue() as string) ?? ""
+              (table.getColumn("playerFirstName"|| table.getRow("LastName"))?.getFilterValue() as string) ?? ""
             }
             onChange={(event) =>
-              table.getColumn("firstName")?.setFilterValue(event.target.value)
+              table.getColumn("playerFirstName")?.setFilterValue(event.target.value)
             }
             className="text-black text-xl ml-2 flex-1 w-full "
           />

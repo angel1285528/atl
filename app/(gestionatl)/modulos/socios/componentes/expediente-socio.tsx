@@ -59,7 +59,7 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
        <div id='fotoSocio' className='relative w-[200px] h-[200px] rounded-full overflow-hidden' style={{ background: 'linear-gradient(to right, #1E3A8A 50%, #FBBF24 50%)' }}>
         <Image
           src={socio.urlSocioPhoto || '/images/avatar.png'}
-          alt={`Foto de ${socio.firstName}`}
+          alt="Foto"
           layout='fill'
           objectFit='cover'
           className='absolute inset-0 rounded-full'
@@ -80,9 +80,9 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
         <h3 className='text-xl font-bold text-blue-900'>Fecha de Registro: <span className='font-normal'>{socio.fechaRegistro.toLocaleDateString()}</span></h3>
          <Link href={`${socio.urlSocioIne}`}><h3 className='text-xl font-bold text-blue-900'>Identificación: <span className='font-normal'>Credencial de Elector</span></h3></Link>
       </div>
-      <div className='hidden md:block lg:basis-1/5'>
+      <div className='md:block lg:basis-1/5'>
         <h1 className='text-xl text-center font-bold text-blue-900'>Acciones</h1>
-        {/* <BotonesExpedienteSocio />         */}
+        <BotonesExpedienteSocio />        
       </div>
     </div>
   );

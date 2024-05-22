@@ -1,10 +1,8 @@
-
-import { Auth0Provider } from '@auth0/auth0-react';
 import Header from "@/app/(gestionatl)/ui/header";
-import '@/app/globals.css'
 import { roboto } from "../ui/fonts"
 import React from 'react'
 import Sidebar from "./ui/sidebar";
+import '@/app/globals.css'
 
 
 export const metadata = {

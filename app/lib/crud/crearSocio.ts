@@ -1,10 +1,9 @@
 //Función para crear socio en base de datos con prisma ORM
 
 'use server'
-import { PrismaClient } from '@prisma/client';
+import prisma from "@/app/lib/prisma";
 import { interfaceSocio } from '../interfaces/interfaceSocio';
 
-const prisma = new PrismaClient()
 
 export const createSocio = async (socioData: interfaceSocio) => {
   try {
