@@ -8,7 +8,13 @@ import { interfacePlayer } from '../lib/interfacePlayer';
 import { createPlayer } from '../lib/crud/crearJugador';
 import { toast } from 'react-toastify';
 import InputsFormularioJugador from './inputsJugador';
-
+import { 
+Accordion,
+AccordionContent,
+AccordionItem,
+AccordionTrigger,
+} from "@/components/ui/accordion"
+import { BsPersonFillAdd } from "react-icons/bs";
   
 const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
@@ -42,7 +48,13 @@ const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
   };
 
   return (
-    <FormProvider {...methods}>
+    <Accordion className='w-full md:w-5/6 lg:w-4/6 mx-auto' type="single" collapsible>
+<AccordionItem value='1'>
+<AccordionTrigger className='flex items-center font-bold text-xl md:text-2xl text-blue-900'>
+      <span><BsPersonFillAdd className=' text-2xl md:text-3xl text-right mr-auto'/></span><span> Registrar Jugador</span>
+    </AccordionTrigger>
+    <AccordionContent>
+   <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
         <InputsFormularioJugador />
         <div className='flex justify-center'>
@@ -52,6 +64,9 @@ const FormularioPlayer: React.FC<{socioId: string}> = ({socioId}) => {
         </div>
       </form>
     </FormProvider>
+    </AccordionContent>
+    </AccordionItem>
+    </Accordion>
   );
   }
   export default FormularioPlayer

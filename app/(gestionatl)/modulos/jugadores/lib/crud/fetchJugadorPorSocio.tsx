@@ -1,10 +1,7 @@
 'use server'
 import { interfacePlayer } from '../interfacePlayer';
 import { unstable_noStore as noStore } from 'next/cache';
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
-
+import prisma from '@/app/lib/prisma';
 
 export async function cargarJugadoresPorSocio(socioId: string): Promise<interfacePlayer[]> {
   noStore();

@@ -33,15 +33,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
           <DataTableFamiliares columns={columnsFamiliares} data={data || []} />
         </div>
       </div>
-      <div id="formularioFamiliar"className="" >
-        <FormularioFamiliar socioId={idDelSocio} />
-      <ToastContainer />
-      </div>
+ 
       <div id="formularioJugador" //hidden
       >
       <FormularioPlayer socioId={idDelSocio} />
       </div>
-
+      <div id="formularioFamiliar"className="" >
+        <FormularioFamiliar socioId={idDelSocio} />
+      <ToastContainer />
+      </div>
     </div>
   );
 }

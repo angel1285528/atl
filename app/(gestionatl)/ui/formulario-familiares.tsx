@@ -62,7 +62,8 @@ const FormularioFamiliar: React.FC<FormularioFamiliarProps> = ({ socioId }) => {
         <AccordionItem value="item-1">
         <AccordionTrigger className='flex items-center font-bold text-xl md:text-2xl text-blue-900'>
       <span><BsPersonFillAdd className=' text-2xl md:text-3xl text-right mr-auto'/></span><span> Registrar Familiar</span>
-    </AccordionTrigger>   <AccordionContent>
+    </AccordionTrigger>   
+    <AccordionContent>
           <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)} className='text-black'>
 

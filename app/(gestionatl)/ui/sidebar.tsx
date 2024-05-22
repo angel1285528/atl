@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { MdMenuOpen } from "react-icons/md";
 
@@ -10,6 +11,7 @@ export default function Sidebar() {
             <div id="sideBar" className="md:basis-1/5 w-full">
 
                 <div id="sideBarTop" className="hidden md:flex md:flex-col justify-center items-center border-b-4 border-blue-800 md:scale-75 lg:scale-100 xl:scale-100">
+                    <Link href="/modulos">
                     <Image src="/logo-academia.svg" width={120} height={120} alt="Logotipo Academia Tigres" className="object-center size-24 md:size-40 " />
                     <div>
                     <span>
@@ -19,8 +21,10 @@ export default function Sidebar() {
                     <h2 className=" font-bold text-xl">Academia Tigres Linares</h2>
                     </span>
                     </div>
+                    </Link>
                 </div>
                 <div className="md:hidden text-white text-xl text-center flex justify-between p-4 bg-blue-800">
+                    <Link href="/modulos">
                     <span>  
                     <Image src="/logo-academia.svg" width={60} height={60} alt="Logotipo Academia Tigres" className="object-center " />
                     </span>
@@ -28,20 +32,26 @@ export default function Sidebar() {
                     Sistema de Gestión <br />
                     Academia Tigres Linares
                     </span>
+                    </Link>
                     <button onClick={() => setIsOpen(!isOpen)}>
                         <MdMenuOpen size="35px" style={{ color: 'white' }} />
                     </button>
                 </div>
                 <div id="sideBarMain" className={`${isOpen ? 'block' : 'hidden'} md:block`}>
 
-
                     <ul>
+                        <Link href="/modulos">
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Inicio</span></li>
+                        </Link>
+                        <Link href="modulos/socios">
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Socios</span></li>
+                        </Link>
+                        <Link href="/modulos/jugadores">
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Jugadores</span></li>
-                        <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Entrenadores</span></li>
+                        </Link>
+                        {/* <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Entrenadores</span></li>
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Grupos</span></li>
-                        <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Equipos</span></li>
+                        <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Equipos</span></li> */}
                     </ul>
 
                 </div>
