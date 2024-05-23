@@ -43,7 +43,7 @@ export default function Sidebar() {
                         <Link href="/modulos">
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Inicio</span></li>
                         </Link>
-                        <Link href="modulos/socios">
+                        <Link href="/modulos/socios">
                         <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>Socios</span></li>
                         </Link>
                         <Link href="/modulos/jugadores">

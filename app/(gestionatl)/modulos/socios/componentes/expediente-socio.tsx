@@ -1,9 +1,9 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import { cargarCliente } from '@/app/lib/crud/cargarcliente';
 import Image from 'next/image';
 
-import { Role, StatusSocios, } from "@prisma/client";
+import { Role, StatusSocios } from "@prisma/client";
 import BotonesExpedienteSocio from './botonesExpedienteSocio';
 import Link from 'next/link';
 
@@ -56,7 +56,7 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
 
   return (
     <div id="datosSocio" className='flex flex-col lg:flex-row gap-5 mt-5'>
-       <div id='fotoSocio' className='relative w-[200px] h-[200px] rounded-full overflow-hidden' style={{ background: 'linear-gradient(to right, #1E3A8A 50%, #FBBF24 50%)' }}>
+      <div id='fotoSocio' className='relative w-[200px] h-[200px] rounded-full overflow-hidden' style={{ background: 'linear-gradient(to right, #1E3A8A 50%, #FBBF24 50%)' }}>
         <Image
           src={socio.urlSocioPhoto || '/images/avatar.png'}
           alt="Foto"
@@ -72,17 +72,16 @@ const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
           <h3 className='text-2xl font-bold text-blue-900'>Status: <span className='font-normal'>{socio.status}</span></h3>
         </div>
         <div className="flex flex-wrap justify-between">
-        <h3 className='text-xl font-bold text-blue-900'>Dirección: <span className='font-normal'>{socio.street}{socio.streetNumber} Colonia: {socio.colonia}, {socio.city}, {socio.state}</span></h3>
+          <h3 className='text-xl font-bold text-blue-900'>Dirección: <span className='font-normal'>{socio.street} {socio.streetNumber} Colonia: {socio.colonia}, {socio.city}, {socio.state}</span></h3>
           <h3 className='text-xl font-bold text-blue-900'>Correo: <span className='font-normal'>{socio.email}</span></h3>
           <h3 className='text-2xl font-bold text-blue-900'>Celular: <span className='font-normal'>{socio.phoneNumber}</span></h3>
         </div>
-
         <h3 className='text-xl font-bold text-blue-900'>Fecha de Registro: <span className='font-normal'>{socio.fechaRegistro.toLocaleDateString()}</span></h3>
-         <Link href={`${socio.urlSocioIne}`}><h3 className='text-xl font-bold text-blue-900'>Identificación: <span className='font-normal'>Credencial de Elector</span></h3></Link>
+        <Link href={socio.urlSocioIne || '#'}><h3 className='text-xl font-bold text-blue-900'>Identificación: <span className='font-normal'>Credencial de Elector</span></h3></Link>
       </div>
       <div className='md:block lg:basis-1/5'>
         <h1 className='text-xl text-center font-bold text-blue-900'>Acciones</h1>
-        <BotonesExpedienteSocio />        
+        <BotonesExpedienteSocio idSlug={socio.id} />
       </div>
     </div>
   );
