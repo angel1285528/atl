@@ -5,6 +5,7 @@ import PlayerDataTable from './componets/playerDataTable';
 import NewPlayerButton from './ui/newPlayerButton';
 import { fetchPlayer } from './lib/crud/playerslist';
 
+export const dynamic = "force-dynamic"
 
 export default async function Page() {
   const data = await fetchPlayer()
