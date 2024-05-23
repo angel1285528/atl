@@ -2,6 +2,8 @@ import React from "react";
 import ExpedienteJugador from "../componets/expedienteJugador";
 import { cargarJugador } from "../lib/crud/cargarJugador";
 
+export const dynamic = "force-dynamic"
+
 interface PageProps {
   params: {
     slug: string;

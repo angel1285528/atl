@@ -1,11 +1,7 @@
 "use client"
 import * as React from "react"
-import { Table as TableSuperResponsive, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
-import { ReactNode } from "react";
-import { columnasSocios } from "./columns-socios";
-import { PlusCircle } from "lucide-react"
-
+import { PlusCircle } from "lucide-react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -29,7 +25,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Link from "next/link";
-import { useEffect, useState } from "react";
+
 
 
 

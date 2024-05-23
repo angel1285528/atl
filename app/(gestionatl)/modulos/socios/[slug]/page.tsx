@@ -1,4 +1,3 @@
-
 import ExpedienteSocios from "@/app/(gestionatl)/modulos/socios/componentes/expediente-socio"
 import FormularioFamiliar from "@/app/(gestionatl)/ui/formulario-familiares";
 import { DataTableFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/data-table-familiares";
@@ -10,6 +9,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { DataTableJugadoresPorSocio } from "../../jugadores/componets/DataTableJugadoresPorSocio";
 import { columnasJugadoresSocio } from "../../jugadores/componets/columnasJugadoresPorSocio";
 import { cargarJugadoresPorSocio } from "../../jugadores/lib/crud/fetchJugadorPorSocio";
+
+export const dynamic = "force-dynamic"
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
