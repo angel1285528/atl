@@ -7,3 +7,8 @@ export const fetchSocios = async () => {
     return socios;
 };
 
+export const SociosTotales = async (): Promise<number> => {
+    const totalSocios = await prisma.socio.count();
+    console.log(totalSocios);
+    return totalSocios;
+}

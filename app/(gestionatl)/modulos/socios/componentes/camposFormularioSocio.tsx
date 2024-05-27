@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import ErrorMessage from '../forms-fields/errorComponent';
-import SocioPhoto from '../forms-fields/photo';
-import InePhoto from '../forms-fields/Ine';
-import ComprobanteDeDomicilio from '../forms-fields/comprobanteDeDomicilio';
+import ErrorMessage from '../../../ui/forms-fields/errorComponent';
+import SocioPhoto from '../../../ui/forms-fields/photo';
+import InePhoto from '../../../ui/forms-fields/Ine';
+import ComprobanteDeDomicilio from '../../../ui/forms-fields/comprobanteDeDomicilio';
 
 const formFields = [
 
@@ -36,7 +36,6 @@ const formFields = [
     }
   ];
   
-
   const InputsFormularioSocio: React.FC = () => {
     const {
       register,
