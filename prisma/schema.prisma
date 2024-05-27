@@ -11,7 +11,14 @@ generator client {
      
 }
 
+model Temporadas {
+    idPeriodo                   Int @id @default(autoincrement())
+    Temporada                   String @unique
+    Estado                      Boolean @default(false)
+    fechaIncioTemporada         DateTime
+    fechaFinTemporada           DateTime
 
+}
 model socio {
     id             String       @id @unique
     firstName      String

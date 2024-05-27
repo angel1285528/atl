@@ -8,7 +8,7 @@ import { useForm, SubmitHandler, useFormContext } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'react-toastify';
-import InputsFormularioSocio from './formularios/camposFormularioSocio';
+import InputsFormularioSocio from './camposFormularioSocio';
 
 
 //Se declara objeto para renderizar fieldsets e inputs del formulario
