@@ -1,6 +1,5 @@
 // actualizarFoto.ts
 "use server";
-import { jugador } from "@prisma/client";
 import prisma from "@/app/lib/prisma";
 
 export const actualizarFoto = async (data: { entityId: string; PhotoUrl: string }) => {

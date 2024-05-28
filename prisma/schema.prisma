@@ -10,7 +10,24 @@ generator client {
     provider = "prisma-client-js"
      
 }
+model Asistencia {
+  idAsistencia      Int             @id @default(autoincrement())
+  jugadorId         String
+  entrenamientoId   Int
+  fechaAsistencia   DateTime        @default(now())
+  
+  jugador           jugador         @relation(fields: [jugadorId], references: [playerId])
+  entrenamiento     Entrenamientos  @relation(fields: [entrenamientoId], references: [idEntrenamiento])
+  
+  @@unique([jugadorId, entrenamientoId])
+}
 
+model Entrenamientos {
+    idEntrenamiento             Int @id @default(autoincrement())
+    fechaEntrenamiento          DateTime @default(now())
+    sesionActiva                Boolean
+    asistencias                 Asistencia[]   
+}
 model Temporadas {
     idPeriodo                   Int @id @default(autoincrement())
     Temporada                   String @unique
@@ -72,6 +89,7 @@ model jugador {
     schoolarLevel        String
   schoolarGrade        String      
     school               String
+    Asistencias         Asistencia[]
     // expedienteJugadores expedienteJugadores[]
     // estadoCuentaJugador estadoCuentaJugador[]
     // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
