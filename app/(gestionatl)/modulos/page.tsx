@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import Dashboard from './components/dashboard';
 import { JugadoresTotales } from "./jugadores/lib/crud/playerslist";
 
+
+
 export const dynamic = "force-dynamic"
 
 const Page: React.FC = () => {

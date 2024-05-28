@@ -38,7 +38,7 @@
     "app/(gestionatl)/ui/menusmodulos/socios.js",
     "app/(gestionatl)/ui/modulos.js",
     "app/profile-client/page.jsx"
-  ],
+, "components/ui/curpScanner.jsx"  ],
   "exclude": [
     "node_modules"
   ]
