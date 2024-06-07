@@ -20,19 +20,23 @@ import {
 } from "@/components/ui/popover";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Calendario: React.FC = () => {
+interface CalendarioProps {
+  value: string;
+}
+
+const Calendario: React.FC<CalendarioProps> = ({ value }) => {
   const { control, setValue } = useFormContext();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
   const handleSelect = (date: Date) => {
-    setValue("fechaNacimiento", date);
+    setValue(value, date);
     setIsPopoverOpen(false); // Cerrar el popover al seleccionar una fecha
   };
 
   return (
     <FormField
       control={control}
-      name="fechaNacimiento"
+      name={value}
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <Popover open={isPopoverOpen} onOpenChange={setIsPopoverOpen}>
@@ -56,7 +60,7 @@ const Calendario: React.FC = () => {
               </FormControl>
             </PopoverTrigger>
             <PopoverContent
-              className="w-auto p-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
+              className="p-0 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               align="start"
               style={{ backgroundColor: "white" }}
             >
@@ -68,8 +72,8 @@ const Calendario: React.FC = () => {
                 showMonthDropdown
                 showYearDropdown
                 dropdownMode="select"
-                maxDate={new Date()}
-                minDate={new Date("1900-01-01")}
+                maxDate={new Date("2040-01-01")}
+                minDate={new Date("1924-01-01")}
                 inline
                 className="mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               />

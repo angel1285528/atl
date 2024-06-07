@@ -2,21 +2,12 @@
 import Link from "next/link"
 import { interfacePlayer } from "../lib/interfacePlayer";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, FolderInput, Link as link } from "lucide-react";
-import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+
 
 export type columnasJugadoresPorSocio = {
     playerPhotoUrl: string
-    }
+}
 
 export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
     // Columna Foto
@@ -31,12 +22,13 @@ export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
             }
 
             return (
-                <Link href={`/modulos/socios/${id}`}>
-                    <Avatar className=" size-10 md:size-14 ">
+                <Avatar className=" size-10 md:size-14 ">
+                    <Link href={`/modulos/socios/${id}`}>
                         <AvatarImage className=" border-2 md:border-4 hover:border-sky-900  rounded-full " src={playerPhotoUrl} />
                         <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                </Link>)
+                    </Link>
+                </Avatar>
+            )
         }
     },
     //Columna Nombre
@@ -57,15 +49,15 @@ export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
                         <div className="md:font-medium hover:text-blue-900 hover:underline">{firstName} {lastName} {secondLastName}</div>
                         <div className="text-m text-gray-500"> {row.original.playerId}</div>
                         <div className="text-m text-gray-500"><span>{row.original.categoria}</span></div>
-                        
+
                     </div>
                 </Link>
             )
         },
     },
     //Columna categoría
-    
+
     //Columna Boton Expediente
 
-   
+
 ]

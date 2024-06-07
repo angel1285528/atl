@@ -22,7 +22,7 @@ const formFields = [
   {
     label: 'Datos de Nacimiento',
     fields: [
-      {label: "Fecha de nacimiento", name:"fechaNacimiento", type:"Date"},
+      {label: "Fecha de nacimiento", name:"fechaNacimiento", type:"date"},
       { label: 'Categoría', name: 'categoria', type: 'select', options: getCurrentYearRange() },
       { label: 'Rama', name: 'rama', type: 'select', options: ['Varonil', 'Femenil'] },
       { label: 'País de Nacimiento', name: 'paisNacimiento', type: 'select', options: ["México", "Nacido en el extranjero"] },
@@ -119,8 +119,8 @@ const InputsFormularioJugador: React.FC = () => {
                     <option key={grado} value={grado}>{grado}</option>
                   ))}
                 </select>
-              ) : field.name === "fechaNacimiento" ? (
-                <Calendario />
+              ) : field.type === 'date' ? (
+                <Calendario value={field.name} />
               ) : (
                 <input
                   {...register(field.name, { required: true })}

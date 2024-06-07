@@ -72,7 +72,7 @@ const InputsFormularioJugador: React.FC = () => {
               <label htmlFor={field.name} className='block text-sm font-medium text-gray-700'>{field.label}</label>
               {field.type === 'date' ? (
                 <>
-                  <Calendario />
+                  <Calendario value='fechaNacimiento' />
                 </>
               ) : (
                 <input
@@ -88,7 +88,7 @@ const InputsFormularioJugador: React.FC = () => {
           ))}
         </fieldset>
       ))}
-<Calendario />
+<Calendario value='fechaNacimiento' />
     </div>
   );
 };

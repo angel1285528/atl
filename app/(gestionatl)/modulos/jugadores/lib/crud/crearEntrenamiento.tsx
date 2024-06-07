@@ -1,14 +1,14 @@
 'use server';
 
 import prisma from '@/app/lib/prisma';
-import { Entrenamientos } from '@prisma/client';
+import { JornadaEntrenamiento } from '@prisma/client';
 
-export const createEntrenamientos = async (data: Partial<Entrenamientos>) => {
+export const createEntrenamientos = async (data: Partial<JornadaEntrenamiento>) => {
   try {
-    const newEntrenamiento = await prisma.entrenamientos.create({
+    const newEntrenamiento = await prisma.jornadaEntrenamiento.create({
       data: {
-        fechaEntrenamiento: data.fechaEntrenamiento || new Date(),
-        sesionActiva: data.sesionActiva ?? false,  // Usa el valor por defecto si no se proporciona
+        fechaJornadaEntrenamiento: data.fechaJornadaEntrenamiento || new Date(),
+        estado: data.estado,  // Usa el valor por defecto si no se proporciona
       },
     });
     console.log('Nuevo entrenamiento creado:', newEntrenamiento);

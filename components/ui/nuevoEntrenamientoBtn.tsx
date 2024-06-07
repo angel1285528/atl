@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createEntrenamientos } from '@/app/(gestionatl)/modulos/jugadores/lib/crud/crearEntrenamiento';
-import { Entrenamientos } from '@prisma/client';
+
 
 const IniciarEntrenamientoButton: React.FC = () => {
   const router = useRouter();
@@ -13,11 +13,11 @@ const IniciarEntrenamientoButton: React.FC = () => {
     setLoading(true);
     try {
       const newEntrenamiento = await createEntrenamientos({
-        fechaEntrenamiento: new Date(),
+        fechaJornadaEntrenamiento: new Date(),
       });
       setLoading(false);
       console.log('Entrenamiento creado:', newEntrenamiento);
-      router.push(`/modulos/entrenamientos/currentSesion/${newEntrenamiento.idEntrenamiento}`);
+      router.push(`/modulos/entrenamientos/currentSesion/${newEntrenamiento.idJornadaEntrenamiento}`);
     } catch (error) {
       setLoading(false);
       console.error('Error iniciando sesión de entrenamiento:', error);

@@ -4,14 +4,16 @@ import { TiSocialFacebookCircular, TiSocialInstagramCircular } from "react-icons
 import { MdOutlineEmail } from "react-icons/md";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
+import WebNavBar from './components/webNavBar';
 // import { BsWhatsapp } from "react-icons/bs";
 // import { SiTiktok } from "react-icons/si";
 
 export default function Home(): React.JSX.Element {
   return (
     <main>
-
+    <WebNavBar />
       <div id='content' className='flex flex-col mb-auto'>
+
         <div id="logo" className='mx-auto pt-8 m-2'>
           <Image
             src="/logo-academia.svg"

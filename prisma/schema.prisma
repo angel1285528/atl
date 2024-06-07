@@ -1,101 +1,126 @@
 //schema.prisma
 
 datasource db {
-    provider  = "postgresql"
-    url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
-    directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
 }
 
 generator client {
-    provider = "prisma-client-js"
-     
+  provider = "prisma-client-js"
 }
+
+model JornadaEntrenamiento {
+  idJornadaEntrenamiento    Int           @id @default(autoincrement())
+  fechaJornadaEntrenamiento DateTime
+  horaInicioJornada         DateTime?
+  horaFinJornada            DateTime?
+  bitacoraJornada           String?
+  estado                    EstadoJornada @default(Programada)
+  clases                    Clases[]
+}
+
+model Clases {
+  idClase       Int                  @id @default(autoincrement())
+  tipo          TipoClase
+  BitacoraClase String
+  jornadaId     Int
+  jornada       JornadaEntrenamiento @relation(fields: [jornadaId], references: [idJornadaEntrenamiento])
+  alumnos       jugador[]
+  entrenadores  Entrenadores[]
+  asistencias   Asistencia[]
+}
+
 model Asistencia {
-  idAsistencia      Int             @id @default(autoincrement())
+  id                Int      @id @default(autoincrement())
+  fecha             DateTime @default(now())
   jugadorId         String
-  entrenamientoId   Int
-  fechaAsistencia   DateTime        @default(now())
-  
-  jugador           jugador         @relation(fields: [jugadorId], references: [playerId])
-  entrenamiento     Entrenamientos  @relation(fields: [entrenamientoId], references: [idEntrenamiento])
-  
-  @@unique([jugadorId, entrenamientoId])
+  claseId           Int
+  alumno            jugador  @relation(fields: [jugadorId], references: [playerId])
+  clase             Clases   @relation(fields: [claseId], references: [idClase])
+  PartidoProgramado Boolean  @default(false) // Para marcar si la ausencia es justificada (partido, etc.)
+}
+enum TipoClase {
+  fut1
+  fut3
+  fut5
+  fut7
+  fut9
+  fut11
 }
 
-model Entrenamientos {
-    idEntrenamiento             Int @id @default(autoincrement())
-    fechaEntrenamiento          DateTime @default(now())
-    sesionActiva                Boolean
-    asistencias                 Asistencia[]   
+enum EstadoJornada {
+  Programada
+  Cancelada
+  Realizada
 }
+
 model Temporadas {
-    idPeriodo                   Int @id @default(autoincrement())
-    Temporada                   String @unique
-    Estado                      Boolean @default(false)
-    fechaIncioTemporada         DateTime
-    fechaFinTemporada           DateTime
-
+  idPeriodo           Int      @id @default(autoincrement())
+  Temporada           String   @unique
+  Estado              Boolean  @default(false)
+  fechaInicioTemporada DateTime
+  fechaFinTemporada   DateTime
+  bitacora            String?
 }
+
 model socio {
-    id             String       @id @unique
-    firstName      String
-    lastName       String
-    secondLastName String?
-    street         String
-    streetNumber   String
-    colonia        String
-    postalCode     String
-    city           String
-    state          String
-    phoneNumber    String
-    email          String 
-    urlSocioPhoto  String?
-    urlSocioIne    String?
-    urlIdDomicilio String?
-    periodoDePago  String
-    rol            Role         @default(socio)
-    status         StatusSocios @default(Activo)
-    fechaRegistro  DateTime     @default(now())
-    familiares     familiares[]
-    jugador        jugador[]
+  id             String       @id @unique
+  firstName      String
+  lastName       String
+  secondLastName String?
+  street         String
+  streetNumber   String
+  colonia        String
+  postalCode     String
+  city           String
+  state          String
+  phoneNumber    String
+  email          String
+  urlSocioPhoto  String?
+  urlSocioIne    String?
+  urlIdDomicilio String?
+  periodoDePago  String
+  rol            Role         @default(socio)
+  status         StatusSocios @default(Activo)
+  fechaRegistro  DateTime     @default(now())
+  familiares     familiares[]
+  jugador        jugador[]
 }
-
-
 
 enum StatusSocios {
-    Activo
-    Ausente
-    Baja
+  Activo
+  Ausente
+  Baja
 }
 
 model jugador {
-    playerId             String @id @unique 
-    playerFechaRegistro  DateTime     @default(now())
-    playerFirstName      String
-    playerLastName       String
-    playerSecondLastName String?
-    categoria            String
-    status               Status_Jugador @default(activo)
-    rama                 String      
-    socioId              String
-    socio                socio          @relation(fields: [socioId], references: [id])
-    fechaNacimiento      DateTime       
-    playerPhotoUrl       String?
-    playerCellPhone       String?
-    playerEmail          String?
-    paisNacimiento          String
-    estadoNacimiento    String
-    ciudadNacimiento    String
-    schoolarLevel        String
-  schoolarGrade        String      
-    school               String
-    Asistencias         Asistencia[]
-    // expedienteJugadores expedienteJugadores[]
-    // estadoCuentaJugador estadoCuentaJugador[]
-    // grupoEntrenamiento  grupoEntrenamiento @relation(fields: [grupoEntrenamientoId], references: [idGrupoEntrenamiento])
-    // grupoEntrenamientoId String?
+  playerId             String         @id @unique
+  playerFechaRegistro  DateTime       @default(now())
+  playerFirstName      String
+  playerLastName       String
+  playerSecondLastName String?
+  categoria            String
+  status               Status_Jugador @default(activo)
+  rama                 String
+  socioId              String
+  socio                socio          @relation(fields: [socioId], references: [id])
+  fechaNacimiento      DateTime
+  playerPhotoUrl       String?
+  playerCellPhone      String?
+  playerEmail          String?
+  paisNacimiento       String
+  estadoNacimiento     String
+  ciudadNacimiento     String
+  schoolarLevel        String
+  schoolarGrade        String
+  school               String
+  Asistencias          Asistencia[]
+  clase                Clases?         @relation(references: [idClase], fields: [clasesIdClase])
+  // expedienteJugadores expedienteJugadores[]
+  // estadoCuentaJugador estadoCuentaJugador[]
+    clasesIdClase        Int?
 }
-
 
 // model grupoEntrenamiento{
 //     idGrupoEntrenamiento     String @id @unique
@@ -123,46 +148,45 @@ model jugador {
 // }
 
 model familiares {
-    familyId             String  @id @default(cuid())
-    familyFirstName      String
-    familyLastName       String
-    familySecondLastName String?
-    familyPhoneNumber    String
-    familyRelationship   String
-    socioId              String // Clave externa para referenciar socio
-    socio                socio   @relation(fields: [socioId], references: [id])
+  familyId             String  @id @default(cuid())
+  familyFirstName      String
+  familyLastName       String
+  familySecondLastName String?
+  familyPhoneNumber    String
+  familyRelationship   String
+  socioId              String // Clave externa para referenciar socio
+  socio                socio   @relation(fields: [socioId], references: [id])
 }
 
 enum Role {
-    socio
-    jugador
-    entrenador
-    admin
+  socio
+  jugador
+  entrenador
+  admin
 }
 
 enum Cuota {
-    Estandar
-    Hermano_Menor
-    Preferencial
-    Cortesia
+  Estandar
+  Hermano_Menor
+  Preferencial
+  Cortesia
 }
 
 enum Status_Jugador {
-    activo
-    baja
-    lesionado
-    baja_temporal
+  activo
+  baja
+  lesionado
+  baja_temporal
 }
 
- 
 model Entrenadores {
-    coachId                 String @id @unique
-    coachFirstName          String
-    coachLastName           String
-    coachSecondLastName     String
-    coachBirthDate          String
-    coachCellPhone          String
-    coachEmailPhone         String
-
-    
+  coachId             String   @id @unique
+  coachFirstName      String
+  coachLastName       String
+  coachSecondLastName String
+  coachBirthDate      String
+  coachCellPhone      String
+  coachEmailPhone     String
+  clases              Clases[]
+  //equipos                 Equipos[]
 }
