@@ -1,6 +1,5 @@
 "use client";
 import * as React from "react";
-
 import { PlusCircle } from "lucide-react";
 import {
   ColumnDef,
@@ -13,7 +12,6 @@ import {
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-
 import {
   Table,
   TableBody,
@@ -31,14 +29,12 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export default function PlayerDataTable<TData, TValue>({
+export function PlayerDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>): JSX.Element {
   const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
 
   const table = useReactTable({
     data,
@@ -68,7 +64,7 @@ export default function PlayerDataTable<TData, TValue>({
           <Input
             placeholder="Nombre del jugador a buscar"
             value={
-              (table.getColumn("playerFirstName"|| table.getRow("LastName"))?.getFilterValue() as string) ?? ""
+              (table.getColumn("playerFirstName")?.getFilterValue() as string) ?? ""
             }
             onChange={(event) =>
               table.getColumn("playerFirstName")?.setFilterValue(event.target.value)
@@ -150,4 +146,4 @@ export default function PlayerDataTable<TData, TValue>({
   );
 }
 
-
+export default PlayerDataTable;
