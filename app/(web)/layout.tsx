@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import '@/app/globals.css'
+import BlackTop from './components/blacktop'
+import WebNavbar from './components/webNavBar'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,8 +18,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className='bg-yellow-400'>{children}
-      {/* f */}
+      <body className='bg-yellow-400'>
+        <BlackTop />
+        <WebNavbar />
+        {children}
       </body>
     </html>
   );
