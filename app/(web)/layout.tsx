@@ -3,7 +3,8 @@ import { Inter } from 'next/font/google'
 import '@/app/globals.css'
 import BlackTop from './components/blacktop'
 import WebNavbar from './components/webNavBar'
-
+import WebFooter from './components/footer'
+import WebSponsors from './components/sponsors'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
@@ -22,6 +23,8 @@ export default function RootLayout({
         <BlackTop />
         <WebNavbar />
         {children}
+        <WebSponsors />
+        <WebFooter/>
       </body>
     </html>
   );

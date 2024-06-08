@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { FaBars, FaChevronDown, FaTimes } from 'react-icons/fa';
 import Link from 'next/link';
@@ -34,7 +34,7 @@ const WebNavbar = () => {
 
     return (
         <>
-            <nav className="bg-blue-900 h-20 flex items-center justify-between px-4 md:px-10 relative z-50">
+            <nav className="bg-blue-900 md:bg-[url('/patronAzul.jpg')] h-20 flex items-center justify-between px-4 md:px-10 relative z-50">
                 <button className="md:hidden text-white ml-4" onClick={handleMenuToggle}>
                     <FaBars className="w-6 h-6" />
                 </button>
