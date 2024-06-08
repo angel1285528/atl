@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import ErrorMessage from '../../../ui/forms-fields/errorComponent';
-import Calendario from '../../jugadores/componets/calendario';
+import Calendario from '../../jugadores/components/calendario';
 
 const camposFormularioTemporada = [{
     label: "Datos Temporada",

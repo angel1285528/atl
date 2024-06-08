@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { columns } from './componets/playerColums';
-import PlayerDataTable from './componets/PlayerDataTable';
+import { columns } from './components/playerColums';
+import PlayerDataTable from './components/PlayerDataTable';
 import NewPlayerButton from './ui/newPlayerButton';
 import { fetchPlayer } from './lib/crud/playerslist';
 

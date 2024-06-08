@@ -3,11 +3,11 @@ import FormularioFamiliar from "@/app/(gestionatl)/ui/formulario-familiares";
 import { DataTableFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/data-table-familiares";
 import { columnsFamiliares } from "@/app/(gestionatl)/ui/lists/tablaFamiliares/columns-familiares";
 import { cargarFamiliares } from "@/app/lib/crud/cargarFamiliares";
-import FormularioPlayer from "../../jugadores/componets/formularioJugador";
+import FormularioPlayer from "../../jugadores/components/formularioJugador";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { DataTableJugadoresPorSocio } from "../../jugadores/componets/DataTableJugadoresPorSocio";
-import { columnasJugadoresSocio } from "../../jugadores/componets/columnasJugadoresPorSocio";
+import { DataTableJugadoresPorSocio } from "../../jugadores/components/DataTableJugadoresPorSocio";
+import { columnasJugadoresSocio } from "../../jugadores/components/columnasJugadoresPorSocio";
 import { cargarJugadoresPorSocio } from "../../jugadores/lib/crud/fetchJugadorPorSocio";
 
 export const dynamic = "force-dynamic"

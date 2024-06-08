@@ -1,5 +1,5 @@
 import React from "react";
-import ExpedienteJugador from "../componets/expedienteJugador";
+import ExpedienteJugador from "../components/expedienteJugador";
 import { cargarJugador } from "../lib/crud/cargarJugador";
 
 export const dynamic = "force-dynamic"
