@@ -1,63 +1,83 @@
 import React from 'react';
-import Image from 'next/image';
-import { TiSocialFacebookCircular, TiSocialInstagramCircular } from "react-icons/ti";
-import { MdOutlineEmail } from "react-icons/md";
+import { NewspaperIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
-// import { SiTiktok } from "react-icons/si";
-
+import Link from 'next/link';
 export default function Home(): React.JSX.Element {
   return (
     <main>
-
-    
       <div id='content' className='flex flex-col mb-auto'>
-
-        <div id="logo" className='mx-auto pt-8 m-2'>
-          <Image
-            src="/logo-academia.svg"
-            width={200}
-            height={200}
-            className='drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.9)]'
-            priority={true}
-            alt='Logotipo Academia Tigres Linares'
-          />
-        </div>
-        <div id="titulo" className='flex-initial text-indigo-800'>
-          <h1 className='md:text-7xl text-center antialiased font-bold tracking tracking-wide drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.9)]'>ACADEMIA</h1>
-        </div>
-
-        <div className='mx-auto text-center'>
-          <h2 className='md:text-7xl text-indigo-800 md:ml-8 text-center antialiased font-bold tracking tracking-wide drop-shadow-[0_1.2px_1.2px_rgba(0,0,0,0.9)]'>TIGRES LINARES</h2>
-          <div id="sitio-en-construccion" className='mx-auto text-center'>
-            <h3 className='text-4xl antialiased font-bold text-white'>Sitio web en construcción</h3>
+        <div id="mainBlocks" className="flex flex-col h-auto md:flex-row mt-0 md:h-[calc(80vh-5rem)]">
+          <div
+            id="block1"
+            className="relative w-full md:w-2/4 h-64 md:h-auto bg-cover bg-center border border-gray-300 transform transition-transform duration-300 hover:scale-105"
+            style={{ backgroundImage: 'url(/main1.jpeg)' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            <div className="absolute top-4 left-4 drop-shadow-lg">
+              <NewspaperIcon className="w-6 h-6 text-white" />
+            </div>
+            <div className="absolute bottom-4 md:bottom-12 left-4 md:left-12">
+            <Link href="/academia">
+              <span className="text-2xl md:text-6xl font-bold text-white hover:text-yellow-500 hover:underline transition duration-300">
+                Academia Tigres Linares
+              </span></Link>
+              <div>
+              <Link href="/academia">
+                <Button className="mt-2 bg-yellow-500 text-blue-900 text-lg font-semibold py-2 px-4 rounded-none">
+                  Informes
+                </Button>
+              </Link>
+              </div>
+            </div>
           </div>
-        </div>
-        <div id="icons" className='flex justify-center items-center mx-auto'>
-          <a href="https://facebook.com/tigres.linares.oficial">
-            <TiSocialFacebookCircular className="size-16" />
-          </a>
-          <a href="https://www.instagram.com/academiatigreslinares/">
-            <TiSocialInstagramCircular className="size-16" />
-          </a>
-          {/*} <a href="https://www.facebook.com">
-            <BsWhatsapp className="size-14 pt-2" />
-          </a> */}
-          <a href="mailto:info@tigreslinares.com">
-            <MdOutlineEmail className="size-16" />
-          </a>
-          {/* <a href="https://www.facebook.com">
-            <SiTiktok className="size-14 pt-2" />
-          </a>*/}
-        </div>
-        <div id='documentos' className='text-center text-blue-800 text-xl font-bold'>
-          <h3><a href="https://drive.google.com/file/d/1R-6RPy4OzMuq-zDx_vCpX_H_7Iqe8VxA/view?usp=drive_link">Descargar Ficha de Datos Familiares</a></h3>
-          <h3><a href="https://drive.google.com/file/d/1oG1Wh0L4w8oEbPJTDarOQ8wypny7DmsP/view?usp=drive_link">Descargar Ficha de Inscripción de Jugadores</a></h3>
-          <Button className="rounded-full bg-blue-800 text-white font-bold py-2 px-4 text-2xl mt-4">
-            <a href="/api/auth/login">Iniciar Sesión</a>
-          </Button>
+          <div
+            id="block2"
+            className="relative w-full md:w-1/4 h-64 md:h-auto bg-cover bg-center border border-gray-300 transform transition-transform duration-300 hover:scale-105"
+            style={{ backgroundImage: 'url(/main2.jpg)' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            <div className="absolute top-4 left-4 drop-shadow-lg">
+              <NewspaperIcon className="w-6 h-6 text-white" />
+            </div>
+            <div className="absolute bottom-4 left-4 md:left-12 md:bottom-12 ">
+             <Link href="/aboutUs">
+              <span className="text-2xl md:text-5xl font-bold text-white hover:text-yellow-500 hover:underline transition duration-300">
+                Conócenos
+              </span>
+             </Link>
+              <div>
+              <Link href="/aboutUs">
+                <Button className="mt-2 bg-yellow-500 text-blue-900 text-lg font-semibold py-2 px-4 rounded-none">
+                  Saber más
+                </Button>
+              </Link>
+              </div>
+            </div>
+          </div>
+          <div
+            id="block3"
+            className="relative w-full md:w-1/4 h-64 md:h-auto bg-cover bg-center border border-gray-300 transform transition-transform duration-300 hover:scale-105"
+            style={{ backgroundImage: 'url(/poli.jpg)' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+            <div className="absolute top-4 left-4 drop-shadow-lg">
+              <NewspaperIcon className="w-6 h-6 text-white" />
+            </div>
+            <div className="absolute bottom-4 left-4 md:left-12 md:bottom-12">
+              <Link href="https://maps.app.goo.gl/wDA6A9PeeZhV58Qt5">
+              <span className="text-2xl md:text-3xl font-bold text-white hover:text-yellow-500 hover:underline transition duration-300">
+                ¡Te esperamos en el Polideportivo Tigres Linares!
+              </span>
+              <div>
+                <Button className="mt-2 bg-yellow-500 text-blue-900 text-lg font-semibold py-2 px-4 rounded-none">
+                  Ubicación
+                </Button>
+              </div>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </main>
-  )
+  );
 }

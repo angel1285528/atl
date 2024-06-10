@@ -107,8 +107,10 @@ const WebFooter: React.FC = () => {
         </div>
 
       </div>
-      <section className="text-white pt-16 text-left ml-14 pb-10">
+      <section className="text-white pt-16 text-left mx-2 md:ml-14 pb-10">
+        <span className=" text-m">
         Copyright c 2024. Academia Tigres Linares. Todos los derechos reservados
+        </span>
         <br />
         Desarrollado por: Servicios de Formación y Promoción Deportiva, Mfe. Ángel Rodríguez
 

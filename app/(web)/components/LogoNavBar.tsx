@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import clsx from 'clsx';
-
+import Link from 'next/link';
 const Logo = () => {
     return (
         <div className={clsx(
@@ -8,13 +8,16 @@ const Logo = () => {
             "md:absolute md:left-8 md:pb-8  "
         )}>
             <div className="block mx-auto w-12 h-12 md:w-24 md:h-24  md:mx-0">
-                <Image
+            <Link href={"/"}>
+                 <Image
                     src="/logo-academia.svg"
                     alt="Logo Academia"
                     width={144}
                     height={144}
                     layout="responsive"
-                />
+                    
+                    />
+                    </Link>
             </div>
         </div>
     );

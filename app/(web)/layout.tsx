@@ -23,7 +23,8 @@ export default function RootLayout({
         <BlackTop />
         <WebNavbar />
         {children}
-        <WebSponsors />
+        <hr className=' h-10 bg-blue-900'/>
+        {/* <WebSponsors /> */}
         <WebFooter/>
       </body>
     </html>
