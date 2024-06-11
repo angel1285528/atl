@@ -4,7 +4,11 @@ import { MailIcon } from 'lucide-react';
 import Link from 'next/link';
 const BlackTop = () => {
     return (
-        <div id='blackTop' className='bg-black h-10 text-white flex items-center justify-end pr-2 md:pr-12 space-x-2 z-50'>
+        <>
+        <div id='blackTopForSmallScreen md:hidden'>
+
+        </div>
+        <div id='blackTopForMd' className='hidden bg-black h-10 text-white md:flex items-center justify-end pr-2 md:pr-12 space-x-2 z-50'>
             <span className='md:hidden justify-start'>
                 <Link href="/">
                     <HomeIcon className="w-5 h-5" />
@@ -26,6 +30,7 @@ const BlackTop = () => {
                     </span>
             </Link>
         </div>
+        </>
     );
 };
 
