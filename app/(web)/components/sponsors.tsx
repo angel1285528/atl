@@ -7,7 +7,7 @@ const premiumSponsors = [
   { name: "Facultad de Organización Deportiva", imageUrl: "/fod.svg", description: "Logotipo Facultad de Organización Deportiva" },
   { name: "Direccion General de Deportes UANL", imageUrl: "/dgd.svg", description: "Logotipo Direccion General de Deportes UANL" },
   { name: "UANL", imageUrl: "/uanl.png", description: "Logotipo UANL" },
-  { name: "Tigres Blanco", imageUrl: "/tigreswhite.svg", description: "Logotipo Tigres Blanco" },
+  { name: "Tigres Blanco", imageUrl: "/tigresWhite.svg", description: "Logotipo Tigres Blanco" },
   { name: "Academias Tigres", imageUrl: "/academia-blanco.svg", description: "Logotipo Academias Tigres" },
   { name: "Servicios de Formación y Promoción Deportiva", imageUrl: "/sfypd.svg", description: "Logotipo Servicios de Formación y Promoción Deportiva" },
   // Add more premium sponsors here
