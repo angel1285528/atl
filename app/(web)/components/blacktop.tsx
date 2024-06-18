@@ -6,7 +6,9 @@ const BlackTop = () => {
     return (
         <>
         <div id='blackTopForSmallScreen md:hidden'>
-
+            <div ></div>
+            <div ></div>
+            <div ></div>
         </div>
         <div id='blackTopForMd' className='hidden bg-black h-10 text-white md:flex items-center justify-end pr-2 md:pr-12 space-x-2 z-50'>
             <span className='md:hidden justify-start'>

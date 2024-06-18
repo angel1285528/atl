@@ -32,7 +32,7 @@ const Page = () => {
                             <Link href="/academia/">
                                 <span className='font-bold text-2xl'>Academia /</span>
                             </Link>
-                            <span className='text-xl'> Conocenos</span>
+                            <span className='text-xl'> Conócenos</span>
                             <hr className="w-full my-4" />
                             <div className='flex items-center space-x-4 mt-4'>
                                 <button className='bg-yellow-400 text-blue-700 py-2 px-3 font-bold'>Academia</button>
@@ -49,25 +49,25 @@ const Page = () => {
                                 Conscientes del papel social del fútbol en la formación, el club Tigres impulsa este deporte mediante las Academias Tigres, presentes a nivel nacional e internacional.
                             </p>
                             <p>
-                                En el año 1994, el Profesor José Alfonso Rodríguez Salazar (QEPD), conocido como el Profe Poncho en nuestra comunidad, tuvo la iniciativa de fundar la &quot;Escuela Club de Fútbol Linares&quot; en las instalaciones del seminario de Linares con la idea de dar clases de futbol a niños y jóvenes, mediante el cuestionamiento de que si el niño juega para aprender o se aprende para jugar.
+                                En el año 1994, el Profesor José Alfonso Rodríguez Salazar (QEPD), conocido como el Profe Poncho en nuestra comunidad, tuvo la iniciativa de fundar la &quot;Escuela Club de Fútbol Linares&quot; en las instalaciones del seminario de Linares con la idea de dar clases de fútbol a niños y jóvenes, mediante el cuestionamiento de si el niño juega para aprender o se aprende para jugar.
                             </p>
                             <p>
-                                Con el transcurso del tiempo se percató que estaba cumpliendo con el proceso formativo, pero faltaba la etapa de desarrollo competitivo por lo que se trazo la meta de afiliarse a un club profesional con el objetivo de que la niñez y juventud de Linares tuvieran la oportunidad de acariciar el sueño del fútbol profesional.
+                                Con el transcurso del tiempo, se percató de que estaba cumpliendo con el proceso formativo, pero faltaba la etapa de desarrollo competitivo. Por lo tanto, se trazó la meta de afiliarse a un club profesional con el objetivo de que la niñez y juventud de Linares tuvieran la oportunidad de acariciar el sueño del fútbol profesional.
                             </p>
                             <p>
-                                Es por esto que en el año 2005 se tocaron las puertas de Sinergia Deportiva, donde el Prof. Osvaldo Batocletti, encargado del Área de Academias, dio el visto bueno y el apoyo necesario para establecer la primera franquicia de una Academia Profesional de Fútbol en Linares, comenzando a dar servicio en las Instalaciones Deportivas del Grupo Senda durante 15 años, logrando con esto cumplir las metas propuestas al proyectar diferentes jóvenes Linarenses en procesos de Fuerzas Básicas así como la participación en Torneos Estatales, Nacionales e Internacionales.
+                                Es por esto que en el año 2005 se tocaron las puertas de Sinergia Deportiva, donde el Prof. Osvaldo Batocletti, encargado del Área de Academias, dio el visto bueno y el apoyo necesario para establecer la primera franquicia de una Academia Profesional de Fútbol en Linares. Así, comenzamos a dar servicio en las Instalaciones Deportivas del Grupo Senda durante 15 años, logrando con esto cumplir las metas propuestas al proyectar diferentes jóvenes linarenses en procesos de Fuerzas Básicas, así como la participación en torneos estatales, nacionales e internacionales.
                             </p>
                             <p>
-                                En octubre del 2021, después de una pandemia que sorprendió al mundo entero y nos hizo a todos hacer una breve pausa en nuestros caminos y proyectos, una vez levantadas las restricciones sanitarias nos vemos en la necesidad de buscar un nuevo espacio de entrenamiento, estableciendo un acuerdo con la Dirección de Deportes de la Universidad Autónoma de Nuevo León para utilizar las instalaciones del Polideportivo Tigres Linares, donde entrenamos actualmente, agradeciendo especialmente las facilidades del Dr. José Alberto Pérez García, Director de Deportes de la UANL así como del Lic. Sergio Perales Cepeda, Coordinador del Polideportivo Tigres.
+                                En octubre de 2021, después de una pandemia que sorprendió al mundo entero y nos hizo a todos hacer una breve pausa en nuestros caminos y proyectos, una vez levantadas las restricciones sanitarias, nos vimos en la necesidad de buscar un nuevo espacio de entrenamiento. Establecimos un acuerdo con la Dirección de Deportes de la Universidad Autónoma de Nuevo León para utilizar las instalaciones del Polideportivo Tigres Linares, donde entrenamos actualmente, agradeciendo especialmente las facilidades del Dr. José Alberto Pérez García, Director de Deportes de la UANL, así como del Lic. Sergio Perales Cepeda, Coordinador del Polideportivo Tigres.
                             </p>
                             <p>
-                                A día de hoy, Academia Tigres Linares se encuentra bajo la dirección del Licenciado en Ciencias del Ejercicio Ángel Eduardo Rodríguez Perales y el Director Técnico Marco Antonio González Zambrano, conformando el cuerpo técnico de los diferentes equipos la Profa. Citlalli Luna Alameda, el Prof. Jesús Eduardo Romo Soto, el Prof. Enrique Antonio Garza Carrizales, el Lic. Donaldo Cayetano Mejorado Ortega, el Lic. Obed Alfredo López y el Prof. Armando Amezcua Bocanegra.
+                                A día de hoy, la Academia Tigres Linares se encuentra bajo la dirección del Licenciado en Ciencias del Ejercicio Ángel Eduardo Rodríguez Perales y el Director Técnico Marco Antonio González Zambrano. El cuerpo técnico de los diferentes equipos está conformado por la Profa. Citlalli Luna Alameda, el Prof. Jesús Eduardo Romo Soto, el Prof. Enrique Antonio Garza Carrizales, el Lic. Donaldo Cayetano Mejorado Ortega, el Lic. Obed Alfredo López y el Prof. Armando Amezcua Bocanegra.
                             </p>
                             <p>
-                                Nuestra academia actualmente la integran aproximadamente 90 niñas, niños y jóvenes de Linares y la Región entre los 3 a los 16 años, quienes de la mano de sus familias en cada entrenamiento y partido buscan ser una mejor versión de ellos mismos y enfrentar los retos que les demanda el deporte.
+                                Nuestra academia actualmente está integrada por aproximadamente 90 niñas, niños y jóvenes de Linares y la región, entre los 3 y los 16 años, quienes, de la mano de sus familias, en cada entrenamiento y partido buscan ser una mejor versión de ellos mismos y enfrentar los retos que les demanda el deporte.
                             </p>
                             <p>
-                                Esto es Tigres!
+                                ¡Esto es Tigres!
                             </p>
                         </div>
                     </div>

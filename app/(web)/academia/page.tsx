@@ -1,50 +1,48 @@
 import React from 'react';
 import { ClockIcon } from 'lucide-react';
 import Link from 'next/link';
+
 const questions = [
     {
-        question: "¿Cuáles son los días y horas de Entrenamiento?",
-        answer: "Academia Tigres Linares entrena los dias Lunes, Miércoles y Viernes"
+        question: "¿Cuáles son los días y horas de entrenamiento?",
+        answer: "La Academia Tigres Linares entrena los días lunes, miércoles y viernes."
     },
     {
-        question: "¿De que edades son los jugadores que entrenan?",
-        answer: "Entrenamos jugadores a partir de los 3 hasta los 16 años"
+        question: "¿De qué edades son los jugadores que entrenan?",
+        answer: "Entrenamos jugadores desde los 3 hasta los 16 años."
     },
     {
-        question: "¿Cuales son sus horarios?",
-        answer: "Durante los meses de junio, julio y agosto los entrenamientos son de 6:30 a 7:30 para edades preescolar, de 6:30 a 7:50 para primaria, secundaria y prepa"
+        question: "¿Cuáles son sus horarios?",
+        answer: "Durante los meses de junio, julio y agosto, los entrenamientos son de 6:30 a 7:30 para preescolar y de 6:30 a 7:50 para primaria, secundaria y preparatoria."
     },
     {
         question: "¿Las niñas también pueden entrenar?",
-        answer: "Tenemos grupos mixtos donde todos los niños y niñas son bien recibidos"
+        answer: "Tenemos grupos mixtos donde todos los niños y niñas son bienvenidos."
     },
     {
-        question: "¿Que necesito para inscribirme?",
-        answer: "Necesitamos principalmente la clave curp tanto del familiar responsable como del alumno. Puedes entregar una foto digital del Ine del familiar y el curp el jugador, ahi estan los datos necesarios"
+        question: "¿Qué necesito para inscribirme?",
+        answer: "Necesitamos principalmente la CURP tanto del familiar responsable como del alumno. Puedes entregar una foto digital del INE del familiar y la CURP del jugador. Ahí están los datos necesarios."
     },
     {
-        question: "¿Se necesita más papelería?",
-        answer: "Posteriormente debes de entregar acta de nacimiento original, identificacion del jugador y comprobante de domicilio así como firmar el reglamento del club"
+        question: "¿Se necesita más documentación?",
+        answer: "Posteriormente, debes entregar el acta de nacimiento original, identificación del jugador y comprobante de domicilio, así como firmar el reglamento del club."
     },
     {
-        question: "¿Que necesito llevar para entrenar ?",
-        answer: "Acude con ropa y calzado deportivo y suficiente hidratación. Los lunes entrenamos con cualquier playera amarilla, el miércoles con cualquier playera azul y el viernes con amarilla o azul, si no tienes en tu primer entrenamiento te prestamos una casaca del color "
-    },    {
+        question: "¿Qué necesito llevar para entrenar?",
+        answer: "Acude con ropa y calzado deportivo y suficiente hidratación. Los lunes entrenamos con cualquier playera amarilla, el miércoles con cualquier playera azul y el viernes con amarilla o azul. Si no tienes, en tu primer entrenamiento te prestamos una casaca del color correspondiente."
+    },
+    {
         question: "¿Hay uniforme de entrenamiento?",
-        answer: "No hay uniforme de entrenamiento, cualquier playera sea de Tigres o no que cumpla con el color indicado es valida para ir a entrenar "
-        
+        answer: "No hay uniforme de entrenamiento. Cualquier playera, sea de Tigres o no, que cumpla con el color indicado es válida para entrenar."
     },
     {
-        question: "¿Donde participan con sus equipos ?",
-        answer: "Participamos en los torneos municipales infantiles del Municipio de Linares y cada ciertos meses acudimos a torneos foraneos"
-
+        question: "¿Dónde participan con sus equipos?",
+        answer: "Participamos en los torneos municipales infantiles del Municipio de Linares y cada ciertos meses acudimos a torneos foráneos."
     },
     {
-        question: "¿Cuanto cuestan los uniformes?",
-        answer: "Las jugadores pertenecientes a una franquicia de academia oficial del Club Tigres tiene que adquirir un paquete de uniformes proporcionados por el club con un costo de $950.00, incluye uniforme de local y visitante"
-
+        question: "¿Cuánto cuestan los uniformes?",
+        answer: "Los jugadores pertenecientes a una franquicia oficial de la Academia del Club Tigres deben adquirir un paquete de uniformes proporcionado por el club con un costo de $950.00, que incluye uniforme de local y visitante."
     },
-    
 ];
 
 const Page = () => {
@@ -71,13 +69,12 @@ const Page = () => {
                 <div className='bg-slate-400 block'>
                     <div id="contentSection" className='bg-white mx-4 md:mx-20'>
                         <div id='Breadcrumb' className='pt-8 mx-4 md:mx-20'>
-                           <Link href="/">
-                           <span className='font-bold text-2xl'>Inicio /</span>
-                           </Link> 
-                           <Link href="/academia/">
-                           <span className='font-bold text-2xl'>Academia /</span>
-                           </Link>
-                           
+                            <Link href="/">
+                                <span className='font-bold text-2xl'>Inicio /</span>
+                            </Link>
+                            <Link href="/academia/">
+                                <span className='font-bold text-2xl'>Academia /</span>
+                            </Link>
                             <span className='text-xl'> Preguntas Frecuentes</span>
                             <hr className="w-full my-4" />
                             <div className='flex items-center space-x-4 mt-4'>

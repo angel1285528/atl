@@ -4,8 +4,8 @@ import Dashboard from './components/dashboard';
 import { JugadoresTotales } from "./jugadores/lib/crud/playerslist";
 
 
+export const dynamic = 'force-dynamic';
 
-export const dynamic = "force-dynamic"
 
 const Page: React.FC = () => {
     const [totalJugadores, setTotalJugadores] = useState<number | null>(null);
@@ -21,7 +21,7 @@ const Page: React.FC = () => {
     return (
         <>
         <header className='m-4'>
-            <h1 className='text-center text-6xl font-extrabold text-blue-800'>Dashboard ATL</h1>
+            <h1 className='text-center text-2xl md:text-6xl font-extrabold text-blue-800'>Dashboard ATL</h1>
         </header>
      
             {/* <Modulos /> */}

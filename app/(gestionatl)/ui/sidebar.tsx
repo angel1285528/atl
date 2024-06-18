@@ -86,6 +86,11 @@ const Modulos = [
 
 const Sidebar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleLinkClick = () => {
+        setIsOpen(false);
+    };
+
     return (
         <>
             <div id="sideBar" className="md:basis-1/5 w-full">
@@ -119,11 +124,11 @@ const Sidebar: React.FC = () => {
                 <div id="sideBarMain" className={`${isOpen ? 'block' : 'hidden'} md:block`}>
                     <ul>
                         {Modulos.map((accion, index) => (
-                            accion && (
-                                <Link key={index} href={accion.Link}>
-                                    <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>{accion.name}</span></li>
-                                </Link>
-                            )
+                            <Link key={index} href={accion.Link}>
+                                <li onClick={handleLinkClick} className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2">
+                                    <span>{accion.name}</span>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>

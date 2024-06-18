@@ -2,6 +2,8 @@ import {  columns } from "@/app/(gestionatl)/modulos/socios/componentes/tablasoc
 import { DataTable } from "@/app/(gestionatl)/modulos/socios/componentes/tablasocios/data-table"
 import { fetchSocios } from "@/app/lib/crud/sociolist"
 
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const data = await fetchSocios()
 

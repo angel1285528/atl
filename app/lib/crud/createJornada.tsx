@@ -1,16 +1,17 @@
 'use server'
-import prisma from '@/app/lib/prisma'
-import { JornadaEntrenamiento } from '@prisma/client';
+import { PrismaClient, Prisma, JornadaEntrenamiento } from "@prisma/client";
 
-export const createJornada = async (data: JornadaEntrenamiento ) =>{
-try{
-const  newJornada = await prisma.jornadaEntrenamiento.create({
-data: {
-...data
+const prisma = new PrismaClient();
+
+export async function createManyJornadas(jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento'>[]) {
+  try {
+    const result = await prisma.jornadaEntrenamiento.createMany({
+      data: jornadas,
+    });
+    console.log(`Successfully created ${result.count} jornadas de entrenamiento`);
+    return result;
+  } catch (error) {
+    console.error("Error creating jornadas de entrenamiento:", error);
+    throw error;
+  }
 }
-});
-return newJornada;
-} catch (error) {
-throw new Error(`Error creating player: error`);
-}
-};

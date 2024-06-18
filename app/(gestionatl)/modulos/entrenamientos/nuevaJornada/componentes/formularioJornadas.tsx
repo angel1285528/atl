@@ -1,58 +1,157 @@
-'use client'
-import React, { useState } from 'react';
-import DateRangeSelector from './DateRangeSelector';
-import DaySelector from './daySelector';
-import ClassSelector from './classSelector';
-import ScheduleSummary from './scheduleSummary';
-import { toast } from "react-toastify";
+'use client';
+
+import React, { useState, useEffect } from "react";
+import { JornadaEntrenamiento } from "@prisma/client";
+import { createManyJornadas } from "@/app/lib/crud/createJornada";
+import { useRouter } from 'next/navigation';
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import DatePicker from 'react-datepicker';
+import TimePicker from 'react-time-picker';
+import "react-datepicker/dist/react-datepicker.css";
+import 'react-time-picker/dist/TimePicker.css';
+import 'react-clock/dist/Clock.css';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
 const FormularioJornadas: React.FC = () => {
-  const [startDate, setStartDate] = useState<Date>(new Date());
-  const [endDate, setEndDate] = useState<Date>(new Date());
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
-  const [selectedClasses, setSelectedClasses] = useState<string[]>([]);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+  const [startTime, setStartTime] = useState<string | null>(null);
+  const [endTime, setEndTime] = useState<string | null>(null);
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = async () => {
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('/api/jornadas', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ startDate, endDate, selectedDays, selectedClasses }),
-      });
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-      if (!response.ok) {
-        throw new Error('Error al crear las jornadas');
-      }
-
-      const result = await response.json();
-      toast.success("Jornadas creadas con éxito", {
-        position: "bottom-center",
-        autoClose: 4000,
-      });
-    } catch (error) {
-      console.error("Error al enviar el formulario", error);
-      toast.error("Error al crear las jornadas");
-    }
-    setIsSubmitting(false);
+  const handleDaySelection = (day: string) => {
+    setSelectedDays(prev => 
+      prev.includes(day) ? prev.filter(d => d !== day) : [...prev, day]
+    );
   };
 
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    const jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento' | 'clases'>[] = [];
+    
+    if (!startDate || !endDate || !startTime || !endTime) {
+      toast.error('Por favor completa todos los campos');
+      return;
+    }
+
+    const startHour = new Date(`1970-01-01T${startTime}:00Z`);
+    const endHour = new Date(`1970-01-01T${endTime}:00Z`);
+
+    for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const date = new Date(d);
+      if (selectedDays.includes(daysOfWeek[date.getDay()])) {
+        jornadas.push({
+          fechaJornadaEntrenamiento: date,
+          horaInicioJornada: startHour,
+          horaFinJornada: endHour,
+          bitacoraJornada: "",
+          estado: "Programada"
+        });
+      }
+    }
+
+    try {
+      await createManyJornadas(jornadas);
+      toast.success('Entrenamientos creados exitosamente');
+      router.push('/modulos/entrenamientos');
+    } catch (error) {
+      console.error("Error creando jornadas de entrenamiento:", error);
+      toast.error('Hubo un error al crear los entrenamientos');
+    }
+  };
+
+  if (!isClient) {
+    return null; // or a loading spinner
+  }
+
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-center text-2xl font-bold mb-4">Programar Jornadas de Entrenamiento</h2>
-      <DateRangeSelector startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-      <DaySelector selectedDays={selectedDays} setSelectedDays={setSelectedDays} />
-      <ClassSelector selectedClasses={selectedClasses} setSelectedClasses={setSelectedClasses} />
-      <ScheduleSummary startDate={startDate} endDate={endDate} selectedDays={selectedDays} selectedClasses={selectedClasses} />
-      <div className="flex justify-center">
-        <button onClick={handleSubmit} disabled={isSubmitting} className="btn btn-primary bg-amber-400 text-white w-1/2 my-6">
-          {isSubmitting ? 'Registrando...' : 'Registrar Jornadas'}
-        </button>
-      </div>
-    </div>
+    <>
+      <ToastContainer />
+      <h2 className="text-2xl font-semibold text-center mb-6">Programar Entrenamientos</h2>
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Días de Entrenamiento</h3>
+            <div className="flex flex-col space-y-2">
+              {daysOfWeek.map(day => (
+                <div key={day} className="flex items-center space-x-2">
+                  <Checkbox 
+                    id={day}
+                    checked={selectedDays.includes(day)}
+                    onCheckedChange={() => handleDaySelection(day)}
+                  />
+                  <label
+                    htmlFor={day}
+                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    {day}
+                  </label>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Periodo y Horario</h3>
+            <div className="flex flex-col space-y-4">
+              <div className="flex flex-col">
+                <label>Fecha de inicio:</label>
+                <DatePicker 
+                  selected={startDate} 
+                  onChange={(date: Date) => setStartDate(date)} 
+                  dateFormat="dd/MM/yyyy"
+                  className="input"
+                  required
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Fecha de fin:</label>
+                <DatePicker 
+                  selected={endDate} 
+                  onChange={(date: Date) => setEndDate(date)} 
+                  dateFormat="dd/MM/yyyy"
+                  className="input"
+                  required
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Hora de inicio:</label>
+                <TimePicker 
+                  value={startTime}
+                  onChange={setStartTime}
+                  disableClock={true}
+                  className="w-full"
+                  required
+                />
+              </div>
+              <div className="flex flex-col">
+                <label>Hora de fin:</label>
+                <TimePicker 
+                  value={endTime}
+                  onChange={setEndTime}
+                  disableClock={true}
+                  className="w-full"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="flex justify-center">
+          <Button type="submit" className="bg-blue-600 text-white">Programar Jornadas</Button>
+        </div>
+      </form>
+    </>
   );
 };
 

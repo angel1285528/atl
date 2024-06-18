@@ -1,12 +1,12 @@
 
 import React from "react";
-import BotonesAccionesRápidas from "./dashboard/botonesAccionesRapidas";
+import AccionesRapidas from "./AccionesRapidasbtn";
 
 const Dashboard =  () => {
     return (
       <>
         <hr className="border-2 mt-2 border-blue-800 m-2"/>
-        <BotonesAccionesRápidas />
+        <AccionesRapidas />
        <hr className="border-2 mt-2 border-blue-800 m-2"/>
       </>
     )

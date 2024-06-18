@@ -6,6 +6,7 @@ import '@/app/globals.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
 
+
 export const metadata = {
   title: 'Modulo de Gestion - ATL',
   description: 'Modulo interno de gestion atl',
