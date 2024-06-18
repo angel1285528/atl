@@ -7,6 +7,7 @@ import { fetchJornadasEntrenamiento } from "@/app/lib/crud/fetchJornadasEntrenam
 import DataTable from "../socios/componentes/tablasocios/data-table";
 import { columnasJornadas } from "./componentes/columnasJornadaEntrenamiento";
 
+export const dynamic = 'force-dynamic';
 
 const nuevaJornada = "entrenamientos/nuevaJornada/";
 

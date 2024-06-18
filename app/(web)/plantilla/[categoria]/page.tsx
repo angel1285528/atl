@@ -2,6 +2,8 @@ import fetchPlayersByCategory from '../../lib/fetchJugadoresXCategoria';
 import PlayerList from '../../components/playerList';
 import CategoriasHeader from '../../components/headerCategorias';
 
+export const dynamic = 'force-dynamic';
+
 type Params = {
     params: {
         categoria: string;

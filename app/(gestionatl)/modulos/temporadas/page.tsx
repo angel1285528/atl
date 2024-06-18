@@ -7,6 +7,8 @@ import { columnasTemporadas } from "../entrenamientos/componentes/columnasTablaT
 import { fetchTemporadas } from "./lib/fetchTemporadas";
 import { useState, useEffect } from "react";
 
+export const dynamic = 'force-dynamic';
+
 const Page: React.FC = () => {
   const [data, setData] = useState<Temporadas[]>([]);
 
