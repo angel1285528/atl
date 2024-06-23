@@ -5,11 +5,11 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import Logo from './LogoNavBar';
 import { useRouter } from 'next/navigation';
-import { useUser } from '@auth0/nextjs-auth0/client';
+// import { useUser } from '@auth0/nextjs-auth0/client';
 import { usePathname } from 'next/navigation';
 import { LogInButton } from '@/app/ui/AuthButtons';
 import LogOutButton from '@/app/ui/logOutButton';
-import ProfileClient from '@/app/profile-client/page';
+// import ProfileClient from '@/app/profile-client/page';
 import Button from '@/app/ui/logOutButton';
 const menuItems = [
     {
@@ -19,7 +19,7 @@ const menuItems = [
 ];
 const WebNavbar = () => {
     const pathname = usePathname();
-    const { user, error, isLoading } = useUser();
+    // const { user, error, isLoading } = useUser();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [openSubmenu, setOpenSubmenu] = useState<null | number>(null);
     const router = useRouter();
@@ -76,7 +76,7 @@ const WebNavbar = () => {
                         </div>
                     ))}
                 </div>
-                <div id="logInButton">
+                {/* <div id="logInButton">
                     <ol>
                         <li style={{ marginRight: '0.5rem' }}>
                             {user ? <ProfileClient /> : <LogInButton />}
@@ -86,7 +86,7 @@ const WebNavbar = () => {
                                 <LogOutButton />
                             </li>)}
                     </ol>
-                </div>
+                </div> */}
        
             </nav>
             <div className={`fixed top-0 left-0 w-full h-full bg-blue-900 bg-[url('/patronAzul.jpg')] transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-40`}>

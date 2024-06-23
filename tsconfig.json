@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -23,9 +19,7 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -37,9 +31,9 @@
     "app/lib/prisma.js",
     "app/(gestionatl)/ui/menusmodulos/socios.js",
     "app/(gestionatl)/ui/modulos.js",
-    "app/profile-client/page.jsx"
-, "components/ui/curpScanner.jsx"  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "app/profile-client/page.jsx",
+    "components/ui/curpScanner.jsx",
+    "app/api/auth/[auth0]/route.ts" // Añadir la ruta aquí
+  ],
+  "exclude": ["node_modules"]
 }

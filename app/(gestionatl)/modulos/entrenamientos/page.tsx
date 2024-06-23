@@ -27,7 +27,7 @@ const Page = async () => {
         </div>
         <GenericHR />
         <h3> Jornadas de Entrenamiento </h3>
-<DataTable columns={columnasJornadas} data={data} />
+
 <GenericDataTable columns={columnasJornadas} data={data} />
       </div>
     </>

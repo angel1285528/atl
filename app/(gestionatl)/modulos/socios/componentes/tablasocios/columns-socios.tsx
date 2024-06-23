@@ -1,38 +1,22 @@
-"use client"
-import Link from "next/link"
+import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
-import { ArrowUpDown, MoreHorizontal, FolderInput, Link as link } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
+import { socio } from "@prisma/client";
+import { FolderInput } from "lucide-react";
 
-export type columnasSocios = {
-    id: string
-    firstName: String
-    lastName: String
-    secondLastName?: String | null
-    urlSocioPhoto: String | null
-    status: String
-    fechaRegistro: Date
-    }
-
-export const columns: ColumnDef<columnasSocios>[] = [
+export const columnasSocios: ColumnDef<socio>[] = [
     // Columna Foto
     {
         accessorKey: "urlSocioPhoto",
         header: () => <div className="text-left">Foto</div>,
         cell: ({ row }) => {
-            let urlSocioPhoto: string | undefined = row.getValue('urlSocioPhoto') as string; // Cambia const por let aquí
+            let urlSocioPhoto: string | undefined = row.getValue('urlSocioPhoto') as string;
             const id = row.original.id
             if (typeof urlSocioPhoto !== 'string') {
-                urlSocioPhoto = undefined; // Asigna un nuevo valor aquí
+                urlSocioPhoto = undefined;
             }
 
             return (
@@ -44,10 +28,19 @@ export const columns: ColumnDef<columnasSocios>[] = [
                 </Link>)
         }
     },
+    //Columna ID
+    {
+        accessorKey: "id",
+        cell: ({ row }) => {
+            const id: string = row.getValue('id')
+            return (
+                <>{id}</>
+            )
+        }
+    },
     //Columna Nombre
     {
-
-        accessorKey: "firstName", //Modificar para que aparezc el nombre del socio con el apellido
+        accessorKey: "firstName",
         header: "Socio",
         cell: ({ row }) => {
             const firstName: string = row.getValue('firstName')
