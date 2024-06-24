@@ -2,13 +2,20 @@
 import prisma from "../prisma"
 import { JornadaEntrenamiento } from "@prisma/client"
 
-export const fetchJornadasEntrenamiento = async (): Promise <JornadaEntrenamiento[] > => {
-try {
-    const jornadas = await prisma.jornadaEntrenamiento.findMany();
+export const fetchJornadasEntrenamiento = async (): Promise<JornadaEntrenamiento[]> => {
+  try {
+    const jornadas = await prisma.jornadaEntrenamiento.findMany({
+      include: {
+        clases: {
+          select: {
+            idClase: true,
+          },
+        },
+      },
+    });
     return jornadas;
-} catch (error) {
+  } catch (error) {
     console.error("Error al cargar las jornadas de entrenamiento:", error);
     throw error;
-} 
-
+  }
 }

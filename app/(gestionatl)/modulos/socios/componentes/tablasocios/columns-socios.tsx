@@ -1,3 +1,4 @@
+'use client'
 import { MoreHorizontal } from "lucide-react";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button"
@@ -7,7 +8,7 @@ import Link from "next/link"
 import { socio } from "@prisma/client";
 import { FolderInput } from "lucide-react";
 
-export const columnasSocios: ColumnDef<socio>[] = [
+const columnasSocios: ColumnDef<socio>[] = [
     // Columna Foto
     {
         accessorKey: "urlSocioPhoto",
@@ -118,3 +119,4 @@ export const columnasSocios: ColumnDef<socio>[] = [
         }
     },
 ]
+ export default columnasSocios;

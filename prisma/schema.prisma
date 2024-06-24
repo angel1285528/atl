@@ -2,12 +2,14 @@
 
 datasource db {
   provider  = "postgresql"
+  
   url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
   directUrl = env("POSTGRES_URL_NON_POOLING") //uses a direct connection
 }
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 model JornadaEntrenamiento {
@@ -21,7 +23,7 @@ model JornadaEntrenamiento {
 }
 
 model Clases {
-  idClase       Int                  @id @default(autoincrement())
+  idClase       String      @id  @unique
   tipo          TipoClase
   BitacoraClase String
   jornadaId     Int
@@ -29,13 +31,14 @@ model Clases {
   alumnos       jugador[]
   entrenadores  Entrenadores[]
   asistencias   Asistencia[]
+
 }
 
 model Asistencia {
   id                Int      @id @default(autoincrement())
   fecha             DateTime @default(now())
   jugadorId         String
-  claseId           Int
+  claseId           String
   alumno            jugador  @relation(fields: [jugadorId], references: [playerId])
   clase             Clases   @relation(fields: [claseId], references: [idClase])
   PartidoProgramado Boolean  @default(false) // Para marcar si la ausencia es justificada (partido, etc.)
@@ -119,7 +122,7 @@ model jugador {
   clase                Clases?         @relation(references: [idClase], fields: [clasesIdClase])
   // expedienteJugadores expedienteJugadores[]
   // estadoCuentaJugador estadoCuentaJugador[]
-    clasesIdClase        Int?
+    clasesIdClase        String?
 }
 
 // model grupoEntrenamiento{
@@ -178,15 +181,14 @@ enum Status_Jugador {
   lesionado
   baja_temporal
 }
-
 model Entrenadores {
-  coachId             String   @id @unique
+  coachId             Int   @id @unique  @default(autoincrement())
   coachFirstName      String
   coachLastName       String
   coachSecondLastName String
-  coachBirthDate      String
-  coachCellPhone      String
-  coachEmailPhone     String
+  coachBirthDate      String?
+  coachCellPhone      String?
+  coachEmailPhone     String?
   clases              Clases[]
   //equipos                 Equipos[]
 }

@@ -4,7 +4,6 @@ import GenericLinkButton from "../components/dashboard/GenericLinkButton";
 import GenericDataTable from "@/components/ui/genericDataTable";
 import { MdAddLink } from "react-icons/md";
 import { fetchJornadasEntrenamiento } from "@/app/lib/crud/fetchJornadasEntrenamiento";
-import DataTable from "../socios/componentes/tablasocios/data-table";
 import { columnasJornadas } from "./componentes/columnasJornadaEntrenamiento";
 
 export const dynamic = 'force-dynamic';
