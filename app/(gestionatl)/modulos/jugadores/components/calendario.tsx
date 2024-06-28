@@ -28,7 +28,7 @@ const Calendario: React.FC<CalendarioProps> = ({ value }) => {
   const { control, setValue } = useFormContext();
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
 
-  const handleSelect = (date: Date) => {
+  const handleSelect = (date: Date | null) => {
     setValue(value, date);
     setIsPopoverOpen(false); // Cerrar el popover al seleccionar una fecha
   };

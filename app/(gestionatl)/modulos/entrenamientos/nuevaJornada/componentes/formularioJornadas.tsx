@@ -16,7 +16,7 @@ import 'react-clock/dist/Clock.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-registerLocale('es', es);
+registerLocale('es', es as any);
 
 const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
@@ -111,7 +111,7 @@ const FormularioJornadas: React.FC = () => {
                 <label>Fecha de inicio:</label>
                 <DatePicker 
                   selected={startDate} 
-                  onChange={(date: Date) => setStartDate(date)} 
+                  onChange={(date: Date | null) => setStartDate(date)} 
                   dateFormat="dd/MM/yyyy"
                   locale="es"
                   className="input"
@@ -122,7 +122,7 @@ const FormularioJornadas: React.FC = () => {
                 <label>Fecha de fin:</label>
                 <DatePicker 
                   selected={endDate} 
-                  onChange={(date: Date) => setEndDate(date)} 
+                  onChange={(date: Date | null) => setEndDate(date)} 
                   dateFormat="dd/MM/yyyy"
                   locale="es"
                   className="input"

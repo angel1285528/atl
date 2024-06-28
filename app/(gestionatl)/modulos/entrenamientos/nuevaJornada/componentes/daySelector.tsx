@@ -1,38 +1,30 @@
 import React from 'react';
 
-interface DaySelectorProps {
-  selectedDays: string[];
-  setSelectedDays: React.Dispatch<React.SetStateAction<string[]>>;
+interface ClassSelectorProps {
+  selectedClasses: string[];
+  setSelectedClasses: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const daysOfWeek = [
-  { label: 'Lunes', value: 'monday' },
-  { label: 'Martes', value: 'tuesday' },
-  { label: 'Miércoles', value: 'wednesday' },
-  { label: 'Jueves', value: 'thursday' },
-  { label: 'Viernes', value: 'friday' },
-  { label: 'Sábado', value: 'saturday' },
-  { label: 'Domingo', value: 'sunday' }
-];
+const classTypes = ['fut1', 'fut3', 'fut5', 'fut7', 'fut9', 'fut11'];
 
-const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, setSelectedDays }) => {
-  const toggleDay = (day: string) => {
-    setSelectedDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+const ClassSelector: React.FC<ClassSelectorProps> = ({ selectedClasses, setSelectedClasses }) => {
+  const toggleClass = (classType: string) => {
+    setSelectedClasses((prev) =>
+      prev.includes(classType) ? prev.filter((c) => c !== classType) : [...prev, classType]
     );
   };
 
   return (
     <div className="flex justify-center my-4">
-      {daysOfWeek.map((day) => (
-        <div key={day.value} className="mx-2">
+      {classTypes.map((classType) => (
+        <div key={classType} className="mx-2">
           <label className="flex items-center">
             <input
               type="checkbox"
-              checked={selectedDays.includes(day.value)}
-              onChange={() => toggleDay(day.value)}
+              checked={selectedClasses.includes(classType)}
+              onChange={() => toggleClass(classType)}
             />
-            <span className="ml-2">{day.label}</span>
+            <span className="ml-2">{classType.toUpperCase()}</span>
           </label>
         </div>
       ))}
@@ -40,4 +32,4 @@ const DaySelector: React.FC<DaySelectorProps> = ({ selectedDays, setSelectedDays
   );
 };
 
-export default DaySelector;
+export default ClassSelector;
