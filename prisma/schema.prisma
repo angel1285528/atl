@@ -13,35 +13,49 @@ generator client {
 }
 
 model JornadaEntrenamiento {
-  idJornadaEntrenamiento    Int           @id @default(autoincrement())
+  idJornadaEntrenamiento    Int                     @id @default(autoincrement())
   fechaJornadaEntrenamiento DateTime
   horaInicioJornada         DateTime?
   horaFinJornada            DateTime?
   bitacoraJornada           String?
-  estado                    EstadoJornada @default(Programada)
-  clases                    Clases[]
+  estado                    EstadoJornada           @default(Programada)
+  clases                    JornadaClase[]
 }
 
 model Clases {
-  idClase       String      @id  @unique
+  idClase       String                  @id @unique
   tipo          TipoClase
   BitacoraClase String
-  jornadaId     Int
-  jornada       JornadaEntrenamiento @relation(fields: [jornadaId], references: [idJornadaEntrenamiento])
+  jornadas      JornadaClase[]
   alumnos       jugador[]
   entrenadores  Entrenadores[]
   asistencias   Asistencia[]
+}
 
+model JornadaClase {
+  jornadaId    Int
+  claseId      String
+  jornada      JornadaEntrenamiento     @relation(fields: [jornadaId], references: [idJornadaEntrenamiento])
+  clase        Clases                   @relation(fields: [claseId], references: [idClase])
+  asistencias  Asistencia[]
+
+  @@id([jornadaId, claseId])
 }
 
 model Asistencia {
   id                Int      @id @default(autoincrement())
   fecha             DateTime @default(now())
   jugadorId         String
+  jornadaId         Int
   claseId           String
   alumno            jugador  @relation(fields: [jugadorId], references: [playerId])
+  jornadaClase      JornadaClase @relation(fields: [jornadaId, claseId], references: [jornadaId, claseId])
   clase             Clases   @relation(fields: [claseId], references: [idClase])
-  PartidoProgramado Boolean  @default(false) // Para marcar si la ausencia es justificada (partido, etc.)
+  asistencia        Boolean  @default(false)
+  asistenciaJustificada Boolean  @default(false)
+  partidoProgramado Boolean  @default(false)
+
+  @@unique([jugadorId, jornadaId, claseId])
 }
 enum TipoClase {
   fut1
@@ -78,12 +92,12 @@ model socio {
   postalCode     String
   city           String
   state          String
-  phoneNumber    String
-  email          String
+  phoneNumber    String?
+  email          String?
   urlSocioPhoto  String?
   urlSocioIne    String?
   urlIdDomicilio String?
-  periodoDePago  String
+  periodoDePago  String?
   rol            Role         @default(socio)
   status         StatusSocios @default(Activo)
   fechaRegistro  DateTime     @default(now())

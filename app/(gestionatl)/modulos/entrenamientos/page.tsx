@@ -3,7 +3,7 @@ import GenericHR from "@/components/ui/GenericHorizontalLine";
 import GenericLinkButton from "../components/dashboard/GenericLinkButton";
 import GenericDataTable from "@/components/ui/genericDataTable";
 import { MdAddLink } from "react-icons/md";
-import { fetchJornadasEntrenamiento } from "@/app/lib/crud/fetchJornadasEntrenamiento";
+import { fetchJornadasConClases } from "@/app/lib/crud/crudClases";
 import { columnasJornadas } from "./componentes/columnasJornadaEntrenamiento";
 
 export const dynamic = 'force-dynamic';
@@ -11,7 +11,7 @@ export const dynamic = 'force-dynamic';
 const nuevaJornada = "entrenamientos/nuevaJornada/";
 
 const Page = async () => {
-  const data = await fetchJornadasEntrenamiento();
+  const data = await fetchJornadasConClases();
   return (
     <>
       <div className="container mx-auto py-5">
@@ -26,8 +26,7 @@ const Page = async () => {
         </div>
         <GenericHR />
         <h3> Jornadas de Entrenamiento </h3>
-
-<GenericDataTable columns={columnasJornadas} data={data} />
+        <GenericDataTable columns={columnasJornadas} data={data} />
       </div>
     </>
   );

@@ -43,6 +43,9 @@ const ExpedienteJugador: React.FC<ExpedienteJugadorProps> = ({ playerId }) => {
           entityId={jugador.playerId} 
           entityType="jugador" 
           updatePhotoFunction={actualizarFoto}
+          sizeButton={20}
+          wide='w-40'
+          height='h-40'
         />
       </div>
       <div id="FichaDatos" className="lg:basis-3/5">

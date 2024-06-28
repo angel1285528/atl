@@ -1,8 +1,7 @@
-
 import React from 'react';
 import { columns } from './components/playerColums';
 import PlayerDataTable from './components/PlayerDataTable';
-import NewPlayerButton from './ui/newPlayerButton';
+
 import { fetchPlayer } from './lib/crud/playerslist';
 
 export const dynamic = 'force-dynamic';

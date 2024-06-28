@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect } from "react";
 import { JornadaEntrenamiento } from "@prisma/client";
-import { createManyJornadas } from "@/app/lib/crud/createJornada";
+import { createManyJornadas } from "@/app/lib/crud/crudJornada";
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import DatePicker from 'react-datepicker';
+import DatePicker, { registerLocale } from 'react-datepicker';
+import es from 'date-fns/locale/es';
 import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-time-picker/dist/TimePicker.css';
@@ -14,6 +15,8 @@ import 'react-clock/dist/Clock.css';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+registerLocale('es', es);
 
 const daysOfWeek = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
@@ -38,7 +41,7 @@ const FormularioJornadas: React.FC = () => {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    const jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento' | 'clases'>[] = [];
+    const jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento'>[] = [];
     
     if (!startDate || !endDate || !startTime || !endTime) {
       toast.error('Por favor completa todos los campos');
@@ -50,7 +53,7 @@ const FormularioJornadas: React.FC = () => {
 
     for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
       const date = new Date(d);
-      if (selectedDays.includes(daysOfWeek[date.getDay()])) {
+      if (selectedDays.includes(daysOfWeek[date.getDay() - 1])) {
         jornadas.push({
           fechaJornadaEntrenamiento: date,
           horaInicioJornada: startHour,
@@ -110,6 +113,7 @@ const FormularioJornadas: React.FC = () => {
                   selected={startDate} 
                   onChange={(date: Date) => setStartDate(date)} 
                   dateFormat="dd/MM/yyyy"
+                  locale="es"
                   className="input"
                   required
                 />
@@ -120,6 +124,7 @@ const FormularioJornadas: React.FC = () => {
                   selected={endDate} 
                   onChange={(date: Date) => setEndDate(date)} 
                   dateFormat="dd/MM/yyyy"
+                  locale="es"
                   className="input"
                   required
                 />
@@ -130,6 +135,8 @@ const FormularioJornadas: React.FC = () => {
                   value={startTime}
                   onChange={setStartTime}
                   disableClock={true}
+                  format="HH:mm"
+                  locale="es"
                   className="w-full"
                   required
                 />
@@ -140,6 +147,8 @@ const FormularioJornadas: React.FC = () => {
                   value={endTime}
                   onChange={setEndTime}
                   disableClock={true}
+                  format="HH:mm"
+                  locale="es"
                   className="w-full"
                   required
                 />

@@ -107,19 +107,25 @@ const Sidebar: React.FC = () => {
                         </div>
                     </Link>
                 </div>
-                <div className="md:hidden text-white text-xl text-center flex justify-between p-4 bg-blue-800">
-                    <Link href="/modulos">
-                        <span>
-                            <Image src="/logo-academia.svg" width={60} height={60} alt="Logotipo Academia Tigres" className="object-center " />
-                        </span>
-                        <span>
-                            Sistema de Gestión <br />
-                            Academia Tigres Linares
-                        </span>
-                    </Link>
-                    <button onClick={() => setIsOpen(!isOpen)}>
-                        <MdMenuOpen size="35px" style={{ color: 'white' }} />
-                    </button>
+                <div className="md:hidden text-white text-xl text-center flex justify-between items-center p-4 bg-blue-800">
+                    <div className="w-1/5">
+                        <Link href="/modulos">
+                            <Image src="/logo-academia.svg" width={60} height={60} alt="Logotipo Academia Tigres" className="object-center" />
+                        </Link>
+                    </div>
+                    <div className="w-3/5 text-center">
+                        <Link href="/modulos">
+                            <div className="flex flex-col">
+                                <span>Sistema de Gestión</span>
+                                <span>Academia Tigres Linares</span>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="w-1/5 flex justify-end">
+                        <button onClick={() => setIsOpen(!isOpen)}>
+                            <MdMenuOpen size="35px" style={{ color: 'white' }} />
+                        </button>
+                    </div>
                 </div>
                 <div id="sideBarMain" className={`${isOpen ? 'block' : 'hidden'} md:block`}>
                     <ul>

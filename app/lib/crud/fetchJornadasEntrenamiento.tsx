@@ -1,14 +1,14 @@
-'use server'
-import prisma from "../prisma"
-import { JornadaEntrenamiento } from "@prisma/client"
+'use server';
+import prisma from "../prisma";
+import { JornadaEntrenamiento } from "@prisma/client";
 
 export const fetchJornadasEntrenamiento = async (): Promise<JornadaEntrenamiento[]> => {
   try {
     const jornadas = await prisma.jornadaEntrenamiento.findMany({
       include: {
         clases: {
-          select: {
-            idClase: true,
+          include: {
+            clase: true,
           },
         },
       },
@@ -18,4 +18,4 @@ export const fetchJornadasEntrenamiento = async (): Promise<JornadaEntrenamiento
     console.error("Error al cargar las jornadas de entrenamiento:", error);
     throw error;
   }
-}
+};
