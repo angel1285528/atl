@@ -2,19 +2,17 @@
 
 import React, { useState, useEffect } from "react";
 import { JornadaEntrenamiento } from "@prisma/client";
-import { createManyJornadas } from "@/app/lib/crud/crudJornada";
+import { CreateManyJornadas } from "@/app/lib/crud/crudJornada";
 import { useRouter } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import DatePicker, { registerLocale } from 'react-datepicker';
 import es from 'date-fns/locale/es';
-import TimePicker from 'react-time-picker';
 import "react-datepicker/dist/react-datepicker.css";
-import 'react-time-picker/dist/TimePicker.css';
-import 'react-clock/dist/Clock.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 registerLocale('es', es as any);
 
@@ -24,8 +22,8 @@ const FormularioJornadas: React.FC = () => {
   const [selectedDays, setSelectedDays] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const [startTime, setStartTime] = useState<string | null>(null);
-  const [endTime, setEndTime] = useState<string | null>(null);
+  const [startTime, setStartTime] = useState<string>("");
+  const [endTime, setEndTime] = useState<string>("");
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -48,16 +46,14 @@ const FormularioJornadas: React.FC = () => {
       return;
     }
 
-    const startHour = new Date(`1970-01-01T${startTime}:00Z`);
-    const endHour = new Date(`1970-01-01T${endTime}:00Z`);
-
     for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
       const date = new Date(d);
       if (selectedDays.includes(daysOfWeek[date.getDay() - 1])) {
         jornadas.push({
           fechaJornadaEntrenamiento: date,
-          horaInicioJornada: startHour,
-          horaFinJornada: endHour,
+          horaInicioJornada: startTime,
+          horaFinJornada: endTime,
+          lugarJornada: "",
           bitacoraJornada: "",
           estado: "Programada"
         });
@@ -65,9 +61,9 @@ const FormularioJornadas: React.FC = () => {
     }
 
     try {
-      await createManyJornadas(jornadas);
+      await CreateManyJornadas(jornadas);
       toast.success('Entrenamientos creados exitosamente');
-      router.push('/modulos/entrenamientos');
+      router.push('/modulos/entrenamientos/nuevaClase');
     } catch (error) {
       console.error("Error creando jornadas de entrenamiento:", error);
       toast.error('Hubo un error al crear los entrenamientos');
@@ -81,78 +77,80 @@ const FormularioJornadas: React.FC = () => {
   return (
     <>
       <ToastContainer />
-      <h2 className="text-2xl font-semibold text-center mb-6">Programar Entrenamientos</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+      <form onSubmit={handleSubmit} className="space-y-10">
+        <div className="grid grid-cols-1 gap-4">
+          <div id="fehasyhorarioPeriodo">
+          <h3 className=" text-lg md:text-2xl font-bold ml-10">Fechas del periodo a programar</h3>
+            <div className="flex flex-row ml-20 mt-5">
+              <div className="flex flex-row">
+                <label className="font-bold text-xl mr-3">Fecha de inicio:</label>
+                <DatePicker 
+                  selected={startDate} 
+                  onChange={(date: Date | null) => setStartDate(date)} 
+                  dateFormat="dd/MM/yyyy"
+                  locale="es"
+                  className="input mr-5"
+                  required
+                />
+              </div>
+             <div className="flex flex-row">
+                <label className="font-bold text-xl mr-3">Fecha de fin:</label>
+                <DatePicker 
+                  selected={endDate} 
+                  onChange={(date: Date | null) => setEndDate(date)} 
+                  dateFormat="dd/MM/yyyy"
+                  locale="es"
+                  className="input mr-5"
+                  required
+                />
+              </div>
+              
+          </div>
+          <h3 className=" text-lg md:text-2xl font-bold mt-3 ml-10">Horarios a programar entrenamientos en el periodo</h3>
+          <div id="horariosPeriodo" className="flex flex-row ml-20 mt-5" >
+          <div className="flex flex-row">
+                <label className="font-bold text-xl mr-3">Hora de inicio:</label>
+                <input 
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  className="input mr-5 w-48"
+                  required
+                />
+              </div>
+              <div className="flex flex-row">
+                <label className="font-bold text-xl mr-3">Hora de fin:</label>
+                <input 
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  className="input mr-5 w-48"
+                  required
+                />
+              </div>
+            </div>
+
+          </div>
           <div>
-            <h3 className="text-xl font-semibold mb-2">Días de Entrenamiento</h3>
-            <div className="flex flex-col space-y-2">
+            <h3 className="text-2xl font-semibold mb-2 ml-10">Días de Entrenamiento</h3>
+            <div className="flex flex-row space-x-4 ml-20">
               {daysOfWeek.map(day => (
                 <div key={day} className="flex items-center space-x-2">
                   <Checkbox 
                     id={day}
                     checked={selectedDays.includes(day)}
                     onCheckedChange={() => handleDaySelection(day)}
+                    className="bg-white border-amber-400 w-5 h-5"
                   />
                   <label
                     htmlFor={day}
-                    className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    className="text-lg font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                   >
                     {day}
                   </label>
                 </div>
               ))}
-            </div>
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold mb-2">Periodo y Horario</h3>
-            <div className="flex flex-col space-y-4">
-              <div className="flex flex-col">
-                <label>Fecha de inicio:</label>
-                <DatePicker 
-                  selected={startDate} 
-                  onChange={(date: Date | null) => setStartDate(date)} 
-                  dateFormat="dd/MM/yyyy"
-                  locale="es"
-                  className="input"
-                  required
-                />
-              </div>
-              <div className="flex flex-col">
-                <label>Fecha de fin:</label>
-                <DatePicker 
-                  selected={endDate} 
-                  onChange={(date: Date | null) => setEndDate(date)} 
-                  dateFormat="dd/MM/yyyy"
-                  locale="es"
-                  className="input"
-                  required
-                />
-              </div>
-              <div className="flex flex-col">
-                <label>Hora de inicio:</label>
-                <TimePicker 
-                  value={startTime}
-                  onChange={setStartTime}
-                  disableClock={true}
-                  format="HH:mm"
-                  locale="es"
-                  className="w-full"
-                  required
-                />
-              </div>
-              <div className="flex flex-col">
-                <label>Hora de fin:</label>
-                <TimePicker 
-                  value={endTime}
-                  onChange={setEndTime}
-                  disableClock={true}
-                  format="HH:mm"
-                  locale="es"
-                  className="w-full"
-                  required
-                />
-              </div>
             </div>
           </div>
         </div>

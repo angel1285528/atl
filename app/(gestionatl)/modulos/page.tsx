@@ -26,14 +26,7 @@ const   Page: React.FC = () => {
         </header>
      
             
-            <Dashboard />
-            
-            <div>{totalSocios !== null ? (
-                <p>Total de Socios: {totalSocios}</p>) :( <p>Cargando...</p>
 
-                )
-            }
-            </div>
             
         </>
     );

@@ -1,15 +1,18 @@
 'use server';
+
 import prisma from "@/app/lib/prisma";
-import { PrismaClient, JornadaEntrenamiento } from "@prisma/client";
+import { JornadaEntrenamiento } from "@prisma/client";
 
 // Crear muchas jornadas de entrenamiento
 
-export async function createManyJornadas(jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento'>[]) {
+export async function CreateManyJornadas(jornadas: Omit<JornadaEntrenamiento, 'idJornadaEntrenamiento'>[]) {
+
   try {
     const result = await prisma.jornadaEntrenamiento.createMany({
       data: jornadas,
     });
     console.log(`Successfully created ${result.count} jornadas de entrenamiento`);
+
     return result;
   } catch (error) {
     console.error("Error creating jornadas de entrenamiento:", error);
@@ -49,11 +52,25 @@ export async function findUniqueJornada(id: number) {
 // Eliminar una jornada de entrenamiento por ID
 export async function deleteJornada(id: number) {
   try {
-    const result = await prisma.jornadaEntrenamiento.delete({
-      where: {
-        idJornadaEntrenamiento: id,
-      },
+    // Iniciar una transacción
+    const result = await prisma.$transaction(async (prisma) => {
+      // Eliminar las entradas relacionadas en JornadaClase
+      await prisma.jornadaClase.deleteMany({
+        where: {
+          jornadaId: id,
+        },
+      });
+
+      // Eliminar la entrada en JornadaEntrenamiento
+      const deletedJornada = await prisma.jornadaEntrenamiento.delete({
+        where: {
+          idJornadaEntrenamiento: id,
+        },
+      });
+
+      return deletedJornada;
     });
+
     console.log(`Successfully deleted jornada de entrenamiento with ID ${id}`);
     return result;
   } catch (error) {
@@ -98,14 +115,56 @@ export async function fetchJornadasEntrenamiento(): Promise<JornadaEntrenamiento
   }
 }
 
-export const iniciarJornada = async (jornadaId: number) => {
+
+
+export async function iniciarJornada(idJornadaEntrenamiento: number) {
   try {
-    await prisma.jornadaEntrenamiento.update({
-      where: { idJornadaEntrenamiento: jornadaId },
-      data: { estado: 'Realizada' },
+    // Obtener las clases asociadas con la jornada
+    const jornadaClases = await prisma.jornadaClase.findMany({
+      where: {
+        jornadaId: idJornadaEntrenamiento,
+      },
+      include: {
+        clase: true,
+      },
     });
+
+    // Registrar asistencia para cada jugador en cada clase de la jornada
+    for (const jornadaClase of jornadaClases) {
+      const jugadores = await prisma.jugador.findMany({
+        where: {
+          clasesIdClase: jornadaClase.claseId,
+        },
+      });
+
+      const asistenciaPromises = jugadores.map(jugador =>
+        prisma.asistencia.create({
+          data: {
+            jugadorId: jugador.playerId,
+            claseId: jornadaClase.claseId,
+            jornadaId: jornadaClase.jornadaId,
+            asistencia: false, // Registra asistencia como false
+          },
+        })
+      );
+
+      await Promise.all(asistenciaPromises);
+    }
+
+    // Cambiar el estado de la jornada a "Desarrollo"
+    await prisma.jornadaEntrenamiento.update({
+      where: {
+        idJornadaEntrenamiento: idJornadaEntrenamiento,
+      },
+      data: {
+        estado: "Desarrollo",
+      },
+    });
+
+    console.log(`Successfully initiated jornada de entrenamiento with ID ${idJornadaEntrenamiento}`);
+    return true;
   } catch (error) {
-    console.error("Error al actualizar:", error)
+    console.error("Error iniciando la jornada de entrenamiento:", error);
     throw error;
   }
-};
+}

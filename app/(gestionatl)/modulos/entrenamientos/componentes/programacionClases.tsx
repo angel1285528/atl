@@ -1,11 +1,14 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { JornadaEntrenamiento, Clases } from "@prisma/client";
-import { fetchJornadas, fetchClases, programarClaseEnJornada } from "@/app/lib/crud/crudClases";
+import { fetchJornadasProgramadas, fetchClases, programarClaseEnJornada } from "@/app/lib/crud/crudClases";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
+
 const TablaProgramacionClases: React.FC = () => {
+//Declaracion de variables de estado
   const [jornadas, setJornadas] = useState<JornadaEntrenamiento[]>([]);
   const [clases, setClases] = useState<Clases[]>([]);
   const [selected, setSelected] = useState<{ [key: string]: boolean }>({});
@@ -13,23 +16,29 @@ const TablaProgramacionClases: React.FC = () => {
   const [endJornada, setEndJornada] = useState<string>("");
   const [filteredJornadas, setFilteredJornadas] = useState<JornadaEntrenamiento[]>([]);
 
+  //Hooks para obtener las jornadas programadas y las clases
   useEffect(() => {
     const fetchData = async () => {
-      const jornadasData = await fetchJornadas();
+      const jornadasData = await fetchJornadasProgramadas();
       const clasesData = await fetchClases();
       setJornadas(jornadasData);
       setClases(clasesData);
+
+      // if (jornadasData.length > 0) {
+      //   setStartJornada(jornadasData[0].idJornadaEntrenamiento.toString());
+      //   setEndJornada(jornadasData[jornadasData.length - 1].idJornadaEntrenamiento.toString());
+      // }
     };
     fetchData();
   }, []);
 
-  useEffect(() => {
-    if (startJornada) {
-      const startIndex = jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(startJornada));
-      const endIndex = endJornada ? jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(endJornada)) : jornadas.length - 1;
-      setFilteredJornadas(jornadas.slice(startIndex, endIndex + 1));
-    }
-  }, [startJornada, endJornada, jornadas]);
+  // useEffect(() => {
+  //   if (startJornada) {
+  //     const startIndex = jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(startJornada));
+  //     const endIndex = endJornada ? jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(endJornada)) : jornadas.length - 1;
+  //     setFilteredJornadas(jornadas.slice(startIndex, endIndex + 1));
+  //   }
+  // }, [startJornada, endJornada, jornadas]);
 
   const handleCheckboxChange = (jornadaId: number, claseId: string) => {
     const key = `${jornadaId}-${claseId}`;
@@ -44,20 +53,37 @@ const TablaProgramacionClases: React.FC = () => {
     if (type === 'row') {
       filteredJornadas.forEach(jornada => {
         const key = `${jornada.idJornadaEntrenamiento}-${id}`;
-        newSelected[key] = true;
+        newSelected[key] = !selected[key];
       });
     } else if (type === 'column') {
       clases.forEach(clase => {
         const key = `${id}-${clase.idClase}`;
-        newSelected[key] = true;
+        newSelected[key] = !selected[key];
       });
     }
     setSelected(newSelected);
   };
 
+  const handleSelectAllRow = (jornadaId: number) => {
+    const newSelected = { ...selected };
+    clases.forEach(clase => {
+      const key = `${jornadaId}-${clase.idClase}`;
+      newSelected[key] = !selected[key];
+    });
+    setSelected(newSelected);
+  };
+
+  const handleSelectAllColumn = (claseId: string) => {
+    const newSelected = { ...selected };
+    filteredJornadas.forEach(jornada => {
+      const key = `${jornada.idJornadaEntrenamiento}-${claseId}`;
+      newSelected[key] = !selected[key];
+    });
+    setSelected(newSelected);
+  };
+
   const handleSave = async () => {
     try {
-      // Lógica para programar las clases seleccionadas en las jornadas
       const promises = Object.keys(selected).map(key => {
         const [jornadaId, claseId] = key.split('-');
         if (selected[key]) {
@@ -120,22 +146,36 @@ const TablaProgramacionClases: React.FC = () => {
       <table className="table-auto w-full">
         <thead>
           <tr>
-            <th>Clases</th>
-            {filteredJornadas.map(jornada => (
-              <th key={jornada.idJornadaEntrenamiento}>{formatDate(jornada.fechaJornadaEntrenamiento)}</th>
+            <th>Jornadas</th>
+            {clases.map(clase => (
+              <th key={clase.idClase}>
+                <div className="flex items-center justify-between">
+                  <span>
+                    {clase.idClase}
+                    <br />
+                    {clase.tipo}
+                  </span>
+                  <button onClick={() => handleSelectAllColumn(clase.idClase)} className="ml-2 text-blue-500">
+                    Seleccionar Todo
+                  </button>
+                </div>
+              </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {clases.map(clase => (
-            <tr key={clase.idClase}>
+          {filteredJornadas.map(jornada => (
+            <tr key={jornada.idJornadaEntrenamiento}>
               <td>
-                {clase.idClase}
-                <br />
-                {clase.tipo}
+                <div className="flex items-center justify-between">
+                  <span>{formatDate(jornada.fechaJornadaEntrenamiento)}</span>
+                  <button onClick={() => handleSelectAllRow(jornada.idJornadaEntrenamiento)} className="ml-2 text-blue-500">
+                    Seleccionar Todo
+                  </button>
+                </div>
               </td>
-              {filteredJornadas.map(jornada => (
-                <td key={jornada.idJornadaEntrenamiento}>
+              {clases.map(clase => (
+                <td key={clase.idClase}>
                   <input
                     type="checkbox"
                     checked={selected[`${jornada.idJornadaEntrenamiento}-${clase.idClase}`] || false}

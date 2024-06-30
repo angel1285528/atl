@@ -1,11 +1,10 @@
 import React from 'react';
-import GenericHR from '@/components/ui/GenericHorizontalLine';
 import FormularioJornadas from './componentes/formularioJornadas';
+import GenericHeaderModule from '@/components/ui/genericModulHeader';
 const Page = () => {
   return (
     <>
-      <h1>Nueva Jornada de Entrenamiento</h1>
-      <GenericHR />
+      <GenericHeaderModule text="Programar Jornadas en Periodo" />
       <FormularioJornadas />
     </>
   );

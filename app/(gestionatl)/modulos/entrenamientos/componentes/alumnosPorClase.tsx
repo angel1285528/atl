@@ -1,17 +1,20 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import Image from "next/image";
-import { updateAsistencia } from "../lib/crudAsistencia";
 import { toast } from 'react-toastify';
 import { getAlumnosPorClase } from "@/app/lib/crud/crudClases";
+import AsistenciaSwitch from "./AsistenciaSwitch";
+
 type Alumno = {
   playerId: string;
+  playerFechaRegistro: Date;
   playerFirstName: string;
   playerLastName: string;
   playerSecondLastName: string | null;
   playerPhotoUrl?: string | null;
   categoria: string;
+  asistencia: boolean; // Añade esta propiedad
 };
 
 type Clase = {
@@ -35,7 +38,6 @@ const AlumnosPorClase: React.FC<AlumnosPorClaseProps> = ({ jornadaId }) => {
   const [data, setData] = useState<JornadaClase[]>([]);
   const [loading, setLoading] = useState(true);
   const [openItem, setOpenItem] = useState<string | undefined>(undefined);
-  const [checkboxState, setCheckboxState] = useState<{ [key: string]: boolean }>({});
 
   useEffect(() => {
     async function fetchData() {
@@ -45,26 +47,6 @@ const AlumnosPorClase: React.FC<AlumnosPorClaseProps> = ({ jornadaId }) => {
     }
     fetchData();
   }, [jornadaId]);
-
-  const handleCheckboxChange = async (playerId: string, claseId: string) => {
-    const newCheckedState = !checkboxState[playerId];
-
-    try {
-      await updateAsistencia(playerId, jornadaId, claseId, newCheckedState);
-      setCheckboxState((prevState) => ({
-        ...prevState,
-        [playerId]: newCheckedState,
-      }));
-      toast.success("Asistencia actualizada correctamente",
-      {autoClose: 2000}
-      );
-    } catch (error) {
-      console.error("Error updating asistencia", error);
-      toast.error("Error al actualizar la asistencia");
-    }
-
-    setOpenItem(undefined); // Close the accordion when a checkbox is marked
-  };
 
   const handleAccordionChange = (value: string | null) => {
     setOpenItem(value ?? undefined); // Toggle accordion item
@@ -110,11 +92,11 @@ const AlumnosPorClase: React.FC<AlumnosPorClaseProps> = ({ jornadaId }) => {
                         <div className="hidden sm:block">{alumno.categoria}</div>
                       </div>
                       <div className="w-1/4 md:w-2/6 flex justify-center">
-                        <input
-                          type="checkbox"
-                          className="form-checkbox h-5 w-5 text-blue-600"
-                          checked={checkboxState[alumno.playerId] || false}
-                          onChange={() => handleCheckboxChange(alumno.playerId, jornadaClase.claseId)}
+                        <AsistenciaSwitch
+                          jugadorId={alumno.playerId}
+                          jornadaId={jornadaClase.jornadaId}
+                          claseId={jornadaClase.claseId}
+                          initialAsistencia={alumno.asistencia} // Valor inicial de asistencia
                         />
                       </div>
                     </li>

@@ -1,12 +1,14 @@
+
 import React from 'react';
 import TablaProgramacionClases from '../componentes/programacionClases';
+import GenericHeaderModule from '@/components/ui/genericModulHeader';
+export const dynamic = 'force-dynamic';
 
 const Page = () => {
   return (
     <>
-      <h1>Nueva Clase</h1>
+      <GenericHeaderModule text='Agregar Clases' />
       <div>
-        <h2>Periodo</h2>
         <TablaProgramacionClases />
       </div>
     </>

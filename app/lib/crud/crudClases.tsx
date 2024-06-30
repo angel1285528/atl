@@ -17,6 +17,23 @@ export const fetchJornadas = async (): Promise<JornadaEntrenamiento[]> => {
   }
 };
 
+export const fetchJornadasProgramadas = async (): Promise<JornadaEntrenamiento[]> => {
+  try {
+    const jornadas = await prisma.jornadaEntrenamiento.findMany({
+      where: {
+        estado: "Programada",
+      },
+      orderBy: {
+        fechaJornadaEntrenamiento: 'asc',
+      },
+    });
+    return jornadas;
+  } catch (error) {
+    console.error("Error al cargar las jornadas programadas:", error);
+    throw error;
+  }
+};
+
 // Obtener todas las clases
 export const fetchClases = async (): Promise<Clases[]> => {
   try {
@@ -28,11 +45,20 @@ export const fetchClases = async (): Promise<Clases[]> => {
   }
 };
 
-// Programar clase en una jornada
+
+
+// Programar una clase en una jornada
 export const programarClaseEnJornada = async (jornadaId: number, claseId: string) => {
   try {
-    const result = await prisma.jornadaClase.create({
-      data: {
+    const result = await prisma.jornadaClase.upsert({
+      where: {
+        jornadaId_claseId: {
+          jornadaId,
+          claseId,
+        },
+      },
+      update: {},
+      create: {
         jornadaId,
         claseId,
       },
@@ -43,6 +69,7 @@ export const programarClaseEnJornada = async (jornadaId: number, claseId: string
     throw error;
   }
 };
+
 
 // Actualizar programación de clase en una jornada
 export const actualizarClaseEnJornada = async (jornadaId: number, claseId: string, nuevosDatos: { jornadaId?: number, claseId?: string }) => {
@@ -101,15 +128,38 @@ export async function fetchJornadasConClases() {
 
 
 
+
+
+
+
 export async function getAlumnosPorClase(jornadaId: number) {
-  return await prisma.jornadaClase.findMany({
+  const clases = await prisma.jornadaClase.findMany({
     where: { jornadaId },
     include: {
       clase: {
         include: {
-          alumnos: true,
+          alumnos: {
+            include: {
+              Asistencias: {
+                where: { jornadaId },
+              },
+            },
+          },
         },
       },
     },
   });
+
+  return clases.map(jornadaClase => ({
+    ...jornadaClase,
+    clase: {
+      ...jornadaClase.clase,
+      alumnos: jornadaClase.clase.alumnos
+        .map(alumno => ({
+          ...alumno,
+          asistencia: alumno.Asistencias.length > 0 ? alumno.Asistencias[0].asistencia : false,
+        }))
+        .filter(alumno => !alumno.asistencia), // Filtrar alumnos con asistencia false
+    },
+  }));
 }
