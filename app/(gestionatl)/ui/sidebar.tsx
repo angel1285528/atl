@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { MdMenuOpen } from "react-icons/md";
 
 const Modulos = [
+   //Inicio
     {
         Link: "/modulos/",
         name: "Inicio",
@@ -12,6 +13,7 @@ const Modulos = [
         opciones: {},
         Disponibilidad: true,
     },
+   //Socio
     {
         Link: "/modulos/socios/",
         name: "Socios",
@@ -19,9 +21,17 @@ const Modulos = [
         opciones: {},
         Disponibilidad: true,
     },
+   //Jugadores
     {
         Link: "/modulos/jugadores",
         name: "Jugadores",
+        icon: "",
+        opciones: {},
+        Disponibilidad: true,
+    },
+    {
+        Link: "/modulos/Finanzas",
+        name: "Finanzas",
         icon: "",
         opciones: {},
         Disponibilidad: true,

@@ -66,7 +66,7 @@ model Temporadas {
 }
 
 model socio {
-  id             String        @id @unique
+  id             String       @id @unique
   firstName      String
   lastName       String
   secondLastName String?
@@ -82,13 +82,14 @@ model socio {
   urlSocioIne    String?
   urlIdDomicilio String?
   periodoDePago  String?
-  rol            Role          @default(socio)
-  status         StatusSocios  @default(Activo)
-  fechaRegistro  DateTime      @default(now())
-  estadoCuenta   estadocuenta?
+  rol            Role         @default(socio)
+  status         StatusSocios @default(Activo)
+  fechaRegistro  DateTime     @default(now())
   familiares     familiares[]
   jugador        jugador[]
+  estadoCuenta   estadoCuenta?
 }
+
 
 model jugador {
   playerId             String         @id @unique
@@ -100,21 +101,26 @@ model jugador {
   status               Status_Jugador @default(activo)
   rama                 String
   socioId              String
+  socio                socio          @relation(fields: [socioId], references: [id])
   fechaNacimiento      DateTime
   playerPhotoUrl       String?
   playerCellPhone      String?
   playerEmail          String?
-  ciudadNacimiento     String
-  estadoNacimiento     String
   paisNacimiento       String
+  estadoNacimiento     String
+  ciudadNacimiento     String
   schoolarLevel        String
   schoolarGrade        String
+  
   school               String
-  clasesIdClase        String?
   Asistencias          Asistencia[]
-  clase                Clases?        @relation(fields: [clasesIdClase], references: [idClase])
-  socio                socio          @relation(fields: [socioId], references: [id])
+  clase                Clases?         @relation(references: [idClase], fields: [clasesIdClase])
+  estadoCuentaJugador  estadoCuentaJugador[] // Relación con el modelo estadoCuentaJugador
+  clasesIdClase        String?
+
+  
 }
+
 
 model familiares {
   familyId             String  @id @default(cuid())
@@ -138,14 +144,57 @@ model Entrenadores {
   clases              Clases[] @relation("ClasesToEntrenadores")
 }
 
-model estadocuenta {
-  estadoCuentaId String        @id @unique @default(cuid())
-  socioId        String        @unique
-  saldo          Int
-  periodoPago    periodoDePago
-  balance        Int
+model estadoCuenta {
+  estadoCuentaId String       @id @unique @default(cuid())
+  periodoPago    periodoDePago @default(periodo3)
+  balance        Float        @default(0)
+  movimientos    MovimientosEdoCta[]   
   socio          socio         @relation(fields: [socioId], references: [id])
+  socioId        String        @unique
+  
 }
+
+model MovimientosEdoCta {
+  idMovimientoEdoCta    String @id @unique
+  fechaMovimiento       DateTime
+    conceptoMovimiento    conceptosMovimientos @relation(fields: [concepto], references: [idConceptoMovimiento])
+  concepto              String
+  importe               Float
+  tipoMovimiento        TipoMovimiento
+  estadoCuentaId        String?
+  estadoCuenta          estadoCuenta? @relation(fields: [estadoCuentaId], references: [estadoCuentaId])
+  estadoCuentaJugadorId String?
+  estadoCuentaJugador   estadoCuentaJugador? @relation(fields: [estadoCuentaJugadorId], references: [idEstadoCuentaJugador])
+}
+
+model conceptosMovimientos {
+  idConceptoMovimiento String @id @unique @default(cuid())
+  concepto             String
+  movimientos          MovimientosEdoCta[]
+  tipoConcepto         TipoConcepto
+}
+
+enum TipoConcepto {
+  Mensualidad
+  Uniformes
+  Torneos
+  Festejos
+  Inscripciones
+  Transportes
+  Patrocinio
+  Donativo
+}
+model estadoCuentaJugador {
+  idEstadoCuentaJugador String @id @unique @default(cuid())
+  importeMensualidad    Float  @default(350)   
+  tipoMensualidad       Cuota  @default(Estandar)
+  idJugadorEstadoCuenta String
+  jugador               jugador @relation(fields: [idJugadorEstadoCuenta], references: [playerId])
+  movimientos           MovimientosEdoCta[]
+
+}
+
+
 
 enum TipoClase {
   fut1
@@ -180,14 +229,18 @@ enum Cuota {
   Estandar
   Hermano_Menor
   Preferencial
+  Vip
   Cortesia
+  NoAplica
+  //fuerzasBasicas
 }
 
 enum Status_Jugador {
   activo
+  ausente
   baja
   lesionado
-  baja_temporal
+  vetado
 }
 
 enum periodoDePago {
@@ -195,3 +248,11 @@ enum periodoDePago {
   periodo2
   periodo3
 }
+
+enum TipoMovimiento {
+  Cargo
+  Abono
+  Descuento
+  Multa
+}
+
