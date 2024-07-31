@@ -4,8 +4,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { zSchemaFamiliares } from '@/app/lib/zod/zSchemaFamiliares';
-import { interfaceFamiliares } from '@/app/lib/interfaces/interfaceSocio';
-import { createFamiliar } from '@/app/lib/crud/crearFamiliar';
+import { familiares } from '@prisma/client';
+import { createFamiliar } from '../modulos/socios/lib/crudSocios';
 import { toast } from 'react-toastify';
 import FamilyContactFields from './forms-fields/familiares/family-contact-fields';
 import FamilyNameFields from './forms-fields/familiares/family-name-fields';
@@ -26,13 +26,13 @@ interface FormularioFamiliarProps {
 
 const FormularioFamiliar: React.FC<FormularioFamiliarProps> = ({ socioId }) => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
-  const methods = useForm<interfaceFamiliares>({
+  const methods = useForm<familiares>({
     resolver: zodResolver(zSchemaFamiliares)
   });
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   
-  const onSubmit = async (data: interfaceFamiliares) => {
+  const onSubmit = async (data: familiares) => {
     setIsSubmitting(true);
     try {
       const dataWithSocioId = { ...data, socioId: socioId };

@@ -1,97 +1,74 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { JornadaEntrenamiento, Clases } from "@prisma/client";
-import { fetchJornadasProgramadas, fetchClases, programarClaseEnJornada } from "@/app/lib/crud/crudClases";
+import { fetchJornadasProgramadas, fetchClases, programarClasesEnJornadas } from "@/app/lib/crud/crudClases";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Checkbox } from "@/components/ui/checkbox";
 
-
+const daysOfWeek = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 
 const TablaProgramacionClases: React.FC = () => {
-//Declaracion de variables de estado
   const [jornadas, setJornadas] = useState<JornadaEntrenamiento[]>([]);
   const [clases, setClases] = useState<Clases[]>([]);
   const [selected, setSelected] = useState<{ [key: string]: boolean }>({});
   const [startJornada, setStartJornada] = useState<string>("");
   const [endJornada, setEndJornada] = useState<string>("");
-  const [filteredJornadas, setFilteredJornadas] = useState<JornadaEntrenamiento[]>([]);
+  const [daysWithClasses, setDaysWithClasses] = useState<number[]>([]);
 
-  //Hooks para obtener las jornadas programadas y las clases
   useEffect(() => {
     const fetchData = async () => {
       const jornadasData = await fetchJornadasProgramadas();
       const clasesData = await fetchClases();
       setJornadas(jornadasData);
       setClases(clasesData);
-
-      // if (jornadasData.length > 0) {
-      //   setStartJornada(jornadasData[0].idJornadaEntrenamiento.toString());
-      //   setEndJornada(jornadasData[jornadasData.length - 1].idJornadaEntrenamiento.toString());
-      // }
     };
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   if (startJornada) {
-  //     const startIndex = jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(startJornada));
-  //     const endIndex = endJornada ? jornadas.findIndex(j => j.idJornadaEntrenamiento === parseInt(endJornada)) : jornadas.length - 1;
-  //     setFilteredJornadas(jornadas.slice(startIndex, endIndex + 1));
-  //   }
-  // }, [startJornada, endJornada, jornadas]);
+  useEffect(() => {
+    if (startJornada && endJornada) {
+      const start = new Date(startJornada);
+      const end = new Date(endJornada);
+      const daysSet = new Set<number>();
 
-  const handleCheckboxChange = (jornadaId: number, claseId: string) => {
-    const key = `${jornadaId}-${claseId}`;
+      jornadas.forEach(jornada => {
+        const jornadaDate = new Date(jornada.fechaJornadaEntrenamiento);
+        if (jornadaDate >= start && jornadaDate <= end) {
+          daysSet.add(jornadaDate.getDay());
+        }
+      });
+
+      setDaysWithClasses(Array.from(daysSet).sort((a, b) => (a === 0 ? 7 : a) - (b === 0 ? 7 : b)));
+    }
+  }, [startJornada, endJornada, jornadas]);
+
+  const handleCheckboxChange = (dayIndex: number, claseId: string) => {
+    const key = `${dayIndex}-${claseId}`;
     setSelected(prev => ({
       ...prev,
       [key]: !prev[key],
     }));
   };
 
-  const handleSelectAll = (type: 'row' | 'column', id: number | string) => {
-    const newSelected = { ...selected };
-    if (type === 'row') {
-      filteredJornadas.forEach(jornada => {
-        const key = `${jornada.idJornadaEntrenamiento}-${id}`;
-        newSelected[key] = !selected[key];
-      });
-    } else if (type === 'column') {
-      clases.forEach(clase => {
-        const key = `${id}-${clase.idClase}`;
-        newSelected[key] = !selected[key];
-      });
-    }
-    setSelected(newSelected);
-  };
-
-  const handleSelectAllRow = (jornadaId: number) => {
-    const newSelected = { ...selected };
-    clases.forEach(clase => {
-      const key = `${jornadaId}-${clase.idClase}`;
-      newSelected[key] = !selected[key];
-    });
-    setSelected(newSelected);
-  };
-
-  const handleSelectAllColumn = (claseId: string) => {
-    const newSelected = { ...selected };
-    filteredJornadas.forEach(jornada => {
-      const key = `${jornada.idJornadaEntrenamiento}-${claseId}`;
-      newSelected[key] = !selected[key];
-    });
-    setSelected(newSelected);
-  };
-
   const handleSave = async () => {
     try {
-      const promises = Object.keys(selected).map(key => {
-        const [jornadaId, claseId] = key.split('-');
+      const registros: { jornadaId: number, claseId: string }[] = [];
+      Object.keys(selected).forEach(key => {
+        const [dayIndex, claseId] = key.split('-');
         if (selected[key]) {
-          return programarClaseEnJornada(parseInt(jornadaId), claseId);
+          jornadas.forEach(jornada => {
+            const jornadaDate = new Date(jornada.fechaJornadaEntrenamiento);
+            if (jornadaDate.getDay() === parseInt(dayIndex) &&
+              jornadaDate >= new Date(startJornada) &&
+              jornadaDate <= new Date(endJornada)) {
+              registros.push({ jornadaId: jornada.idJornadaEntrenamiento, claseId });
+            }
+          });
         }
-        return null;
-      }).filter(Boolean);
-      await Promise.all(promises);
+      });
+
+      await programarClasesEnJornadas(registros);
       toast.success('Programación guardada exitosamente');
     } catch (error) {
       console.error("Error al guardar la programación:", error);
@@ -99,87 +76,47 @@ const TablaProgramacionClases: React.FC = () => {
     }
   };
 
-  const formatDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' };
-    return new Date(date).toLocaleDateString('es-MX', options);
-  };
-
   return (
-    <div>
+    <div className="p-4">
       <ToastContainer />
-      <h2>Programar Clases en Jornadas</h2>
       <div className="mb-4">
-        <label htmlFor="startJornada">Fecha de Inicio:</label>
-        <select
+        <label htmlFor="startJornada" className="block text-lg font-semibold">Fecha de Inicio:</label>
+        <input
+          type="date"
           id="startJornada"
           value={startJornada}
           onChange={(e) => setStartJornada(e.target.value)}
-          className="border p-2 rounded-md"
-        >
-          <option value="">Seleccione una jornada</option>
-          {jornadas.map(jornada => (
-            <option key={jornada.idJornadaEntrenamiento} value={jornada.idJornadaEntrenamiento}>
-              {formatDate(jornada.fechaJornadaEntrenamiento)}
-            </option>
-          ))}
-        </select>
+          className="border p-2 rounded-md w-full"
+        />
       </div>
       <div className="mb-4">
-        <label htmlFor="endJornada">Fecha de Fin:</label>
-        <select
+        <label htmlFor="endJornada" className="block text-lg font-semibold">Fecha de Fin:</label>
+        <input
+          type="date"
           id="endJornada"
           value={endJornada}
           onChange={(e) => setEndJornada(e.target.value)}
-          className="border p-2 rounded-md"
-          disabled={!startJornada}
-        >
-          <option value="">Seleccione una jornada</option>
-          {jornadas
-            .filter(j => j.idJornadaEntrenamiento > parseInt(startJornada))
-            .map(jornada => (
-              <option key={jornada.idJornadaEntrenamiento} value={jornada.idJornadaEntrenamiento}>
-                {formatDate(jornada.fechaJornadaEntrenamiento)}
-              </option>
-            ))}
-        </select>
+          className="border p-2 rounded-md w-full"
+        />
       </div>
-      <table className="table-auto w-full">
+      <table className="table-auto w-full text-center">
         <thead>
           <tr>
-            <th>Jornadas</th>
-            {clases.map(clase => (
-              <th key={clase.idClase}>
-                <div className="flex items-center justify-between">
-                  <span>
-                    {clase.idClase}
-                    <br />
-                    {clase.tipo}
-                  </span>
-                  <button onClick={() => handleSelectAllColumn(clase.idClase)} className="ml-2 text-blue-500">
-                    Seleccionar Todo
-                  </button>
-                </div>
-              </th>
+            <th className="px-4 py-2 bg-gray-200">Clases</th>
+            {daysWithClasses.map(dayIndex => (
+              <th key={dayIndex} className="px-4 py-2 bg-gray-200">{daysOfWeek[dayIndex - 1]}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {filteredJornadas.map(jornada => (
-            <tr key={jornada.idJornadaEntrenamiento}>
-              <td>
-                <div className="flex items-center justify-between">
-                  <span>{formatDate(jornada.fechaJornadaEntrenamiento)}</span>
-                  <button onClick={() => handleSelectAllRow(jornada.idJornadaEntrenamiento)} className="ml-2 text-blue-500">
-                    Seleccionar Todo
-                  </button>
-                </div>
-              </td>
-              {clases.map(clase => (
-                <td key={clase.idClase}>
-                  <input
-                    type="checkbox"
-                    checked={selected[`${jornada.idJornadaEntrenamiento}-${clase.idClase}`] || false}
-                    onChange={() => handleCheckboxChange(jornada.idJornadaEntrenamiento, clase.idClase)}
+          {clases.map((clase, claseIndex) => (
+            <tr key={clase.idClase} className={claseIndex % 2 === 0 ? "bg-gray-100" : ""}>
+              <td className="px-4 py-2 font-bold text-2xl">{clase.tipo}</td>
+              {daysWithClasses.map(dayIndex => (
+                <td key={dayIndex} className="px-4 py-2">
+                  <Checkbox
+                    checked={selected[`${dayIndex}-${clase.idClase}`] || false}
+                    onCheckedChange={() => handleCheckboxChange(dayIndex, clase.idClase)}
                   />
                 </td>
               ))}

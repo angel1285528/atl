@@ -1,5 +1,5 @@
-"use client"
-import * as React from "react"
+"use client";
+import * as React from "react";
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { PlusCircle } from "lucide-react";
 import {
@@ -12,7 +12,7 @@ import {
   getSortedRowModel,
   SortingState,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -21,27 +21,22 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
-
-
-
-
+} from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
-
 
 export function GenericDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>): JSX.Element {
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
+  );
 
   const table = useReactTable({
     data,
@@ -56,43 +51,48 @@ export function GenericDataTable<TData, TValue>({
       sorting,
       columnFilters,
     },
-  })
+  });
 
   return (
-
-
     <div className="w-full">
-    
-      
       <div className="rounded-md border overflow-x-auto">
-        <Table className=" relative">
+        <Table className="relative">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead className="font-bold text-black text-xl" key={header.id}>
+                    <TableHead
+                      className="font-bold text-black text-xl text-center bg-gray-200"
+                      key={header.id}
+                      style={{ border: "1px solid #d1d5db" }}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row, rowIndex) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray-100"}
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className="text-center"
+                      style={{ border: "1px solid #d1d5db" }}
+                    >
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -100,7 +100,11 @@ export function GenericDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                  style={{ border: "1px solid #d1d5db" }}
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -128,9 +132,7 @@ export function GenericDataTable<TData, TValue>({
       </div>
       <div />
     </div>
-    )
+  );
 }
-  export default GenericDataTable;
 
-
-
+export default GenericDataTable;

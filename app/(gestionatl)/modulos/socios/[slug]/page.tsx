@@ -8,7 +8,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { DataTableJugadoresPorSocio } from "../../jugadores/components/DataTableJugadoresPorSocio";
 import { columnasJugadoresSocio } from "../../jugadores/components/columnasJugadoresPorSocio";
-import { cargarJugadoresPorSocio } from "../../jugadores/lib/crud/fetchJugadorPorSocio";
+import { cargarJugadoresPorSocio } from "../../jugadores/lib/crud/crudJugador";
 
 export const dynamic = "force-dynamic"
 

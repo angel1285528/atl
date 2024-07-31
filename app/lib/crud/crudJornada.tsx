@@ -116,7 +116,25 @@ export async function fetchJornadasEntrenamiento(): Promise<JornadaEntrenamiento
 }
 
 
+export async function finalizarJornada(idJornadaEntrenamiento: number) {
+  try {
+    // Cambiar el estado de la jornada a "Finalizada"
+    await prisma.jornadaEntrenamiento.update({
+      where: {
+        idJornadaEntrenamiento: idJornadaEntrenamiento,
+      },
+      data: {
+        estado: "Realizada",
+      },
+    });
 
+    console.log(`Successfully finalized jornada de entrenamiento with ID ${idJornadaEntrenamiento}`);
+    return true;
+  } catch (error) {
+    console.error("Error finalizando la jornada de entrenamiento:", error);
+    throw error;
+  }
+}
 export async function iniciarJornada(idJornadaEntrenamiento: number) {
   try {
     // Obtener las clases asociadas con la jornada
@@ -168,3 +186,4 @@ export async function iniciarJornada(idJornadaEntrenamiento: number) {
     throw error;
   }
 }
+

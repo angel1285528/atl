@@ -2,7 +2,7 @@
 import prisma from '@/app/lib/prisma';
 import AlumnosPorClase from '../../componentes/alumnosPorClase';
 import ContadorAsistencia from '../../componentes/contadorAsistencia';
-
+import FinalizarEntrenamientoButton from '../../componentes/finalizarEntenamientoButton';
 type JornadaConClases = {
   idJornadaEntrenamiento: number;
   fechaJornadaEntrenamiento: Date;
@@ -87,6 +87,9 @@ const CurrentSesionPage = async ({ params }: { params: { id: string } }) => {
       <h2 className="text-xl font-semibold mt-1">Registro de Asistencia:</h2>
       <div>
         <AlumnosPorClase jornadaId={jornada.idJornadaEntrenamiento} />
+      </div>
+      <div>
+        <FinalizarEntrenamientoButton idJornadaEntrenamiento={jornada.idJornadaEntrenamiento} /> 
       </div>
     </div>
   );

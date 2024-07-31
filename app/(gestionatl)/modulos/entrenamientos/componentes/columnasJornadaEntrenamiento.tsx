@@ -1,6 +1,5 @@
 'use client';
 import { deleteJornada, iniciarJornada } from "@/app/lib/crud/crudJornada";
-import Link from "next/link";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { JornadaEntrenamiento, JornadaClase } from "@prisma/client";
@@ -25,7 +24,7 @@ const AccionesCell = ({ row }: { row: any }) => {
   };
 
   return (
-    <div className="text-left">
+    <div className="text-center">
       {estado === "Programada" ? (
         <Button onClick={handleEliminar} className="bg-red-500 text-white">Eliminar Sesión</Button>
       ) : estado === "Desarrollo" ? (
@@ -57,7 +56,7 @@ const IniciarJornadaCell = ({ row }: { row: any }) => {
   };
 
   return (
-    <div className="text-left">
+    <div className="text-center">
       {estado === "Programada" ? (
         <Button onClick={handleIniciarJornada} className="bg-blue-500 text-white">
           <PlayCircleIcon />
@@ -72,16 +71,29 @@ const IniciarJornadaCell = ({ row }: { row: any }) => {
 };
 
 export const columnasJornadas: ColumnDef<JornadaConClases>[] = [
+  // COLUMNA ESTADO DE JORNADA DE ENTRENAMIENTO
+  {
+    accessorKey: "estado",
+    header: () => <div className="text-center">Estado</div>,
+    cell: ({ row }) => {
+      const estado: string = row.getValue('estado');
+      return (
+        <div className="text-center text-black">
+          {estado}
+        </div>
+      );
+    },
+  },
   // COLUMNA PARA INICIAR JORNADA DE ENTRENAMIENTO
   {
     id: "iniciarJornada",
-    header: "Iniciar",
+    header: () => <div className="text-center">Iniciar</div>,
     cell: IniciarJornadaCell,
   },
   // COLUMNA FECHA DE JORNADA DE ENTRENAMIENTO
   {
     accessorKey: "fechaJornadaEntrenamiento",
-    header: "Fecha",
+    header: () => <div className="text-left">Fecha</div>,
     cell: ({ row }) => {
       const fechaJornadaEntrenamiento: Date = row.getValue('fechaJornadaEntrenamiento');
       const horaInicio = row.original.horaInicioJornada;
@@ -104,7 +116,7 @@ export const columnasJornadas: ColumnDef<JornadaConClases>[] = [
   // COLUMNA CLASES DE JORNADA DE ENTRENAMIENTO
   {
     accessorKey: "clases",
-    header: "Clases",
+    header: () => <div className="text-left">Clases</div>,
     cell: ({ row }) => {
       const clases = row.original.clases as JornadaClase[];
       const rows = [];
@@ -124,37 +136,11 @@ export const columnasJornadas: ColumnDef<JornadaConClases>[] = [
       );
     },
   },
-  // COLUMNA ESTADO DE JORNADA DE ENTRENAMIENTO
-  {
-    accessorKey: "estado",
-    header: "Estado",
-    cell: ({ row }) => {
-      const estado: string = row.getValue('estado');
-      return (
-        <div className="text-left text-black">
-          {estado}
-        </div>
-      );
-    },
-  },
-  // COLUMNA BITACORA DE JORNADA DE ENTRENAMIENTO
-  {
-    accessorKey: "bitacora",
-    header: "Reporte",
-    cell: ({ row }) => {
-      return (
-        <div className="text-left">
-          <Link href={`/entrenamientos/bitacora/${row.original.idJornadaEntrenamiento}`}>
-            <Button>Bitacora</Button>
-          </Link>
-        </div>
-      );
-    },
-  },
+ 
   // COLUMNA ELIMINAR SESION
   {
     id: "acciones",
-    header: "Acciones",
+    header: () => <div className="text-center">Acciones</div>,
     cell: AccionesCell,
   },
 ];

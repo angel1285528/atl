@@ -1,8 +1,10 @@
+// components/expedienteJugador.tsx
 'use client';
 import React, { useEffect, useState } from 'react';
 import { cargarJugador } from '../lib/crud/cargarJugador';
+import { actualizarEstadoJugador } from '../lib/crud/crudJugador';
 import Image from 'next/image';
-import { jugador as JugadorModel } from '@prisma/client';
+import { jugador as JugadorModel, Status_Jugador } from '@prisma/client'; // Importar Status_Jugador
 import Link from 'next/link';
 import AvatarATL from '@/app/(gestionatl)/ui/avatarATL';
 import { actualizarFoto } from '../lib/crud/agregarFotoJugador';
@@ -14,6 +16,7 @@ interface ExpedienteJugadorProps {
 const ExpedienteJugador: React.FC<ExpedienteJugadorProps> = ({ playerId }) => {
   const [jugador, setJugador] = useState<JugadorModel | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [nuevoEstado, setNuevoEstado] = useState<Status_Jugador | ''>(''); // Usar Status_Jugador o ''
 
   useEffect(() => {
     const obtenerDatosJugador = async () => {
@@ -24,13 +27,28 @@ const ExpedienteJugador: React.FC<ExpedienteJugadorProps> = ({ playerId }) => {
         const data = await cargarJugador(playerId);
         setJugador(data);
       } catch (err) {
-        console.error('Error al obtener los datos del jugador:', err);
+        const error = err as Error; // Convertir a tipo Error
+        console.error('Error al obtener los datos del jugador:', error);
         setError('Error al cargar los datos del jugador');
       }
     };
 
     obtenerDatosJugador();
   }, [playerId]);
+
+  const handleEstadoChange = async (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const nuevoEstado = event.target.value as Status_Jugador; // Convertir a Status_Jugador
+    try {
+      if (jugador) {
+        const jugadorActualizado = await actualizarEstadoJugador(jugador.playerId, nuevoEstado);
+        setJugador(jugadorActualizado);
+      }
+    } catch (err) {
+      const error = err as Error; // Convertir a tipo Error
+      console.error('Error al actualizar el estado del jugador:', error);
+      setError('Error al actualizar el estado del jugador');
+    }
+  };
 
   if (error) return <div>Hubo un error: {error}</div>;
   if (!jugador) return <div>Cargando...</div>;
@@ -56,6 +74,26 @@ const ExpedienteJugador: React.FC<ExpedienteJugadorProps> = ({ playerId }) => {
           <h2 className="text-2xl font-semibold text-gray-700 mb-1">ID: {jugador.playerId}</h2>
           <h3 className="text-xl font-semibold text-blue-800 mb-1">{jugador.categoria}</h3>
           <h4 className="text-lg font-medium text-green-600">Status: {jugador.status}</h4>
+          <div className="mt-2">
+            <label className="block text-gray-700 font-bold mb-1" htmlFor="estado">
+              Cambiar Estado:
+            </label>
+            <select
+              id="estado"
+              value={nuevoEstado}
+              onChange={handleEstadoChange}
+              className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="" disabled>
+                Selecciona un estado
+              </option>
+              {Object.values(Status_Jugador).map((estado) => (
+                <option key={estado} value={estado}>
+                  {estado}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
         <div className="mt-4">
           <h2 className="text-2xl font-bold text-gray-800 mb-2">Información Personal</h2>

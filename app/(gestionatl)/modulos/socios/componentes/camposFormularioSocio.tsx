@@ -11,9 +11,9 @@ const formFields = [
       label: 'Nombre y Apellidos',
       fields: [
         {label: "Curp", name: "id", type: "text"},
-        { label: 'Nombre', name: 'firstName', type: 'text' },
         { label: 'Apellido Paterno', name: 'lastName', type: 'text' },
-        { label: 'Apellido Materno', name: 'secondLastName', type: 'text' }
+        { label: 'Apellido Materno', name: 'secondLastName', type: 'text' },
+        { label: 'Nombre', name: 'firstName', type: 'text' }
       ]
     },
     {
@@ -76,9 +76,9 @@ const formFields = [
           <div className='mb-4'>
             <label htmlFor="periodoDePago" className='block text-sm font-medium text-gray-700'>Periodo de Pago</label>
             <select {...register("periodoDePago")} id="periodoDePago" className='mt-1 p-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500'>
-              <option value="1">Del día 1 al 10 de cada mes</option>
-              <option value="2">Del día 11 al 20 de cada mes</option>
-              <option value="3">Del día 21 al último de cada mes</option>
+              <option value="periodo1">Del día 1 al 10 de cada mes</option>
+              <option value="periodo2">Del día 11 al 20 de cada mes</option>
+              <option value="periodo3">Del día 21 al último de cada mes</option>
             </select>
           </div>
         </fieldset>      

@@ -20,7 +20,6 @@ type Alumno = {
 type Clase = {
   idClase: string;
   tipo: string;
-  BitacoraClase: string;
   alumnos: Alumno[];
 };
 

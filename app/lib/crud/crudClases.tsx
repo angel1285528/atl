@@ -1,6 +1,6 @@
 'use server';
 import prisma from "../prisma";
-import { JornadaEntrenamiento, Clases } from "@prisma/client";
+import { JornadaEntrenamiento, Clases, $Enums } from "@prisma/client";
 
 // Obtener todas las jornadas
 export const fetchJornadas = async (): Promise<JornadaEntrenamiento[]> => {
@@ -35,40 +35,37 @@ export const fetchJornadasProgramadas = async (): Promise<JornadaEntrenamiento[]
 };
 
 // Obtener todas las clases
-export const fetchClases = async (): Promise<Clases[]> => {
+export const fetchClases = async (): Promise<{ idClase: string; tipo: $Enums.TipoClase }[]> => {
   try {
-    const clases = await prisma.clases.findMany();
+    const clases = await prisma.clases.findMany({
+      select: {
+        idClase: true,
+        tipo: true,
+      },
+    });
     return clases;
   } catch (error) {
-    console.error("Error al cargar las clases:", error);
-    throw error;
+    console.error("Error fetching classes:", error);
+    return [];
   }
 };
 
 
 
-// Programar una clase en una jornada
-export const programarClaseEnJornada = async (jornadaId: number, claseId: string) => {
+// Programar varias clases en varias jornadas
+export const programarClasesEnJornadas = async (registros: { jornadaId: number, claseId: string }[]) => {
   try {
-    const result = await prisma.jornadaClase.upsert({
-      where: {
-        jornadaId_claseId: {
-          jornadaId,
-          claseId,
-        },
-      },
-      update: {},
-      create: {
-        jornadaId,
-        claseId,
-      },
+    const result = await prisma.jornadaClase.createMany({
+      data: registros,
+      skipDuplicates: true, // Opcional, evita errores si el registro ya existe
     });
     return result;
   } catch (error) {
-    console.error("Error al programar clase en jornada:", error);
+    console.error("Error al programar clases en jornadas:", error);
     throw error;
   }
 };
+
 
 
 // Actualizar programación de clase en una jornada
@@ -116,8 +113,20 @@ export async function fetchJornadasConClases() {
           include: {
             clase: true,
           },
-        },
+          },
+      
       },
+      where: {
+        estado: {
+         in: ["Desarrollo", "Programada"]
+        }
+                
+          } 
+        
+           
+
+      
+      
     });
     return jornadasConClases;
   } catch (error) {
@@ -163,3 +172,5 @@ export async function getAlumnosPorClase(jornadaId: number) {
     },
   }));
 }
+
+

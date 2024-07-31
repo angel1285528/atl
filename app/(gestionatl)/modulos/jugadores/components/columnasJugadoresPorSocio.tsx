@@ -1,6 +1,6 @@
 "use client"
 import Link from "next/link"
-import { interfacePlayer } from "../lib/interfacePlayer";
+import { jugador } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
@@ -9,7 +9,7 @@ export type columnasJugadoresPorSocio = {
     playerPhotoUrl: string
 }
 
-export const columnasJugadoresSocio: ColumnDef<interfacePlayer>[] = [
+export const columnasJugadoresSocio: ColumnDef<jugador>[] = [
     // Columna Foto
     {
         accessorKey: "playerPhotoUrl",

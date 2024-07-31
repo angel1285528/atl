@@ -1,7 +1,7 @@
 "use client"
-import { eliminarFamiliar } from "@/app/lib/crud/eliminarFamiliar" 
+
 import { ColumnDef } from "@tanstack/react-table"
-import { interfaceFamiliares } from "@/app/lib/interfaces/interfaceSocio" 
+import { familiares } from "@prisma/client"
 import { MoreHorizontal } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -15,7 +15,7 @@ import {
 
 
  
-export const columnsFamiliares: ColumnDef<interfaceFamiliares>[] = [
+export const columnsFamiliares: ColumnDef<familiares>[] = [
   {
     accessorKey: "familyFirstName",
     header: "Nombre del Familiar",
