@@ -23,6 +23,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -33,7 +34,7 @@ export function GenericDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>): JSX.Element {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
@@ -55,6 +56,20 @@ export function GenericDataTable<TData, TValue>({
 
   return (
     <div className="w-full">
+      <div className="flex items-center space-x-2 py-4">
+        <Select
+          onValueChange={(value) => setColumnFilters([{ id: 'estado', value }])}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Filtrar por estado" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="Programada">Programada</SelectItem>
+            <SelectItem value="Desarrollo">Desarrollo</SelectItem>
+            <SelectItem value="Finalizada">Finalizada</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
       <div className="rounded-md border overflow-x-auto">
         <Table className="relative">
           <TableHeader>

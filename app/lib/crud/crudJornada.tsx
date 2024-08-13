@@ -79,6 +79,24 @@ export async function deleteJornada(id: number) {
   }
 }
 
+//Cancelar jornada de entrenamiento
+export async function cancelarJornada(idJornadaEntrenamiento: number){
+  try {
+    await prisma.jornadaEntrenamiento.update({
+      where: {
+        idJornadaEntrenamiento: idJornadaEntrenamiento,
+      },
+      data:{
+        estado: "Cancelada"
+      },
+    });
+    console.log(`Successfully finalized jornada de entrenamiento with ID ${idJornadaEntrenamiento}`);
+    return true;
+  } catch (error) {
+    console.error("Error finalizando la jornada de entrenamiento:", error);
+    throw error;
+  }
+}
 // Actualizar una jornada de entrenamiento por ID
 export async function updateJornada(id: number, data: Partial<JornadaEntrenamiento>) {
   try {
@@ -152,6 +170,7 @@ export async function iniciarJornada(idJornadaEntrenamiento: number) {
       const jugadores = await prisma.jugador.findMany({
         where: {
           clasesIdClase: jornadaClase.claseId,
+          status: "activo",
         },
       });
 

@@ -15,6 +15,7 @@ type Alumno = {
   playerPhotoUrl?: string | null;
   categoria: string;
   asistencia: boolean; // Añade esta propiedad
+  faltasCount: number; // Añade esta propiedad
 };
 
 type Clase = {
@@ -87,8 +88,9 @@ const AlumnosPorClase: React.FC<AlumnosPorClaseProps> = ({ jornadaId }) => {
                         <div className="text-xl font-bold sm:inline-block">
                           {alumno.playerFirstName} {alumno.playerLastName}
                         </div>
-                        <div className="sm:hidden">{alumno.categoria}</div>
-                        <div className="hidden sm:block">{alumno.categoria}</div>
+                        <div className="text-xl">Categoría: {alumno.categoria}</div>
+                        <div className="text-m">Faltas consecutivas: {alumno.faltasCount}</div>
+                        
                       </div>
                       <div className="w-1/4 md:w-2/6 flex justify-center">
                         <AsistenciaSwitch

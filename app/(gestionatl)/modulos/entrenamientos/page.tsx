@@ -5,6 +5,8 @@ import GenericDataTable from "@/components/ui/genericDataTable";
 import { CalendarDays } from "lucide-react";
 import { fetchJornadasConClases } from "@/app/lib/crud/crudClases";
 import { columnasJornadas } from "./componentes/columnasJornadaEntrenamiento";
+import { DataTableViewOptions } from "@/components/ui/dataTableViewOptions";
+
 
 export const dynamic = 'force-dynamic';
 
@@ -24,6 +26,9 @@ const Page = async () => {
             icon={<CalendarDays />}
           />
         </div>
+
+        
+
         <GenericDataTable columns={columnasJornadas} data={data} />
       </div>
     </>

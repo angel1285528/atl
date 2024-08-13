@@ -1,10 +1,14 @@
 'use client';
-import { deleteJornada, iniciarJornada } from "@/app/lib/crud/crudJornada";
+import { deleteJornada, iniciarJornada, cancelarJornada } from "@/app/lib/crud/crudJornada";
 import { ColumnDef } from "@tanstack/react-table";
 import { Button } from "@/components/ui/button";
 import { JornadaEntrenamiento, JornadaClase } from "@prisma/client";
 import { useRouter } from 'next/navigation';
 import { PlayCircleIcon } from "lucide-react";
+import { ArrowUpDown } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import React from "react";
+import FinalizarEntrenamientoButton from "./finalizarEntenamientoButton";
 
 type JornadaConClases = JornadaEntrenamiento & {
   clases: (JornadaClase & { clase: { idClase: string } })[];
@@ -13,6 +17,15 @@ type JornadaConClases = JornadaEntrenamiento & {
 const AccionesCell = ({ row }: { row: any }) => {
   const router = useRouter();
   const estado = row.original.estado;
+ const idJornadaEntrenamiento = row.original.idJornadaEntrenamiento;
+  const handleCancelarSesion = async () => {
+    try{
+      await cancelarJornada(row.original.idJornadaEntrenamiento);
+      router.refresh();
+    } catch (error) {
+      console.error("Error cancelando sesión:", error);
+    }
+  }
 
   const handleEliminar = async () => {
     try {
@@ -26,9 +39,14 @@ const AccionesCell = ({ row }: { row: any }) => {
   return (
     <div className="text-center">
       {estado === "Programada" ? (
+        <>
+        <div className="flex flex-col space-y-3">
+        <Button onClick={handleEliminar} className="bg-black text-white font-extrabold text-xl">Cancelar Sesión</Button>
         <Button onClick={handleEliminar} className="bg-red-500 text-white">Eliminar Sesión</Button>
+        </div>
+        </>
       ) : estado === "Desarrollo" ? (
-        <p>Finalizar Sesion</p>
+        <FinalizarEntrenamientoButton idJornadaEntrenamiento={idJornadaEntrenamiento} />
       ) : (
         <p>Bitacora</p>
       )}
@@ -83,17 +101,31 @@ export const columnasJornadas: ColumnDef<JornadaConClases>[] = [
         </div>
       );
     },
+    filterFn: (row, columnId, filterValue) => {
+      return row.getValue(columnId) === filterValue;
+    },
+    enableColumnFilter: true,
   },
-  // COLUMNA PARA INICIAR JORNADA DE ENTRENAMIENTO
+  // COLUMNA PARA INICIAR O VER JORNADA DE ENTRENAMIENTO
   {
     id: "iniciarJornada",
-    header: () => <div className="text-center">Iniciar</div>,
+    header: () => <div className="text-center">Acciones</div>,
     cell: IniciarJornadaCell,
   },
   // COLUMNA FECHA DE JORNADA DE ENTRENAMIENTO
   {
     accessorKey: "fechaJornadaEntrenamiento",
-    header: () => <div className="text-left">Fecha</div>,
+    header: ({column}) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Fecha
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const fechaJornadaEntrenamiento: Date = row.getValue('fechaJornadaEntrenamiento');
       const horaInicio = row.original.horaInicioJornada;
@@ -144,3 +176,4 @@ export const columnasJornadas: ColumnDef<JornadaConClases>[] = [
     cell: AccionesCell,
   },
 ];
+

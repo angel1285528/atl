@@ -16,6 +16,7 @@ type JornadaConClases = {
       playerLastName: string;
       playerSecondLastName?: string;
       playerPhotoUrl?: string;
+      faltasCount?: number;
     }[];
   }[];
 };
@@ -43,6 +44,7 @@ const fetchJornada = async (id: number): Promise<JornadaConClases | null> => {
                   playerLastName: true,
                   playerSecondLastName: true,
                   playerPhotoUrl: true,
+                  faltasCount: true,
                 },
               },
             },
@@ -67,6 +69,7 @@ const fetchJornada = async (id: number): Promise<JornadaConClases | null> => {
         playerLastName: alumno.playerLastName,
         playerSecondLastName: alumno.playerSecondLastName ?? undefined,
         playerPhotoUrl: alumno.playerPhotoUrl ?? undefined,
+        faltasCount: alumno.faltasCount ?? 0,
       })),
     })),
   };

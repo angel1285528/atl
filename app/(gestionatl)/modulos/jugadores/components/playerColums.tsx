@@ -69,12 +69,12 @@ export const columns: ColumnDef<columnasPlayer>[] = [
     //Columna Status
     {
         accessorKey: "status",
-        header: "Status",
+        header: "status",
         cell: ({ row }) => {
             const status = row.original.status
 
             return (
-                (status === 'Activo') ?
+                (status === 'activo') ?
                     <div className="text-green-500 font-bold text-xl">{status}</div>
                     : <div className="text-red-500 font-bold text-xl">{status}</div>
 

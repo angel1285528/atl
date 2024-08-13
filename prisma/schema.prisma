@@ -21,12 +21,12 @@ model JornadaEntrenamiento {
 }
 
 model Clases {
-  idClase       String         @id @unique
-  tipo          TipoClase
-  asistencias   Asistencia[]
-  jornadas      JornadaClase[]
-  alumnos       jugador[]
-  entrenadores  Entrenadores[] @relation("ClasesToEntrenadores")
+  idClase      String         @id @unique
+  tipo         TipoClase
+  asistencias  Asistencia[]
+  jornadas     JornadaClase[]
+  alumnos      jugador[]
+  entrenadores Entrenadores[] @relation("ClasesToEntrenadores")
 }
 
 model JornadaClase {
@@ -76,7 +76,7 @@ model socio {
   city           String
   state          String
   phoneNumber    String?
-  email          String?       
+  email          String?
   urlSocioPhoto  String?
   urlSocioIne    String?
   urlIdDomicilio String?
@@ -87,6 +87,34 @@ model socio {
   familiares     familiares[]
   jugador        jugador[]
   estadoCuenta   estadoCuenta?
+}
+
+model Mensualidad {
+  idMensualidad       Int                  @id
+  month               DateTime
+  year                DateTime
+  relacionMensualidad MensualidadJugador[]
+
+  @@unique(name: "Mensualidad", fields: [year, month])
+}
+
+model MensualidadJugador {
+  mensualidad        Mensualidad       @relation(fields: [MensualidadId], references: [idMensualidad])
+  MensualidadId      Int
+  jugador            jugador           @relation(fields: [jugadorId], references: [playerId])
+  jugadorId          String
+  estado             estadoMensualidad
+  importeMensualidad Float
+  saldoMensualidad   Float 
+
+  @@id([MensualidadId, jugadorId])
+}
+
+enum estadoMensualidad {
+  pendiente
+  pagada
+  vencida
+  acreditada
 }
 
 model jugador {
@@ -103,7 +131,7 @@ model jugador {
   fechaNacimiento      DateTime
   playerPhotoUrl       String?
   playerCellPhone      String?
-  playerEmail          String?              
+  playerEmail          String?
   paisNacimiento       String
   estadoNacimiento     String
   ciudadNacimiento     String
@@ -114,6 +142,8 @@ model jugador {
   clase                Clases?              @relation(references: [idClase], fields: [clasesIdClase])
   estadoCuentaJugador  estadoCuentaJugador? // Relación con el modelo estadoCuentaJugador
   clasesIdClase        String?
+  faltasCount          Int                  @default(0)
+  mensualidad          MensualidadJugador[]
 }
 
 model familiares {
@@ -133,7 +163,7 @@ model Entrenadores {
   coachSecondLastName String
   coachBirthDate      DateTime?
   coachCellPhone      String?
-  coachEmailPhone     String?   
+  coachEmailPhone     String?
   coachId             Int       @id @unique @default(autoincrement())
   clases              Clases[]  @relation("ClasesToEntrenadores")
 }

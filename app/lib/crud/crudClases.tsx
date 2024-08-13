@@ -135,12 +135,6 @@ export async function fetchJornadasConClases() {
   }
 }
 
-
-
-
-
-
-
 export async function getAlumnosPorClase(jornadaId: number) {
   const clases = await prisma.jornadaClase.findMany({
     where: { jornadaId },
@@ -148,6 +142,7 @@ export async function getAlumnosPorClase(jornadaId: number) {
       clase: {
         include: {
           alumnos: {
+            where: { status: 'activo' }, // Only fetch active players
             include: {
               Asistencias: {
                 where: { jornadaId },
@@ -168,9 +163,8 @@ export async function getAlumnosPorClase(jornadaId: number) {
           ...alumno,
           asistencia: alumno.Asistencias.length > 0 ? alumno.Asistencias[0].asistencia : false,
         }))
-        .filter(alumno => !alumno.asistencia), // Filtrar alumnos con asistencia false
+        .filter(alumno => !alumno.asistencia), // Filter students with asistencia false
     },
   }));
 }
-
 
