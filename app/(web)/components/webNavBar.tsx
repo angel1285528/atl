@@ -5,11 +5,11 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import Logo from './LogoNavBar';
 import { useRouter } from 'next/navigation';
-// import { useUser } from '@auth0/nextjs-auth0/client';
+import { useUser } from '@auth0/nextjs-auth0/client';
 import { usePathname } from 'next/navigation';
 import { LogInButton } from '@/app/ui/AuthButtons';
 import LogOutButton from '@/app/ui/logOutButton';
-// import ProfileClient from '@/app/profile-client/page';
+//import ProfileClient from '@/app/profile-client/page';
 import Button from '@/app/ui/logOutButton';
 const menuItems = [
     {
@@ -44,9 +44,7 @@ const WebNavbar = () => {
     return (
         <>
             <nav className="bg-blue-900 bg-[url('/patronAzul.jpg')] h-20 flex items-center justify-between px-4 md:px-10 relative z-50">
-                <button className="md:hidden text-white ml-4" onClick={handleMenuToggle}>
-                    <FaBars className="w-6 h-6" />
-                </button>
+               
                 <Logo /> {/* Use the Logo component */}
                 <div className="hidden md:flex md:justify-start md:flex-grow md:ml-32">
                     {menuItems.map((menu, index) => (
@@ -76,7 +74,7 @@ const WebNavbar = () => {
                         </div>
                     ))}
                 </div>
-                {/* <div id="logInButton">
+             {/*    <div id="logInButton">
                     <ol>
                         <li style={{ marginRight: '0.5rem' }}>
                             {user ? <ProfileClient /> : <LogInButton />}
