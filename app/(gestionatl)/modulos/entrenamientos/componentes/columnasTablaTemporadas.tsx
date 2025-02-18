@@ -3,7 +3,7 @@ import React from 'react';
 import { Temporadas } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
 import EstadoSwitch from './EstadoSwitch'; // Importa el nuevo componente
-
+import Link from 'next/link';
 export const columnasTemporadas: ColumnDef<Temporadas>[] = [
   {
     accessorKey: 'Temporada',
@@ -11,9 +11,11 @@ export const columnasTemporadas: ColumnDef<Temporadas>[] = [
     cell: ({ row }) => {
       const MainValue: string = row.getValue('Temporada')
       return (
+        <Link href={`/modulos/temporadas/${MainValue}`}>
         <div className='flex flex-col text-black text-sm md:text-2xl'>
           <div className='md:font-medium hover:text-blue-900 hover:underline'>{MainValue}</div>
         </div>
+        </Link>
       )
     },
   },

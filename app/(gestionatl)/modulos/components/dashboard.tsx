@@ -2,7 +2,7 @@ import React from "react";
 import AccionesRapidas from "./AccionesRapidasbtn";
 import ActivosTotales from "./dashboard/tarjetasActivos";
 
-const Dashboard: React.FC = () => {
+const Dashboard: React.FC = async () => {
   return (
     <>
       <hr className="border-2 mt-2 border-blue-800 m-2"/>
