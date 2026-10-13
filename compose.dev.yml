@@ -1,0 +1,21 @@
+services:
+  database:
+    image: postgres:17-alpine
+    container_name: gestionatl-dev-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: gestionatl_development
+      POSTGRES_USER: gestionatl_dev
+      POSTGRES_PASSWORD: ${GESTIONATL_DEV_DB_PASSWORD:?Define GESTIONATL_DEV_DB_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - gestionatl_dev_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U gestionatl_dev -d gestionatl_development"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  gestionatl_dev_postgres_data:

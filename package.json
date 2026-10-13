@@ -8,6 +8,10 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "postinstall": "prisma generate",
+    "db:dev:up": "docker compose -f compose.dev.yml up -d",
+    "db:dev:down": "docker compose -f compose.dev.yml down",
+    "db:dev:status": "docker compose -f compose.dev.yml ps",
+    "db:migrate": "prisma migrate deploy",
     "auth:create-user": "npx auth@1.7.7 create-admin --config lib/auth.ts"
   },
   "dependencies": {

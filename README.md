@@ -4,17 +4,25 @@ Reconstrucción de la plataforma administrativa de Academia Tigres Linares.
 
 ## Desarrollo local
 
-1. Copia `.env.example` a `.env.local` y configura PostgreSQL.
+La rama `develop` usa una instancia PostgreSQL exclusiva, publicada sólo en
+`127.0.0.1:5433`. No reutilices aquí las credenciales de producción.
+
+1. Copia `.env.example` a `.env` y sustituye `PASSWORD` en las URL por la misma
+   contraseña indicada en `GESTIONATL_DEV_DB_PASSWORD` y `POSTGRES_PASSWORD`.
 2. Genera un secreto de al menos 32 bytes para `BETTER_AUTH_SECRET`.
-3. Instala dependencias y aplica migraciones:
+3. Instala dependencias, inicia PostgreSQL y aplica las migraciones:
 
 ```bash
 npm install
-npx prisma migrate deploy
+npm run db:dev:up
+npm run db:migrate
 npm run dev
 ```
 
 La aplicación estará disponible en `http://localhost:3000`.
+
+Puedes consultar el estado con `npm run db:dev:status` y detener el contenedor
+con `npm run db:dev:down`. Este último comando conserva el volumen y los datos.
 
 ## Creación restringida de cuentas
 
