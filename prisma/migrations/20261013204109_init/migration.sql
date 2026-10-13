@@ -36,6 +36,7 @@ CREATE TYPE "EstadoJugador" AS ENUM ('ACTIVO', 'AUSENTE', 'BAJA', 'LESIONADO', '
 
 -- CreateEnum
 CREATE TYPE "EstadoLaboral" AS ENUM ('ACTIVO', 'LICENCIA', 'SUSPENDIDO', 'BAJA');
+
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
@@ -265,7 +266,7 @@ CREATE TABLE "familia_direcciones" (
 );
 
 -- CreateTable
-CREATE TABLE "socios_nuevo" (
+CREATE TABLE "socios" (
     "id" TEXT NOT NULL,
     "personaId" TEXT NOT NULL,
     "numeroSocio" TEXT NOT NULL,
@@ -274,11 +275,11 @@ CREATE TABLE "socios_nuevo" (
     "estado" "EstadoSocio" NOT NULL DEFAULT 'ACTIVO',
     "tipo" "TipoSocio" NOT NULL DEFAULT 'REGULAR',
 
-    CONSTRAINT "socios_nuevo_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "socios_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "jugadores_nuevo" (
+CREATE TABLE "jugadores" (
     "id" TEXT NOT NULL,
     "personaId" TEXT NOT NULL,
     "numeroJugador" TEXT NOT NULL,
@@ -287,11 +288,11 @@ CREATE TABLE "jugadores_nuevo" (
     "posicion" TEXT,
     "dorsal" INTEGER,
 
-    CONSTRAINT "jugadores_nuevo_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "jugadores_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
-CREATE TABLE "entrenadores_nuevo" (
+CREATE TABLE "entrenadores" (
     "id" TEXT NOT NULL,
     "personaId" TEXT NOT NULL,
     "numeroEmpleado" TEXT NOT NULL,
@@ -300,7 +301,7 @@ CREATE TABLE "entrenadores_nuevo" (
     "vigenciaCertificacion" DATE,
     "estadoLaboral" "EstadoLaboral" NOT NULL DEFAULT 'ACTIVO',
 
-    CONSTRAINT "entrenadores_nuevo_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "entrenadores_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -393,28 +394,29 @@ CREATE INDEX "familia_direcciones_familiaId_principal_idx" ON "familia_direccion
 CREATE UNIQUE INDEX "familia_direcciones_familiaId_direccionId_tipo_key" ON "familia_direcciones"("familiaId", "direccionId", "tipo");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "socios_nuevo_personaId_key" ON "socios_nuevo"("personaId");
+CREATE UNIQUE INDEX "socios_personaId_key" ON "socios"("personaId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "socios_nuevo_numeroSocio_key" ON "socios_nuevo"("numeroSocio");
+CREATE UNIQUE INDEX "socios_numeroSocio_key" ON "socios"("numeroSocio");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "jugadores_nuevo_personaId_key" ON "jugadores_nuevo"("personaId");
+CREATE UNIQUE INDEX "jugadores_personaId_key" ON "jugadores"("personaId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "jugadores_nuevo_numeroJugador_key" ON "jugadores_nuevo"("numeroJugador");
+CREATE UNIQUE INDEX "jugadores_numeroJugador_key" ON "jugadores"("numeroJugador");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "entrenadores_nuevo_personaId_key" ON "entrenadores_nuevo"("personaId");
+CREATE UNIQUE INDEX "entrenadores_personaId_key" ON "entrenadores"("personaId");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "entrenadores_nuevo_numeroEmpleado_key" ON "entrenadores_nuevo"("numeroEmpleado");
+CREATE UNIQUE INDEX "entrenadores_numeroEmpleado_key" ON "entrenadores"("numeroEmpleado");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "auxiliares_personaId_key" ON "auxiliares"("personaId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "auxiliares_numeroEmpleado_key" ON "auxiliares"("numeroEmpleado");
+
 -- AddForeignKey
 ALTER TABLE "session" ADD CONSTRAINT "session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -464,13 +466,13 @@ ALTER TABLE "familia_direcciones" ADD CONSTRAINT "familia_direcciones_familiaId_
 ALTER TABLE "familia_direcciones" ADD CONSTRAINT "familia_direcciones_direccionId_fkey" FOREIGN KEY ("direccionId") REFERENCES "direcciones"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "socios_nuevo" ADD CONSTRAINT "socios_nuevo_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "socios" ADD CONSTRAINT "socios_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "jugadores_nuevo" ADD CONSTRAINT "jugadores_nuevo_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "jugadores" ADD CONSTRAINT "jugadores_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "entrenadores_nuevo" ADD CONSTRAINT "entrenadores_nuevo_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "entrenadores" ADD CONSTRAINT "entrenadores_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "auxiliares" ADD CONSTRAINT "auxiliares_personaId_fkey" FOREIGN KEY ("personaId") REFERENCES "personas"("id") ON DELETE CASCADE ON UPDATE CASCADE;

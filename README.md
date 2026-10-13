@@ -54,6 +54,5 @@ npm run build
 npm audit --omit=dev
 ```
 
-La rama `develop` utiliza solamente rutas `*.new.ts` y `*.new.tsx`. El código
-anterior permanece aislado mientras avanza la reconstrucción y su versión
-operativa se conserva en la rama `legado`.
+La rama `develop` contiene únicamente la reconstrucción. La aplicación anterior,
+sus componentes y su esquema histórico se conservan en la rama `legado`.

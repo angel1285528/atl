@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["relationJoins"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -9,291 +8,7 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
-model JornadaEntrenamiento {
-  idJornadaEntrenamiento    Int            @id @default(autoincrement())
-  fechaJornadaEntrenamiento DateTime
-  horaInicioJornada         String?        @default("18:00:00")
-  horaFinJornada            String?        @default("20:00:00")
-  bitacoraJornada           String?
-  estado                    EstadoJornada  @default(Programada)
-  lugarJornada              String?
-  clases                    JornadaClase[]
-}
-
-model Clases {
-  idClase      String         @id @unique
-  tipo         TipoClase
-  asistencias  Asistencia[]
-  jornadas     JornadaClase[]
-  alumnos      jugador[]
-  entrenadores Entrenadores[] @relation("ClasesToEntrenadores")
-}
-
-model JornadaClase {
-  jornadaId   Int
-  claseId     String
-  asistencias Asistencia[]
-  clase       Clases               @relation(fields: [claseId], references: [idClase], onDelete: Cascade)
-  jornada     JornadaEntrenamiento @relation(fields: [jornadaId], references: [idJornadaEntrenamiento], onDelete: Cascade)
-
-  @@id([jornadaId, claseId])
-}
-
-model Asistencia {
-  jugadorId             String
-  claseId               String
-  fecha                 DateTime     @default(now())
-  id                    Int          @id @default(autoincrement())
-  asistencia            Boolean      @default(false)
-  asistenciaJustificada Boolean      @default(false)
-  partidoProgramado     Boolean      @default(false)
-  jornadaId             Int
-  clase                 Clases       @relation(fields: [claseId], references: [idClase], onDelete: Cascade)
-  jornadaClase          JornadaClase @relation(fields: [jornadaId, claseId], references: [jornadaId, claseId], onDelete: Cascade)
-  alumno                jugador      @relation(fields: [jugadorId], references: [playerId])
-
-  @@unique([jugadorId, jornadaId, claseId])
-}
-
-model Temporadas {
-  idPeriodo            Int      @id @default(autoincrement())
-  Estado               Boolean  @default(false)
-  Temporada            String   @unique
-  fechaFinTemporada    DateTime
-  bitacora             String?
-  fechaInicioTemporada DateTime
-}
-
-model socio {
-  id             String        @id @unique
-  firstName      String
-  lastName       String
-  secondLastName String?
-  street         String
-  streetNumber   String
-  colonia        String
-  postalCode     String
-  city           String
-  state          String
-  phoneNumber    String?
-  email          String?
-  urlSocioPhoto  String?
-  urlSocioIne    String?
-  urlIdDomicilio String?
-  periodoDePago  String?
-  rol            Role          @default(socio)
-  status         StatusSocios  @default(Activo)
-  fechaRegistro  DateTime      @default(now())
-  familiares     familiares[]
-  jugador        jugador[]
-  estadoCuenta   estadoCuenta?
-}
-
-model Mensualidad {
-  idMensualidad       Int                  @id
-  month               DateTime
-  year                DateTime
-  relacionMensualidad MensualidadJugador[]
-
-  @@unique(name: "Mensualidad", fields: [year, month])
-}
-
-model MensualidadJugador {
-  mensualidad        Mensualidad       @relation(fields: [MensualidadId], references: [idMensualidad])
-  MensualidadId      Int
-  jugador            jugador           @relation(fields: [jugadorId], references: [playerId])
-  jugadorId          String
-  estado             estadoMensualidad
-  importeMensualidad Float
-  saldoMensualidad   Float
-
-  @@id([MensualidadId, jugadorId])
-}
-
-enum estadoMensualidad {
-  pendiente
-  pagada
-  vencida
-  acreditada
-}
-
-model jugador {
-  playerId             String               @id @unique
-  playerFechaRegistro  DateTime             @default(now())
-  playerFirstName      String
-  playerLastName       String
-  playerSecondLastName String?
-  categoria            String
-  status               Status_Jugador       @default(activo)
-  rama                 String
-  socioId              String
-  socio                socio                @relation(fields: [socioId], references: [id])
-  fechaNacimiento      DateTime
-  playerPhotoUrl       String?
-  playerCellPhone      String?
-  playerEmail          String?
-  paisNacimiento       String
-  estadoNacimiento     String
-  ciudadNacimiento     String
-  schoolarLevel        String
-  schoolarGrade        String
-  school               String
-  Asistencias          Asistencia[]
-  clase                Clases?              @relation(references: [idClase], fields: [clasesIdClase])
-  estadoCuentaJugador  estadoCuentaJugador? // Relación con el modelo estadoCuentaJugador
-  clasesIdClase        String?
-  faltasCount          Int                  @default(0)
-  mensualidad          MensualidadJugador[]
-}
-
-model familiares {
-  familyId             String  @id @default(cuid())
-  familyFirstName      String
-  familyLastName       String
-  familySecondLastName String?
-  familyPhoneNumber    String
-  familyRelationship   String
-  socioId              String
-  socio                socio   @relation(fields: [socioId], references: [id])
-}
-
-model Entrenadores {
-  coachFirstName      String
-  coachLastName       String
-  coachSecondLastName String
-  coachBirthDate      DateTime?
-  coachCellPhone      String?
-  coachEmailPhone     String?
-  coachId             Int       @id @unique @default(autoincrement())
-  clases              Clases[]  @relation("ClasesToEntrenadores")
-}
-
-model estadoCuenta {
-  estadoCuentaId String              @id @unique @default(cuid())
-  periodoPago    periodoDePago       @default(periodo3)
-  balance        Float               @default(0)
-  movimientos    MovimientosEdoCta[]
-  socio          socio               @relation(fields: [socioId], references: [id])
-  socioId        String              @unique
-}
-
-model MovimientosEdoCta {
-  idMovimientoEdoCta    String               @id @unique @default(cuid())
-  fechaMovimiento       DateTime
-  conceptoMovimiento    conceptosMovimientos @relation(fields: [concepto], references: [idConceptoMovimiento])
-  concepto              String
-  importe               Float
-  tipoMovimiento        TipoMovimiento
-  estadoCuentaId        String?
-  estadoCuenta          estadoCuenta?        @relation(fields: [estadoCuentaId], references: [estadoCuentaId])
-  estadoCuentaJugadorId String?
-  estadoCuentaJugador   estadoCuentaJugador? @relation(fields: [estadoCuentaJugadorId], references: [idEstadoCuentaJugador])
-}
-
-model conceptosMovimientos {
-  idConceptoMovimiento String              @id @unique @default(cuid())
-  concepto             String
-  movimientos          MovimientosEdoCta[]
-  tipoConcepto         TipoConcepto
-}
-
-enum TipoConcepto {
-  Mensualidad
-  Uniformes
-  Torneos
-  Festejos
-  Inscripciones
-  Transportes
-  Patrocinio
-  Donativo
-}
-
-model estadoCuentaJugador {
-  idEstadoCuentaJugador String              @id @unique @default(cuid())
-  importeMensualidad    Float
-  tipoMensualidad       Cuota
-  idJugadorEstadoCuenta String              @unique
-  jugador               jugador             @relation(fields: [idJugadorEstadoCuenta], references: [playerId])
-  movimientos           MovimientosEdoCta[]
-}
-
-model Categorias {
-  idCategoria Int    @id @unique
-  categoria   String @unique
-}
-
-enum TipoClase {
-  fut1
-  fut3
-  fut5
-  fut7
-  fut9
-  fut11
-}
-
-enum EstadoJornada {
-  Programada
-  Cancelada
-  Realizada
-  Desarrollo
-}
-
-enum StatusSocios {
-  Activo
-  Ausente
-  Baja
-}
-
-enum Role {
-  socio
-  jugador
-  entrenador
-  admin
-}
-
-enum Cuota {
-  Estandar
-  Hermano_Menor
-  Preferencial
-  Vip
-  Cortesia
-  NoAplica
-  //fuerzasBasicas
-}
-
-enum Status_Jugador {
-  activo
-  ausente
-  baja
-  lesionado
-  vetado
-}
-
-enum periodoDePago {
-  periodo1
-  periodo2
-  periodo3
-}
-
-model periodoCompetitivo {
-  idPeriodo          Int       @id @default(autoincrement())
-  periodo            String
-  fechaiIncioPeriodo DateTime?
-  fechaFinPeriodo    DateTime?
-}
-
-enum TipoMovimiento {
-  Cargo
-  Abono
-  Descuento
-  Multa
-}
-
-// -----------------------------------------------------------------------------
-// Nueva arquitectura
-// Las tablas anteriores se conservan temporalmente para no destruir información
-// histórica. Todo desarrollo nuevo debe utilizar los modelos siguientes.
-// -----------------------------------------------------------------------------
+// Identidad, acceso y dominio multi-organización de la nueva aplicación.
 
 model User {
   id            String      @id
@@ -575,7 +290,7 @@ model Socio {
   tipo        TipoSocio   @default(REGULAR)
   persona     Persona     @relation(fields: [personaId], references: [id], onDelete: Cascade)
 
-  @@map("socios_nuevo")
+  @@map("socios")
 }
 
 model Jugador {
@@ -588,7 +303,7 @@ model Jugador {
   dorsal          Int?
   persona         Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
 
-  @@map("jugadores_nuevo")
+  @@map("jugadores")
 }
 
 model Entrenador {
@@ -601,7 +316,7 @@ model Entrenador {
   estadoLaboral         EstadoLaboral @default(ACTIVO)
   persona               Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
 
-  @@map("entrenadores_nuevo")
+  @@map("entrenadores")
 }
 
 model Auxiliar {

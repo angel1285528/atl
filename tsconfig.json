@@ -24,13 +24,8 @@
   },
   "include": [
     "next-env.d.ts",
-    "app/**/*.new.ts",
-    "app/**/*.new.tsx",
-    "app/login/login-form.tsx",
-    "app/dashboard/sign-out-button.tsx",
-    "app/lib/prisma.ts",
-    "lib/auth.ts",
-    "lib/auth-client.ts",
+    "**/*.ts",
+    "**/*.tsx",
     ".next/types/**/*.ts"
   ],
   "exclude": ["node_modules"]
