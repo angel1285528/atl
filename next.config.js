@@ -11,6 +11,44 @@ Para realizar cambios en la configuración, se recomienda crear un archivo
  */
 
 const nextConfig = {
+  poweredByHeader: false,
+  pageExtensions: ["maintenance.tsx", "maintenance.ts"],
+
+  async rewrites() {
+    return [
+      {
+        source: "/:path*",
+        destination: "/",
+      },
+    ];
+  },
+
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "no-store, no-cache, must-revalidate, proxy-revalidate",
+          },
+          {
+            key: "Content-Security-Policy",
+            value:
+              "default-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+          },
+          { key: "Referrer-Policy", value: "no-referrer" },
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "X-Robots-Tag",
+            value: "noindex, nofollow, noarchive",
+          },
+        ],
+      },
+    ];
+  },
+
   /**
    * **Configuración de imágenes**
 
@@ -21,7 +59,7 @@ const nextConfig = {
    Asegúrese de incluir solo los dominios de confianza desde los que desea cargar imágenes.
    */
   images: {
-    domains: ['res.cloudinary.com'],
+    domains: ["res.cloudinary.com"],
   },
 
   // ... otras configuraciones
