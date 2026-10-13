@@ -38,7 +38,7 @@
   ],
   "rewrites": [
     {
-      "source": "/((?!robots\\.txt).*)",
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
