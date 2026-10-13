@@ -42,7 +42,12 @@ export default function LoginForm() {
   }
 
   return (
-    <form className="auth-form" onSubmit={handleSubmit}>
+    <form
+      className="auth-form"
+      method="post"
+      action="/login"
+      onSubmit={handleSubmit}
+    >
       <label htmlFor="email">Correo electrónico</label>
       <input
         id="email"

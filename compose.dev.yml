@@ -13,6 +13,8 @@ services:
       POSTGRES_URL_NON_POOLING: postgresql://gestionatl_dev:${GESTIONATL_DEV_DB_PASSWORD}@database:5432/gestionatl_development?schema=public
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Define BETTER_AUTH_SECRET in .env}
       BETTER_AUTH_URL: http://100.66.202.2:8094
+      BETTER_AUTH_SECURE_COOKIES: "false"
+      NODE_ENV: production
       NEXT_TELEMETRY_DISABLED: "1"
     ports:
       - "100.66.202.2:8094:3000"

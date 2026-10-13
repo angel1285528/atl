@@ -14,6 +14,11 @@ if (!authSecret) {
   throw new Error("BETTER_AUTH_SECRET es obligatorio fuera del entorno local.");
 }
 
+const useSecureCookies =
+  process.env.BETTER_AUTH_SECURE_COOKIES === undefined
+    ? process.env.NODE_ENV === "production"
+    : process.env.BETTER_AUTH_SECURE_COOKIES === "true";
+
 export const auth = betterAuth({
   appName: "GestionATL",
   database: prismaAdapter(prisma, {
@@ -44,7 +49,7 @@ export const auth = betterAuth({
     },
   },
   advanced: {
-    useSecureCookies: process.env.NODE_ENV === "production",
+    useSecureCookies,
   },
   plugins: [
     admin({
