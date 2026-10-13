@@ -288,3 +288,419 @@ enum TipoMovimiento {
   Descuento
   Multa
 }
+
+// -----------------------------------------------------------------------------
+// Nueva arquitectura
+// Las tablas anteriores se conservan temporalmente para no destruir información
+// histórica. Todo desarrollo nuevo debe utilizar los modelos siguientes.
+// -----------------------------------------------------------------------------
+
+model User {
+  id            String      @id
+  name          String
+  email         String      @unique
+  emailVerified Boolean     @default(false)
+  image         String?
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  role          String?
+  banned        Boolean?    @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  sessions      Session[]
+  accounts      Account[]
+  membresias    Membresia[]
+
+  @@map("user")
+}
+
+model Session {
+  id             String   @id
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String
+  impersonatedBy String?
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+model RateLimit {
+  id          String @id
+  key         String @unique
+  count       Int
+  lastRequest BigInt
+
+  @@map("rateLimit")
+}
+
+model Organizacion {
+  id          String             @id @default(cuid())
+  nombre      String
+  slug        String             @unique
+  estado      EstadoOrganizacion @default(ACTIVA)
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+  personas    Persona[]
+  familias    Familia[]
+  membresias  Membresia[]
+  direcciones Direccion[]
+
+  @@map("organizaciones")
+}
+
+model Membresia {
+  id             String          @id @default(cuid())
+  organizacionId String
+  userId         String
+  personaId      String?         @unique
+  rol            RolMembresia
+  estado         EstadoMembresia @default(ACTIVA)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  organizacion   Organizacion    @relation(fields: [organizacionId], references: [id], onDelete: Cascade)
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  persona        Persona?        @relation(fields: [personaId], references: [id], onDelete: SetNull)
+
+  @@unique([organizacionId, userId])
+  @@index([organizacionId, rol])
+  @@map("membresias")
+}
+
+model Persona {
+  id               String             @id @default(cuid())
+  organizacionId   String
+  nombres          String
+  apellidoPaterno  String?
+  apellidoMaterno  String?
+  fechaNacimiento  DateTime?          @db.Date
+  sexo             String?
+  nacionalidad     String?
+  curpCifrada      String?            @db.Text
+  curpBusquedaHash String?
+  estado           EstadoPersona      @default(ACTIVA)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  organizacion     Organizacion       @relation(fields: [organizacionId], references: [id], onDelete: Restrict)
+  membresia        Membresia?
+  socio            Socio?
+  jugador          Jugador?
+  entrenador       Entrenador?
+  auxiliar         Auxiliar?
+  telefonos        PersonaTelefono[]
+  emails           PersonaEmail[]
+  direcciones      PersonaDireccion[]
+  familias         FamiliaMiembro[]
+
+  @@unique([organizacionId, curpBusquedaHash])
+  @@index([organizacionId, apellidoPaterno, apellidoMaterno, nombres])
+  @@map("personas")
+}
+
+model PersonaTelefono {
+  id         String       @id @default(cuid())
+  personaId  String
+  tipo       TipoContacto @default(MOVIL)
+  codigoPais String       @default("+52")
+  numero     String
+  extension  String?
+  principal  Boolean      @default(false)
+  verificado Boolean      @default(false)
+  persona    Persona      @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@unique([personaId, codigoPais, numero])
+  @@index([personaId, principal])
+  @@map("persona_telefonos")
+}
+
+model PersonaEmail {
+  id         String       @id @default(cuid())
+  personaId  String
+  tipo       TipoContacto @default(PERSONAL)
+  email      String
+  principal  Boolean      @default(false)
+  verificado Boolean      @default(false)
+  persona    Persona      @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@unique([personaId, email])
+  @@index([personaId, principal])
+  @@map("persona_emails")
+}
+
+model Direccion {
+  id                  String             @id @default(cuid())
+  organizacionId      String
+  googlePlaceId       String?
+  direccionFormateada String?
+  regionCode          String             @default("MX")
+  languageCode        String?            @default("es-MX")
+  codigoPostal        String?
+  areaAdministrativa  String?
+  localidad           String?
+  sublocalidad        String?
+  lineaDireccion1     String
+  lineaDireccion2     String?
+  latitud             Decimal?           @db.Decimal(10, 7)
+  longitud            Decimal?           @db.Decimal(10, 7)
+  plusCode            String?
+  fuente              FuenteDireccion    @default(MANUAL)
+  validadaAt          DateTime?
+  googleFetchedAt     DateTime?
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime           @updatedAt
+  organizacion        Organizacion       @relation(fields: [organizacionId], references: [id], onDelete: Cascade)
+  personas            PersonaDireccion[]
+  familias            FamiliaDireccion[]
+
+  @@index([organizacionId, googlePlaceId])
+  @@index([organizacionId, codigoPostal])
+  @@map("direcciones")
+}
+
+model PersonaDireccion {
+  id          String        @id @default(cuid())
+  personaId   String
+  direccionId String
+  tipo        TipoDireccion @default(CASA)
+  principal   Boolean       @default(false)
+  fechaInicio DateTime      @default(now()) @db.Date
+  fechaFin    DateTime?     @db.Date
+  persona     Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
+  direccion   Direccion     @relation(fields: [direccionId], references: [id], onDelete: Cascade)
+
+  @@unique([personaId, direccionId, tipo])
+  @@index([personaId, principal])
+  @@map("persona_direcciones")
+}
+
+model Familia {
+  id             String             @id @default(cuid())
+  organizacionId String
+  codigoFamilia  String
+  nombreFamilia  String
+  estado         EstadoFamilia      @default(ACTIVA)
+  fechaRegistro  DateTime           @default(now()) @db.Date
+  observaciones  String?            @db.Text
+  createdAt      DateTime           @default(now())
+  updatedAt      DateTime           @updatedAt
+  organizacion   Organizacion       @relation(fields: [organizacionId], references: [id], onDelete: Cascade)
+  miembros       FamiliaMiembro[]
+  direcciones    FamiliaDireccion[]
+
+  @@unique([organizacionId, codigoFamilia])
+  @@index([organizacionId, nombreFamilia])
+  @@map("familias")
+}
+
+model FamiliaMiembro {
+  id                      String             @id @default(cuid())
+  familiaId               String
+  personaId               String
+  tipoMiembro             TipoMiembroFamilia
+  parentesco              String?
+  esTutorLegal            Boolean            @default(false)
+  esResponsablePrincipal  Boolean            @default(false)
+  esResponsableFinanciero Boolean            @default(false)
+  autorizadoRecoger       Boolean            @default(false)
+  autorizadoEmergencias   Boolean            @default(false)
+  recibeNotificaciones    Boolean            @default(false)
+  fechaInicio             DateTime           @default(now()) @db.Date
+  fechaFin                DateTime?          @db.Date
+  familia                 Familia            @relation(fields: [familiaId], references: [id], onDelete: Cascade)
+  persona                 Persona            @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@unique([familiaId, personaId])
+  @@index([personaId])
+  @@map("familia_miembros")
+}
+
+model FamiliaDireccion {
+  id          String        @id @default(cuid())
+  familiaId   String
+  direccionId String
+  tipo        TipoDireccion @default(CASA)
+  principal   Boolean       @default(false)
+  familia     Familia       @relation(fields: [familiaId], references: [id], onDelete: Cascade)
+  direccion   Direccion     @relation(fields: [direccionId], references: [id], onDelete: Cascade)
+
+  @@unique([familiaId, direccionId, tipo])
+  @@index([familiaId, principal])
+  @@map("familia_direcciones")
+}
+
+model Socio {
+  id          String      @id @default(cuid())
+  personaId   String      @unique
+  numeroSocio String      @unique
+  fechaAlta   DateTime    @default(now()) @db.Date
+  fechaBaja   DateTime?   @db.Date
+  estado      EstadoSocio @default(ACTIVO)
+  tipo        TipoSocio   @default(REGULAR)
+  persona     Persona     @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@map("socios_nuevo")
+}
+
+model Jugador {
+  id              String        @id @default(cuid())
+  personaId       String        @unique
+  numeroJugador   String        @unique
+  fechaIngreso    DateTime      @default(now()) @db.Date
+  estadoDeportivo EstadoJugador @default(ACTIVO)
+  posicion        String?
+  dorsal          Int?
+  persona         Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@map("jugadores_nuevo")
+}
+
+model Entrenador {
+  id                    String        @id @default(cuid())
+  personaId             String        @unique
+  numeroEmpleado        String        @unique
+  especialidad          String?
+  numeroCertificacion   String?
+  vigenciaCertificacion DateTime?     @db.Date
+  estadoLaboral         EstadoLaboral @default(ACTIVO)
+  persona               Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@map("entrenadores_nuevo")
+}
+
+model Auxiliar {
+  id             String        @id @default(cuid())
+  personaId      String        @unique
+  numeroEmpleado String        @unique
+  tipoAuxiliar   String?
+  estadoLaboral  EstadoLaboral @default(ACTIVO)
+  persona        Persona       @relation(fields: [personaId], references: [id], onDelete: Cascade)
+
+  @@map("auxiliares")
+}
+
+enum EstadoOrganizacion {
+  ACTIVA
+  SUSPENDIDA
+  INACTIVA
+}
+
+enum RolMembresia {
+  ADMIN
+  ENTRENADOR
+  AUXILIAR
+  TUTOR
+  JUGADOR
+}
+
+enum EstadoMembresia {
+  INVITADA
+  ACTIVA
+  SUSPENDIDA
+  REVOCADA
+}
+
+enum EstadoPersona {
+  ACTIVA
+  INACTIVA
+  BLOQUEADA
+}
+
+enum TipoContacto {
+  PERSONAL
+  TRABAJO
+  CASA
+  MOVIL
+  EMERGENCIA
+  OTRO
+}
+
+enum TipoDireccion {
+  CASA
+  TRABAJO
+  FISCAL
+  OTRO
+}
+
+enum FuenteDireccion {
+  MANUAL
+  GOOGLE_PLACES
+  GOOGLE_ADDRESS_VALIDATION
+}
+
+enum EstadoFamilia {
+  ACTIVA
+  INACTIVA
+  ARCHIVADA
+}
+
+enum TipoMiembroFamilia {
+  SOCIO
+  TUTOR
+  JUGADOR
+  CONTACTO_AUTORIZADO
+  OTRO
+}
+
+enum EstadoSocio {
+  ACTIVO
+  SUSPENDIDO
+  BAJA
+}
+
+enum TipoSocio {
+  REGULAR
+  HONORARIO
+  BECADO
+}
+
+enum EstadoJugador {
+  ACTIVO
+  AUSENTE
+  BAJA
+  LESIONADO
+  VETADO
+}
+
+enum EstadoLaboral {
+  ACTIVO
+  LICENCIA
+  SUSPENDIDO
+  BAJA
+}

@@ -12,16 +12,9 @@ Para realizar cambios en la configuración, se recomienda crear un archivo
 
 const nextConfig = {
   poweredByHeader: false,
-  pageExtensions: ["maintenance.tsx", "maintenance.ts"],
-
-  async rewrites() {
-    return [
-      {
-        source: "/:path*",
-        destination: "/",
-      },
-    ];
-  },
+  // Mientras se reconstruye la aplicación, develop usa únicamente los archivos
+  // *.new.ts(x). El código legado permanece disponible sin convertirse en rutas.
+  pageExtensions: ["new.tsx", "new.ts"],
 
   async headers() {
     return [
@@ -35,7 +28,7 @@ const nextConfig = {
           {
             key: "Content-Security-Policy",
             value:
-              "default-src 'none'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+              "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'",
           },
           { key: "Referrer-Policy", value: "no-referrer" },
           { key: "X-Content-Type-Options", value: "nosniff" },

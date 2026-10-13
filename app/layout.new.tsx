@@ -1,0 +1,21 @@
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
+
+import "./new-app.css";
+
+export const metadata: Metadata = {
+  title: "GestionATL",
+  description: "Gestión administrativa para academias deportivas",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
+  return (
+    <html lang="es">
+      <body>{children}</body>
+    </html>
+  );
+}

@@ -1,37 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GestionATL
 
-## Getting Started
+Reconstrucción de la plataforma administrativa de Academia Tigres Linares.
 
-First, run the development server:
+## Desarrollo local
+
+1. Copia `.env.example` a `.env.local` y configura PostgreSQL.
+2. Genera un secreto de al menos 32 bytes para `BETTER_AUTH_SECRET`.
+3. Instala dependencias y aplica migraciones:
 
 ```bash
+npm install
+npx prisma migrate deploy
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+La aplicación estará disponible en `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Creación restringida de cuentas
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+El registro público está deshabilitado. Las cuentas se crean desde una terminal
+con acceso al proyecto; la contraseña se solicita interactivamente para evitar
+guardarla en el historial del shell.
 
-## Learn More
+```bash
+npm run auth:create-user -- \
+  --email admin@example.com \
+  --name "Administrador" \
+  --role admin
+```
 
-To learn more about Next.js, take a look at the following resources:
+Roles con acceso al dashboard actual:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `admin`
+- `entrenador`
+- `auxiliar`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Para crear otra cuenta se repite el comando cambiando correo, nombre y rol. No
+se debe añadir una pantalla pública de registro.
 
-## Deploy on Vercel
+## Verificación
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run typecheck
+npm run build
+npm audit --omit=dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-"# atl" 
+La rama `develop` utiliza solamente rutas `*.new.ts` y `*.new.tsx`. El código
+anterior permanece aislado mientras avanza la reconstrucción y su versión
+operativa se conserva en la rama `legado`.
