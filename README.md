@@ -24,6 +24,9 @@ La aplicación estará disponible en `http://localhost:3000`.
 Puedes consultar el estado con `npm run db:dev:status` y detener el contenedor
 con `npm run db:dev:down`. Este último comando conserva el volumen y los datos.
 
+En el servidor `aerp`, `docker compose -f compose.dev.yml up -d --build`
+publica la aplicación solamente en la red privada Tailscale, puerto `8094`.
+
 ## Creación restringida de cuentas
 
 El registro público está deshabilitado. Las cuentas se crean desde una terminal
@@ -31,7 +34,7 @@ con acceso al proyecto; la contraseña se solicita interactivamente para evitar
 guardarla en el historial del shell.
 
 ```bash
-npm run auth:create-user -- \
+GESTIONATL_NEW_USER_PASSWORD='contraseña-temporal' npm run auth:create-user -- \
   --email admin@example.com \
   --name "Administrador" \
   --role admin

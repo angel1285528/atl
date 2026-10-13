@@ -12,7 +12,7 @@
     "db:dev:down": "docker compose -f compose.dev.yml down",
     "db:dev:status": "docker compose -f compose.dev.yml ps",
     "db:migrate": "prisma migrate deploy",
-    "auth:create-user": "npx auth@1.7.7 create-admin --config lib/auth.ts"
+    "auth:create-user": "tsx scripts/create-user.ts"
   },
   "dependencies": {
     "@prisma/client": "6.12.0",
@@ -26,6 +26,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "prisma": "6.12.0",
+    "tsx": "4.23.15",
     "typescript": "5.9.3"
   },
   "overrides": {
