@@ -4,8 +4,11 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GestionATL",
-  description: "Gestión administrativa para academias deportivas",
+  title: {
+    default: "Academia Tigres Linares",
+    template: "%s · Academia Tigres Linares",
+  },
+  description: "Sitio oficial y plataforma de gestión de Academia Tigres Linares",
   robots: {
     index: false,
     follow: false,

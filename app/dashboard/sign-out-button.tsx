@@ -18,7 +18,7 @@ export default function SignOutButton() {
 
   return (
     <button
-      className="secondary-button"
+      className="admin-signout"
       type="button"
       onClick={signOut}
       disabled={isSubmitting}
