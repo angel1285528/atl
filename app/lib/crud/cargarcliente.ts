@@ -1,13 +1,14 @@
 'use server';
 // Importa PrismaClient y Socio desde '@prisma/client'
-import { interfaceSocio } from '../interfaces/interfaceSocio';
+
 import prisma from "@/app/lib/prisma";
+import { socio } from '@prisma/client';
 
 
 
 
 
-export async function cargarCliente(id: string): Promise<interfaceSocio | null> {
+export async function cargarCliente(id: string): Promise<socio | null> {
   try {
     console.log("Cargando cliente con ID:", id);
     // Busca el socio por el campo id proporcionado como parámetro

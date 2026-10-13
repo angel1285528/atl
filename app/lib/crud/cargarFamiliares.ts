@@ -1,12 +1,10 @@
 'use server'
-
-
-import { interfaceFamiliares } from '../interfaces/interfaceSocio';
+import { familiares } from '@prisma/client';
 import { unstable_noStore as noStore } from 'next/cache';
 import prisma from "@/app/lib/prisma";
 
 
-export async function cargarFamiliares(socioId: string): Promise<interfaceFamiliares[]> {
+export async function cargarFamiliares(socioId: string): Promise<familiares[]> {
   noStore();
   try {
     console.log("Cargando familiares con ID:", socioId);

@@ -1,11 +1,10 @@
-
 import React from 'react';
-import { columns } from './componets/playerColums';
-import PlayerDataTable from './componets/playerDataTable';
-import NewPlayerButton from './ui/newPlayerButton';
+import { columns } from './components/playerColums';
+import PlayerDataTable from './components/PlayerDataTable';
+
 import { fetchPlayer } from './lib/crud/playerslist';
 
-export const dynamic = "force-dynamic"
+export const dynamic = 'force-dynamic';
 
 export default async function Page() {
   const data = await fetchPlayer()

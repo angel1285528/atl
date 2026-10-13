@@ -1,15 +1,15 @@
-import ProfileClient from '../profile-client/page';
+// import ProfileClient from '../profile-client/page';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FaHome } from 'react-icons/fa';
 import React from 'react';
 import { LogInButton } from './AuthButtons';
 import LogOutButton from './logOutButton';
-import { useUser } from '@auth0/nextjs-auth0/client';
+// import { useUser } from '@auth0/nextjs-auth0/client';
 
 const Breadcrumbs = () => {
   const pathname = usePathname();
-  const { user, error, isLoading } = useUser();
+  // const { user, error, isLoading } = useUser();
 
   // Obtén la ruta actual y divídela en segmentos
   const pathSegments = pathname.split('/').filter(segment => segment);
@@ -56,14 +56,14 @@ const Breadcrumbs = () => {
         })}
 
         {/* Renderizado condicional */}
-        <li style={{ marginRight: '0.5rem' }}>
+        {/* <li style={{ marginRight: '0.5rem' }}>
           {user ? <ProfileClient /> : <LogInButton />}
-        </li>
-        {user && (
+        </li> */}
+        {/* {user && (
           <li style={{ marginRight: '0.5rem' }}>
             <LogOutButton />
           </li>
-        )}
+        )} */}
       </ol>
     </nav>
   );

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 import * as React from "react"
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { PlusCircle } from "lucide-react";
@@ -151,6 +151,5 @@ export function DataTable<TData, TValue>({
     )
 }
   export default DataTable;
-
 
 

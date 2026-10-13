@@ -1,5 +1,5 @@
 import { z } from 'zod';
-
+import { Cuota } from '@prisma/client';
 // Funciones de transformación y validación personalizadas
 const mayuscula = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -57,7 +57,10 @@ export const zSchemaPlayers = z.object({
   estadoNacimiento: z.string(),
   schoolarGrade: z.string(),
   schoolarLevel: z.string(),
-  school: z.string()
+  school: z.string(),
+  tipoMensualidad: z.nativeEnum(Cuota),
+  importeMensualidad: z.string().transform((val) => parseFloat(val)),
+  clasesIdClase: z.string(),
 
 });
 

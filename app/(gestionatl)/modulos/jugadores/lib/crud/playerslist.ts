@@ -8,7 +8,11 @@ export const fetchPlayer = async () => {
 };
 
 export const JugadoresTotales = async (): Promise<number> => {
-    const totalJugadores = await prisma.jugador.count();
+    const totalJugadores = await prisma.jugador.count({
+        where: {
+            status: 'activo'
+        }
+    });
     console.log(totalJugadores);
     return totalJugadores;
 }

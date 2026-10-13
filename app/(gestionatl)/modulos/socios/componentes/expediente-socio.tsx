@@ -2,39 +2,18 @@
 import React, { useEffect, useState } from 'react';
 import { cargarCliente } from '@/app/lib/crud/cargarcliente';
 import Image from 'next/image';
-
+import { socio } from '@prisma/client';
 import { Role, StatusSocios } from "@prisma/client";
 import BotonesExpedienteSocio from './botonesExpedienteSocio';
 import Link from 'next/link';
 
-interface SocioData {
-  id: string;
-  firstName: string;
-  lastName: string;
-  secondLastName?: string | null;
-  street: string;
-  streetNumber: string;
-  colonia: string;
-  postalCode: string;
-  city: string;
-  state: string;
-  phoneNumber: string;
-  email: string;
-  urlSocioPhoto?: string | null;
-  urlSocioIne?: string | null;
-  urlIdDomicilio?: string | null;
-  rol: Role;
-  status: StatusSocios;
-  fechaRegistro: Date;
-  periodoDePago: string;
-}
 
 interface ExpedienteSocioProps {
   id: string;
 }
 
 const ExpedienteSocio: React.FC<ExpedienteSocioProps> = ({ id }) => {
-  const [socio, setSocio] = useState<SocioData | null>(null);
+  const [socio, setSocio] = useState<socio | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {

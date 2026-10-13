@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { MdMenuOpen } from "react-icons/md";
 
 const Modulos = [
+   //Inicio
     {
         Link: "/modulos/",
         name: "Inicio",
@@ -12,6 +13,7 @@ const Modulos = [
         opciones: {},
         Disponibilidad: true,
     },
+   //Socio
     {
         Link: "/modulos/socios/",
         name: "Socios",
@@ -19,9 +21,17 @@ const Modulos = [
         opciones: {},
         Disponibilidad: true,
     },
+   //Jugadores
     {
         Link: "/modulos/jugadores",
         name: "Jugadores",
+        icon: "",
+        opciones: {},
+        Disponibilidad: true,
+    },
+    {
+        Link: "/modulos/Finanzas",
+        name: "Finanzas",
         icon: "",
         opciones: {},
         Disponibilidad: true,
@@ -86,6 +96,11 @@ const Modulos = [
 
 const Sidebar: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleLinkClick = () => {
+        setIsOpen(false);
+    };
+
     return (
         <>
             <div id="sideBar" className="md:basis-1/5 w-full">
@@ -102,28 +117,34 @@ const Sidebar: React.FC = () => {
                         </div>
                     </Link>
                 </div>
-                <div className="md:hidden text-white text-xl text-center flex justify-between p-4 bg-blue-800">
-                    <Link href="/modulos">
-                        <span>
-                            <Image src="/logo-academia.svg" width={60} height={60} alt="Logotipo Academia Tigres" className="object-center " />
-                        </span>
-                        <span>
-                            Sistema de Gestión <br />
-                            Academia Tigres Linares
-                        </span>
-                    </Link>
-                    <button onClick={() => setIsOpen(!isOpen)}>
-                        <MdMenuOpen size="35px" style={{ color: 'white' }} />
-                    </button>
+                <div className="md:hidden text-white text-xl text-center flex justify-between items-center p-4 bg-blue-800">
+                    <div className="w-1/5">
+                        <Link href="/modulos">
+                            <Image src="/logo-academia.svg" width={60} height={60} alt="Logotipo Academia Tigres" className="object-center" />
+                        </Link>
+                    </div>
+                    <div className="w-3/5 text-center">
+                        <Link href="/modulos">
+                            <div className="flex flex-col">
+                                <span>Sistema de Gestión</span>
+                                <span>Academia Tigres Linares</span>
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="w-1/5 flex justify-end">
+                        <button onClick={() => setIsOpen(!isOpen)}>
+                            <MdMenuOpen size="35px" style={{ color: 'white' }} />
+                        </button>
+                    </div>
                 </div>
                 <div id="sideBarMain" className={`${isOpen ? 'block' : 'hidden'} md:block`}>
                     <ul>
                         {Modulos.map((accion, index) => (
-                            accion && (
-                                <Link key={index} href={accion.Link}>
-                                    <li className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2"><span></span><span>{accion.name}</span></li>
-                                </Link>
-                            )
+                            <Link key={index} href={accion.Link}>
+                                <li onClick={handleLinkClick} className="text-black pl-5 text-xl py-3 border-b-3 border-white border-y-2">
+                                    <span>{accion.name}</span>
+                                </li>
+                            </Link>
                         ))}
                     </ul>
                 </div>

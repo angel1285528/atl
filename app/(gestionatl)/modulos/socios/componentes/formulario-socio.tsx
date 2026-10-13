@@ -1,6 +1,6 @@
 'use client'
-import { interfaceSocio } from '@/app/lib/interfaces/interfaceSocio';
-import { createSocio } from '@/app/lib/crud/crearSocio';
+import { socio } from '@prisma/client';
+import { createSocio } from '../lib/crudSocios';
 import { zSchema } from '@/app/lib/zod/zSocio';
 import React from 'react';
 import { useRouter } from 'next/navigation';
@@ -17,13 +17,13 @@ import InputsFormularioSocio from './camposFormularioSocio';
   const FormularioSocio: React.FC = () => {
   const [submitError, setSubmitError] = React.useState<string | null>(null);
   const router = useRouter();
-  const methods = useForm<interfaceSocio>({
+  const methods = useForm<socio>({
     resolver: zodResolver(zSchema)
   });
   
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   
-  const onSubmit: SubmitHandler<interfaceSocio> = async (data) => {
+  const onSubmit: SubmitHandler<socio> = async (data) => {
     setIsSubmitting(true);
     try {
       const nuevoSocio = await createSocio(data);
